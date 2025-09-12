@@ -1,0 +1,46 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GWJ85"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="uid://dshcubd7jxq1e"
+
+[autoload]
+
+EventBus="*res://Addons/events.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=2
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[file_customization]
+
+folder_colors={
+"res://Addons/": "green",
+"res://Assets/": "red",
+"res://Audios/": "purple",
+"res://Levels/": "green",
+"res://Scenes/": "green",
+"res://Scripts/": "green",
+"res://_PrivateTestFolder/": "gray"
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
