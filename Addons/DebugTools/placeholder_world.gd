@@ -13,3 +13,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if reference_player == null:
 		return ["The reference to the player is empty."]
 	return []
+
+# Uncomment these lines if you want a placeholder properties displaying on DebugPanel.
+#var text: String = "Arbitrary number"
+#var number: int = 50
+#func _process(_delta: float) -> void:
+	#DebugPanel.add_debug_property(text, number, 60)
