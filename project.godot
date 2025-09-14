@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="GWJ85"
+config/tags=PackedStringArray("jams")
 run/main_scene="uid://bbdjn6bbo8x47"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://dshcubd7jxq1e"
@@ -44,6 +45,10 @@ folder_colors={
 "res://_PrivateTestFolder/": "gray"
 }
 
+[global_group]
+
+Enemies="Entities that can harm the player."
+
 [input]
 
 debug_console_command={
@@ -51,6 +56,20 @@ debug_console_command={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":96,"key_label":0,"unicode":178,"location":0,"echo":false,"script":null)
 ]
 }
+debug_action_1={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"location":0,"echo":false,"script":null)
+]
+}
+debug_action_2={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":104,"location":0,"echo":false,"script":null)
+]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Player"
 
 [rendering]
 

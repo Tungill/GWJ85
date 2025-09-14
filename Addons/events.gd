@@ -8,9 +8,16 @@
 extends Node
 #class_name EventBus
 @warning_ignore_start("unused_signal") # Avoid unecessary warnings in the output.
-# EXAMPLE
+
+class PlayerEvents:
+	signal player_died
+var player: PlayerEvents = PlayerEvents.new()
+
+
+#region INFO EXAMPLE
 # Use local classes to organise signals in categories.
 class CategoryEvents: # This is a single category.
 	signal event_happened(argument: Variant) # Signal use when an event is triggered.
 	# ... other signals.
 var category :CategoryEvents = CategoryEvents.new() # Be able to reference the local class to access its signals. Name the category carefully.
+#endregion
