@@ -34,3 +34,10 @@ func add_debug_property(id: StringName, value: Variant, time_in_frames: int) -> 
 		property.name = id
 		property.text = property_text
 		properties.append(id)
+
+## Creates an horizontal line.
+## Usefull to visually split debugs [member properties] into sections. [br]
+## [color=yellow]WARNING:[/color] If this function is called in [method Node._process] it loops forever.
+func add_separator() -> void:
+	var separator: HSeparator = HSeparator.new()
+	container.add_child(separator)
