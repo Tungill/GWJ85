@@ -4,12 +4,16 @@ class_name PlayerCharacter
 @export var health_component: HealthComponent
 
 @export var sprite : Sprite2D
-@export var base_step: float = .05   # base lunge distance
-@export var lunge_time: float = 0.25  # how long the lunge lasts (seconds)
+@export var attack_hit_box : Area2D
+@export var base_step: float = 100   # base lunge distance
+@export var lunge_time: float = 0.25  # how long the lunge lasts
+@export var attack_duration: float = 0.25  # how long the attack lasts
+@export var base_hitbox_offset: float = 16.0  # hitbox offset to relative position
 
 var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
+var step_size : float
 var is_lunging: bool = false
 var queued_direction: int = 0
 var queued_flip: bool = false
@@ -18,7 +22,6 @@ var is_alive: bool = true:
 	set(value):
 		if value == false:
 			EventBus.player.player_died.emit()
-var step_size : float
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
@@ -34,7 +37,8 @@ func _ready() -> void:
 			)
 	#endregion
 
-	step_size = base_step * sprite.get_rect().size.x  # proportional to character's size
+	step_size = base_step * scale.x  # proportional to character's size
+	attack_hit_box.get_node("CollisionShape2D").visible = false
 	target_x = position.x
 
 func _physics_process(delta: float) -> void:
@@ -62,6 +66,8 @@ func start_lunge(new_target: float, flip: bool) -> void:
 
 	sprite.flip_h = flip
 
+	start_attack(flip)
+
 	tween = create_tween()
 	tween.tween_property(self, "position:x", target_x, lunge_time) \
 		.set_trans(Tween.TRANS_EXPO) \
@@ -76,6 +82,30 @@ func _on_lunge_finished() -> void:
 	if queued_direction != 0:
 		start_lunge(position.x + queued_direction * step_size, queued_flip)
 		queued_direction = 0
+
+func start_attack(flip: bool) -> void:
+	var hitbox : CollisionShape2D= attack_hit_box.get_node("CollisionShape2D")
+	
+	if hitbox.shape is RectangleShape2D:
+		hitbox.shape.extents = Vector2(base_hitbox_offset * scale.x, base_hitbox_offset * scale.y)
+
+	attack_hit_box.position.x =  int(!flip) * 2 - 1 * scale.x * base_hitbox_offset
+	attack_hit_box.monitoring = true
+	hitbox.visible = true
+
+	# TBD Emit attack signal and enemy takes damage from the hit.
+
+	# Disable hitbox after attack_duration
+	var timer :Timer = Timer.new()
+	timer.wait_time = attack_duration
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	timer.timeout.connect(func turn_off_hitbox() -> void: 
+		attack_hit_box.monitoring = false
+		hitbox.visible = false
+		timer.queue_free()
+		)
 
 func _input(event: InputEvent) -> void:
 	

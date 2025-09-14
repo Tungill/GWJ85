@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://0hu72lhq55rj"]
+[gd_scene load_steps=7 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
 [ext_resource type="Texture2D" uid="uid://dyf1qs30y6r2h" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
@@ -11,11 +11,15 @@ height = 20.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtl7"]
 size = Vector2(30, 30)
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w75v"]
+size = Vector2(20, 30)
+
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "attack_hit_box")]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
 sprite = NodePath("Sprite2D")
+attack_hit_box = NodePath("AttackHitbox")
 
 [node name="PhysicCollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemies"]]
 shape = SubResource("CapsuleShape2D_xk7n3")
@@ -32,3 +36,10 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 shape = SubResource("RectangleShape2D_uqtl7")
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_1w75v")
