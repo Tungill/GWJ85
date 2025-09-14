@@ -4,7 +4,7 @@ class_name PlayerCharacter
 @export var health_component: HealthComponent
 
 @export var sprite : Sprite2D
-@export var base_step: float = .05   # base lunge distance
+@export var base_step: float = 100   # base lunge distance
 @export var lunge_time: float = 0.25  # how long the lunge lasts (seconds)
 
 var gravity : float = 1000 # default gravity value
@@ -34,7 +34,7 @@ func _ready() -> void:
 			)
 	#endregion
 
-	step_size = base_step * sprite.get_rect().size.x  # proportional to character's size
+	step_size = base_step * scale.x  # proportional to character's size
 	target_x = position.x
 
 func _physics_process(delta: float) -> void:
