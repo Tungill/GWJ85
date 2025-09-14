@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://roml01bgklaf"]
+
+[ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="1_cgi4j"]
+
+[node name="PlayerHealthComponent" type="Node2D"]
+script = ExtResource("1_cgi4j")
