@@ -11,18 +11,19 @@ var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
 var is_lunging: bool = false
+var queued_direction: int = 0
+var queued_flip: bool = false
 var is_alive: bool = true:
 	# INFO Use the setter to trigger a signal if bool's value is false.
 	set(value):
 		if value == false:
 			EventBus.player.player_died.emit()
-
+var step_size : float
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
 	# Using a lambda function. Sets player character's relative x position
 	health_component.health_depleted.connect(func change_is_alive() -> void: is_alive = false)
-	
 	#region DEBUG
 	if health_component == null:
 		push_error("PlayerCharacter health component is not assigned.")
@@ -33,24 +34,28 @@ func _ready() -> void:
 			)
 	#endregion
 
+	step_size = base_step * sprite.get_rect().size.x  # proportional to character's size
 	target_x = position.x
 
 func _physics_process(delta: float) -> void:
 	
-	var step_size : float = base_step * sprite.get_rect().size.x  # proportional to character's size
-
-	if not is_lunging:
-		if Input.is_action_just_pressed("attack_left"):
-			start_lunge(position.x - step_size, true)
-		elif Input.is_action_just_pressed("attack_right"):
-			start_lunge(position.x + step_size, false)
-
+	if Input.is_action_just_pressed("attack_left"):
+		handle_input(-1, true, step_size)
+	elif Input.is_action_just_pressed("attack_right"):
+		handle_input(1, false, step_size)
 	#velocity.y += gravity * delta
 	move_and_slide()
 
+func handle_input(direction: int, flip: bool, step_size: float) -> void:
+	# INFO Handles player input where it queues the next lunge if client
+	# lunges again during another lunge motion
+	if is_lunging:
+		queued_direction = direction
+		queued_flip = flip
+	else:
+		start_lunge(position.x + direction * step_size, flip)
+
 func start_lunge(new_target: float, flip: bool) -> void:
-	#if tween and tween.is_running():
-		#tween.kill()  # cancel any ongoing tween
 
 	is_lunging = true
 	target_x = new_target
@@ -62,7 +67,15 @@ func start_lunge(new_target: float, flip: bool) -> void:
 		.set_trans(Tween.TRANS_EXPO) \
 		.set_ease(Tween.EASE_OUT)
 
-	tween.finished.connect(func _on_lunge_finished() -> void: is_lunging = false)
+	tween.finished.connect(_on_lunge_finished)
+
+func _on_lunge_finished() -> void: 
+	# INFO When lunge ends, it will queue another lunge even if 
+	# the lunge in motion was queued or unqueued
+	is_lunging = false
+	if queued_direction != 0:
+		start_lunge(position.x + queued_direction * step_size, queued_flip)
+		queued_direction = 0
 
 func _input(event: InputEvent) -> void:
 	
