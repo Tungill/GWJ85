@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GWJ85"
-run/main_scene="uid://bh8x356yw2xui"
+run/main_scene="uid://bbdjn6bbo8x47"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://dshcubd7jxq1e"
 
@@ -29,6 +29,8 @@ gdscript/warnings/inferred_declaration=2
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [file_customization]
 
