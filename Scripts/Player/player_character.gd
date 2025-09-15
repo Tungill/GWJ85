@@ -7,9 +7,8 @@ class_name PlayerCharacter
 @export var left_attack : Area2D
 @export var right_attack : Area2D
 @export var base_step: float = 100   # base lunge distance
-@export var lunge_time: float = 1  # how long the lunge lasts
-@export var attack_duration: float = 0.3  # how long the attack lasts
-@export var base_hitbox_offset: float = 16.0  # hitbox offset to relative position
+@export var lunge_time: float = 1.5  # how long the lunge lasts
+@export var attack_duration: float = 0.5  # how long the attack lasts
 
 var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
