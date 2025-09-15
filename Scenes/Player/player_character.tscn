@@ -14,12 +14,13 @@ size = Vector2(30, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w75v"]
 size = Vector2(20, 30)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "attack_hit_box")]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack")]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
 sprite = NodePath("Sprite2D")
-attack_hit_box = NodePath("AttackHitbox")
+left_attack = NodePath("LeftAttackHitbox")
+right_attack = NodePath("RightAttackHitbox")
 
 [node name="PhysicCollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemies"]]
 shape = SubResource("CapsuleShape2D_xk7n3")
@@ -37,9 +38,16 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 shape = SubResource("RectangleShape2D_uqtl7")
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="RightAttackHitbox" type="Area2D" parent="."]
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackHitbox"]
 position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_1w75v")
+
+[node name="LeftAttackHitbox" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackHitbox"]
+position = Vector2(-15, 0)
 shape = SubResource("RectangleShape2D_1w75v")

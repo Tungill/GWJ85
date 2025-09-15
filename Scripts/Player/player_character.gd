@@ -4,10 +4,11 @@ class_name PlayerCharacter
 @export var health_component: HealthComponent
 
 @export var sprite : Sprite2D
-@export var attack_hit_box : Area2D
+@export var left_attack : Area2D
+@export var right_attack : Area2D
 @export var base_step: float = 100   # base lunge distance
-@export var lunge_time: float = 0.25  # how long the lunge lasts
-@export var attack_duration: float = 0.25  # how long the attack lasts
+@export var lunge_time: float = 1  # how long the lunge lasts
+@export var attack_duration: float = 0.3  # how long the attack lasts
 @export var base_hitbox_offset: float = 16.0  # hitbox offset to relative position
 
 var gravity : float = 1000 # default gravity value
@@ -38,7 +39,8 @@ func _ready() -> void:
 	#endregion
 
 	step_size = base_step * scale.x  # proportional to character's size
-	attack_hit_box.get_node("CollisionShape2D").visible = false
+	left_attack.get_node("CollisionShape2D").visible = false
+	right_attack.get_node("CollisionShape2D").visible = false
 	target_x = position.x
 
 func _physics_process(delta: float) -> void:
@@ -53,6 +55,7 @@ func _physics_process(delta: float) -> void:
 func handle_input(direction: int, flip: bool, step_size: float) -> void:
 	# INFO Handles player input where it queues the next lunge if client
 	# lunges again during another lunge motion
+	# flip = false = right, flip = true = left,
 	if is_lunging:
 		queued_direction = direction
 		queued_flip = flip
@@ -84,18 +87,21 @@ func _on_lunge_finished() -> void:
 		queued_direction = 0
 
 func start_attack(flip: bool) -> void:
-	var hitbox : CollisionShape2D= attack_hit_box.get_node("CollisionShape2D")
+	var hit_collision : CollisionShape2D
+	var attack_hit_box: Area2D
 	
-	if hitbox.shape is RectangleShape2D:
-		hitbox.shape.extents = Vector2(base_hitbox_offset * scale.x, base_hitbox_offset * scale.y)
-
-	attack_hit_box.position.x =  int(!flip) * 2 - 1 * scale.x * base_hitbox_offset
+	if not flip:
+		attack_hit_box = right_attack
+	else:
+		attack_hit_box = left_attack
+	
+	hit_collision = attack_hit_box.get_node("CollisionShape2D")
 	attack_hit_box.monitoring = true
-	hitbox.visible = true
-
-	# TBD Emit attack signal and enemy takes damage from the hit.
-
-	# Disable hitbox after attack_duration
+	hit_collision.visible = true
+#
+	## TBD Emit attack signal and enemy takes damage from the hit.
+#
+	## Disable hitbox after attack_duration
 	var timer :Timer = Timer.new()
 	timer.wait_time = attack_duration
 	timer.one_shot = true
@@ -103,7 +109,7 @@ func start_attack(flip: bool) -> void:
 	timer.start()
 	timer.timeout.connect(func turn_off_hitbox() -> void: 
 		attack_hit_box.monitoring = false
-		hitbox.visible = false
+		hit_collision.visible = false
 		timer.queue_free()
 		)
 
