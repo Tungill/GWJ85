@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://bw2e4rsy8ddjk"]
+
+[resource]
+MainMenuButton/base_type = &"MarginContainer"
+MainMenuButton/constants/margin_bottom = 20
+MainMenuButton/constants/margin_left = 20
+MainMenuButton/constants/margin_right = 20
+MainMenuButton/constants/margin_top = 20

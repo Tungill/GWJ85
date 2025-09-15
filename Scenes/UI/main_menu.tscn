@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://dglomjnvgatym"]
+
+[ext_resource type="Script" uid="uid://b0q7jfcpkbolf" path="res://Scripts/UI/main_menu.gd" id="1_i2xx2"]
+[ext_resource type="PackedScene" uid="uid://dy02s18mh2uvf" path="res://Scenes/UI/settings.tscn" id="4_u7lva"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "settings_button", "settings_popup")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i2xx2")
+play_button = NodePath("MarginContainer2/Play")
+settings_button = NodePath("MarginContainer/MarginContainer2/Settings")
+settings_popup = NodePath("Settings")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "GWJ85 TITLE"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"MainMenuButton"
+
+[node name="Settings" type="Button" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+text = "Settings"
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.366016
+anchor_top = 0.694444
+anchor_right = 0.633984
+anchor_bottom = 0.769444
+offset_top = 3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"MainMenuButton"
+metadata/_edit_use_anchors_ = true
+
+[node name="Play" type="Button" parent="MarginContainer2"]
+layout_mode = 2
+text = "Play 
+TODO: make this button bigger than others"
+
+[node name="Settings" parent="." instance=ExtResource("4_u7lva")]
+visible = false
+layout_mode = 1
