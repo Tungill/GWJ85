@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name HealthComponent
 
 signal health_changed(old_health: int, new_health: int)
