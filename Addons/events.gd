@@ -13,6 +13,10 @@ class PlayerEvents:
 	signal player_died
 var player: PlayerEvents = PlayerEvents.new()
 
+class EnemyEvents:
+	# NOTE The id type might need to change based on what the spawner's using.
+	signal enemy_died(id: Mob) 
+var enemy: EnemyEvents = EnemyEvents.new()
 
 #region INFO EXAMPLE
 # Use local classes to organise signals in categories.
