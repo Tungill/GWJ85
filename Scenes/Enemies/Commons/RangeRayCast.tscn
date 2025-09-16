@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq1jrwdlw2w17"]
+
+[ext_resource type="Script" uid="uid://bxrqg05bdt0x" path="res://Scripts/Enemies/Commons/range_ray_cast.gd" id="1_1dua6"]
+
+[node name="RangeRayCast" type="RayCast2D"]
+target_position = Vector2(100, 0)
+script = ExtResource("1_1dua6")
