@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bumn2jcqingss"]
+
+[ext_resource type="Script" uid="uid://bl76y76d8hqeh" path="res://Scripts/Enemies/Commons/attack.gd" id="1_sug8n"]
+
+[node name="AttackAction" type="Node" node_paths=PackedStringArray("cast_timer", "cooldown_timer")]
+script = ExtResource("1_sug8n")
+cast_timer = NodePath("Cast")
+cooldown_timer = NodePath("Cooldown")
+
+[node name="Cast" type="Timer" parent="."]
+
+[node name="Cooldown" type="Timer" parent="."]
