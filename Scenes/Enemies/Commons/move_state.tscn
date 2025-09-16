@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ytyks75uw0l"]
+
+[ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="1_p1ijk"]
+
+[node name="Move" type="Node"]
+script = ExtResource("1_p1ijk")
