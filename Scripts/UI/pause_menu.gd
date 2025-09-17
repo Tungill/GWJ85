@@ -1,7 +1,7 @@
 # CAUTION INFO This Scene "process_mode" is set to "process_mode: When Pause"
 # This mean the Scene & code is ONLY working when the game is paused. IMPORTANT
 extends Control
-class_name Settings
+class_name PauseMenu
 
 const CONFIG_PATH: StringName = "user://user_settings.cfg"
 const DEFAULT_VOLUME: float = 50.0
@@ -10,7 +10,7 @@ const DEFAULT_VOLUME: float = 50.0
 @export var music_volume_value_label: Label
 @export var sfx_volume_slider: HSlider
 @export var sfx_volume_value_label: Label
-@export var close_button: Button # DEPRECATED
+#@export var close_button: Button # DEPRECATED
 @export var save_button: Button
 @export var credits_button: Button
 @export var credits_popup: Credits
@@ -20,7 +20,7 @@ var config: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
 	self.visible = false
-	close_button.pressed.connect(_on_close_button_pressed) # DEPRECATED
+	#close_button.pressed.connect(_on_close_button_pressed) # DEPRECATED
 	credits_button.pressed.connect(_on_credits_button_pressed)
 	save_button.pressed.connect(_on_save_button_pressed)
 	music_volume_slider.value_changed.connect(_on_music_volume_slider_changed)
