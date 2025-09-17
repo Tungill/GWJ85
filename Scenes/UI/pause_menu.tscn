@@ -1,0 +1,216 @@
+[gd_scene load_steps=7 format=3 uid="uid://dy02s18mh2uvf"]
+
+[ext_resource type="Script" uid="uid://du1no455akbf7" path="res://Scripts/UI/pause_menu.gd" id="1_owiy1"]
+[ext_resource type="PackedScene" uid="uid://bakqwgqxv48pl" path="res://Scenes/UI/credits.tscn" id="2_ma1v7"]
+[ext_resource type="Texture2D" uid="uid://cj2uav7qw6d64" path="res://Assets/UI/T_PAUSE_Panel_background.png" id="2_p46qs"]
+[ext_resource type="Texture2D" uid="uid://c1pxmxmo4327b" path="res://Assets/UI/T_PAUSE_Slider_cursor.png" id="4_n8st6"]
+[ext_resource type="StyleBox" uid="uid://denls1nh4kb84" path="res://Scripts/UI/settings_slider.tres" id="5_dkbde"]
+[ext_resource type="Texture2D" uid="uid://dbk7dvsixwn4t" path="res://Assets/UI/T_MENU_Button.png" id="6_741ux"]
+
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("music_volume_slider", "music_volume_value_label", "sfx_volume_slider", "sfx_volume_value_label", "save_button", "credits_button", "credits_popup")]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_owiy1")
+music_volume_slider = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer/MusicSlider")
+music_volume_value_label = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer/MusicValue")
+sfx_volume_slider = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer/SFXSlider")
+sfx_volume_value_label = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer/SFXValue")
+save_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Save")
+credits_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Credits")
+credits_popup = NodePath("Credits")
+
+[node name="BackgroundGrey" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsBackground" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.307813
+anchor_top = 0.240278
+anchor_right = 0.692969
+anchor_bottom = 0.748611
+offset_top = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_p46qs")
+patch_margin_left = 42
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 33
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Settings" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PopUpTitle" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CategoryTitle" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="MusicVolume" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicContainer" type="HBoxContainer" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="MusicSlider" type="HSlider" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("4_n8st6")
+theme_override_icons/grabber_highlight = ExtResource("4_n8st6")
+theme_override_icons/grabber_disabled = ExtResource("4_n8st6")
+theme_override_icons/tick = ExtResource("4_n8st6")
+theme_override_styles/slider = ExtResource("5_dkbde")
+
+[node name="MusicValue" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "000"
+horizontal_alignment = 1
+
+[node name="SoundEffectVolume" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sound Effects Volume"
+
+[node name="SFXContainer" type="HBoxContainer" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="SFXSlider" type="HSlider" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_icons/grabber = ExtResource("4_n8st6")
+theme_override_icons/grabber_highlight = ExtResource("4_n8st6")
+theme_override_icons/grabber_disabled = ExtResource("4_n8st6")
+theme_override_icons/tick = ExtResource("4_n8st6")
+theme_override_styles/slider = ExtResource("5_dkbde")
+
+[node name="SFXValue" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+text = "000"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ButtonHBox" type="HBoxContainer" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Credits" type="Button" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Credits"
+
+[node name="Close" type="TextureButton" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+visible = false
+modulate = Color(50, 1, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_741ux")
+
+[node name="Label" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Close"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Save" type="Button" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+modulate = Color(1, 50, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save & Continue"
+
+[node name="Control2" type="Control" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Credits" parent="." instance=ExtResource("2_ma1v7")]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
