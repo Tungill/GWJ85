@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="1_cgi4j"]
 
-[node name="PlayerHealthComponent" type="Node2D"]
+[node name="HealthComponent" type="Node"]
 script = ExtResource("1_cgi4j")
