@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cewjm6jedmwiw"
-path="res://.godot/imported/T_PAUSE_Slider_line.png-e1a40a4ae48a3daf52a573c0f02380f0.ctex"
+uid="uid://cqi7vtbsjiwhl"
+path="res://.godot/imported/T_HUD_Play_button.png-d047bca4c0a9ed2bab123c558b044ce0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Audios/UI/T_PAUSE_Slider_line.png"
-dest_files=["res://.godot/imported/T_PAUSE_Slider_line.png-e1a40a4ae48a3daf52a573c0f02380f0.ctex"]
+source_file="res://Assets/UI/T_HUD_Play_button.png"
+dest_files=["res://.godot/imported/T_HUD_Play_button.png-d047bca4c0a9ed2bab123c558b044ce0.ctex"]
 
 [params]
 
