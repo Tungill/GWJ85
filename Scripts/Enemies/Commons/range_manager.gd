@@ -9,7 +9,6 @@ const RIGHT_RANGE_SUFFIX: String = " RightRayCast"
 
 var attack_left_ranges: Dictionary[String, RangeRayCast]
 var attack_right_ranges: Dictionary[String, RangeRayCast]
-var attack_started: AttackState = null
 
 
 func _ready() -> void:
@@ -55,8 +54,9 @@ func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
 			attack_ranges = attack_right_ranges
 		var attack_name: String = attack_ranges.find_key(emittor)
 		var attack_state: AttackState = state_machine.attack_states[attack_name]
+		if attack_state.is_one_shot and attack_state.attackCount > 0:
+			return
 		state_machine.change_state_to(attack_state)
-		attack_started = attack_state
 
 
 func _on_collision_stop(collider: Object, _emittor: RangeRayCast) -> void:
