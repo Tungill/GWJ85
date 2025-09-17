@@ -36,14 +36,14 @@ func _on_cast_attack_begin() -> void:
 func _attack() -> void:
 	if is_range_attack:
 		# TODO Spawn range_projectile in front of the enemy.
+		# TODO Change visual asset for throwing projectile
 		pass
 	else:
-		# TODO inflict damage to target
-		# TBD Should I use EventBus to convey the hit? Or can the Raycast share the player node with this state?
-		pass
+		# TODO Change visual asset for hit
+		# NOTE Using EventBus because using the raycast collider creates a new dependency.
+		EventBus.enemy.attack_hit_player.emit(damage)
 	attackCount += 1
 	if is_one_shot:
-		# WARNING The enemy never quits the Attack state on its own - but doesn't attack anymore due to one-shot.
 		return
 	_on_cooldown_begin()
 

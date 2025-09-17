@@ -16,6 +16,7 @@ var player: PlayerEvents = PlayerEvents.new()
 class EnemyEvents:
 	# NOTE The id type might need to change based on what the spawner's using.
 	signal enemy_died(id: Mob) 
+	signal attack_hit_player(damage: int)
 var enemy: EnemyEvents = EnemyEvents.new()
 
 #region INFO EXAMPLE
