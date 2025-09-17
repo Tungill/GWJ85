@@ -5,7 +5,6 @@ class_name RangeRayCast
 #signal exited(old_collider: Object) # Not used?
 signal collision_begin(new_collider: Object, emitter: RangeRayCast)
 signal collision_stop(old_collider: Object, emitter: RangeRayCast)
-#signal collision_change(old_collider: Object, new_collider: Object)  # Not used?
 
 var old_collider: Object
 
@@ -24,9 +23,5 @@ func _physics_process(_delta: float) -> void:
 	elif new_collider == null:
 		collision_stop.emit(old_collider, self)
 		#exited.emit(old_collider)
-	#else:
-		#collision_change.emit(old_collider, new_collider)
-		#exited.emit(old_collider)
-		#entered.emit(new_collider)
 	
 	old_collider = new_collider
