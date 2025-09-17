@@ -27,14 +27,10 @@ func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
 	# Using a lambda function. Sets player character's relative x position
 	health_component.health_depleted.connect(func change_is_alive() -> void: is_alive = false)
+	EventBus.enemy.attack_hit_player.connect(take_damage)
 	#region DEBUG
 	if health_component == null:
 		push_error("PlayerCharacter health component is not assigned.")
-	
-	health_component.health_changed.connect(
-		func(old_health: int, new_health:int) -> void: 
-			print("Old: ", old_health, " & New:", new_health)
-			)
 	#endregion
 
 	step_size = base_step * scale.x  # proportional to character's size
@@ -48,8 +44,11 @@ func _physics_process(delta: float) -> void:
 		handle_input(-1, true, step_size)
 	elif Input.is_action_just_pressed("attack_right"):
 		handle_input(1, false, step_size)
-	#velocity.y += gravity * delta
 	move_and_slide()
+	
+	#region DEBUG
+	DebugPanel.add_debug_property("Player HP", health_component.health, 10)
+	#endregion
 
 func handle_input(direction: int, flip: bool, step_size: float) -> void:
 	# INFO Handles player input where it queues the next lunge if client
@@ -77,13 +76,6 @@ func start_lunge(new_target: float, flip: bool) -> void:
 
 	tween.finished.connect(_on_lunge_finished)
 
-func _on_lunge_finished() -> void: 
-	# INFO When lunge ends, it will queue another lunge even if 
-	# the lunge in motion was queued or unqueued
-	is_lunging = false
-	if queued_direction != 0:
-		start_lunge(position.x + queued_direction * step_size, queued_flip)
-		queued_direction = 0
 
 func start_attack(flip: bool) -> void:
 	var hit_collision : CollisionShape2D
@@ -112,19 +104,18 @@ func start_attack(flip: bool) -> void:
 		timer.queue_free()
 		)
 
-func _input(event: InputEvent) -> void:
-	
-	#region DEBUG
-	if event.is_action_pressed("debug_action_1") and OS.is_debug_build():
-		take_damage(5)
-	if event.is_action_pressed("debug_action_2") and OS.is_debug_build():
-		health_component.heal_for(12)
-	#endregion
 
 func take_damage(value: int) -> void:
-	# NOTE The ennemies entities will trigger this function when they detect the
-	# PlayerHitbox and match it as part of the PlayerCharacter.
 	health_component.take_damage(value)
 	
 	# TBD Trigger visual impact on damage.
 	# Or connect to the health_changed signal instead.
+
+
+func _on_lunge_finished() -> void: 
+	# INFO When lunge ends, it will queue another lunge even if 
+	# the lunge in motion was queued or unqueued
+	is_lunging = false
+	if queued_direction != 0:
+		start_lunge(position.x + queued_direction * step_size, queued_flip)
+		queued_direction = 0
