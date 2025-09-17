@@ -15,8 +15,8 @@ func _ready() -> void:
 		if child is AttackState:
 			attack_states[child.name] = child
 	#region DEBUG
-	print(self.owner.name, "'s array of state(s): ", states_list)
-	print(self.owner.name, "'s dictionary of attack state(s): ", attack_states)
+	#print(self.owner.name, "'s array of state(s): ", states_list)
+	#print(self.owner.name, "'s dictionary of attack state(s): ", attack_states)
 	#endregion
 
 
@@ -26,7 +26,8 @@ func _process(delta: float) -> void:
 		current_state = next_state;
 		current_state._on_enter();
 		next_state = null;
-	current_state._on_process(delta);
+	if current_state and current_state.has_method("_on_process"):
+		current_state._on_process(delta);
 
 
 func _physics_process(delta: float) -> void:
@@ -36,4 +37,5 @@ func _physics_process(delta: float) -> void:
 
 func change_state_to(new_state: State) -> void:
 	next_state = new_state
-	printerr("Next State is: ", next_state)
+	# DEBUG
+	#print("Next State is: ", next_state)
