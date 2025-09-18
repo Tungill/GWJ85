@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dy02s18mh2uvf"]
+[gd_scene load_steps=12 format=3 uid="uid://dy02s18mh2uvf"]
 
 [ext_resource type="Script" uid="uid://du1no455akbf7" path="res://Scripts/UI/pause_menu.gd" id="1_owiy1"]
+[ext_resource type="Texture2D" uid="uid://d4hl8orouixdx" path="res://Assets/UI/T_menu_popup.png" id="2_702e2"]
 [ext_resource type="PackedScene" uid="uid://bakqwgqxv48pl" path="res://Scenes/UI/credits.tscn" id="2_ma1v7"]
-[ext_resource type="Texture2D" uid="uid://cj2uav7qw6d64" path="res://Assets/UI/T_PAUSE_Panel_background.png" id="2_p46qs"]
-[ext_resource type="Texture2D" uid="uid://c1pxmxmo4327b" path="res://Assets/UI/T_PAUSE_Slider_cursor.png" id="4_n8st6"]
 [ext_resource type="StyleBox" uid="uid://denls1nh4kb84" path="res://Scripts/UI/settings_slider.tres" id="5_dkbde"]
-[ext_resource type="Texture2D" uid="uid://dbk7dvsixwn4t" path="res://Assets/UI/T_MENU_Button.png" id="6_741ux"]
+[ext_resource type="Texture2D" uid="uid://ccd6uof8a3bpv" path="res://Assets/UI/T_slidder.png" id="5_yq7um"]
+[ext_resource type="Texture2D" uid="uid://b4n87qxb1lya1" path="res://Assets/UI/T_slidder_hover.png" id="6_nqqw2"]
+[ext_resource type="Script" uid="uid://bl6ndtho6swe8" path="res://Scripts/UI/reference_rect_margin.gd" id="6_qyryt"]
+[ext_resource type="Texture2D" uid="uid://0bfns524xepj" path="res://Assets/UI/T_slidder_pressed.png" id="7_hanoc"]
+[ext_resource type="Texture2D" uid="uid://bw00kjm8tg4q" path="res://Assets/UI/T_button.png" id="9_hanoc"]
+[ext_resource type="Texture2D" uid="uid://cfe410el4kgdk" path="res://Assets/UI/T_button_pressed.png" id="10_nqqw2"]
+[ext_resource type="Texture2D" uid="uid://bamrfjhdibfj8" path="res://Assets/UI/T_button_hover.png" id="11_hanoc"]
 
 [node name="PauseMenu" type="Control" node_paths=PackedStringArray("music_volume_slider", "music_volume_value_label", "sfx_volume_slider", "sfx_volume_value_label", "save_button", "credits_button", "credits_popup")]
 process_mode = 2
@@ -20,8 +25,8 @@ music_volume_slider = NodePath("Settings/HBoxContainer/MarginContainer/VBoxConta
 music_volume_value_label = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer/MusicValue")
 sfx_volume_slider = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer/SFXSlider")
 sfx_volume_value_label = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer/SFXValue")
-save_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Save")
-credits_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Credits")
+save_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/SaveButton")
+credits_button = NodePath("Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/CreditsButton")
 credits_popup = NodePath("Credits")
 
 [node name="BackgroundGrey" type="PanelContainer" parent="."]
@@ -33,6 +38,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Credits" parent="." instance=ExtResource("2_ma1v7")]
+layout_mode = 1
+offset_left = 887.0
+offset_top = 192.0
+offset_right = 887.0
+offset_bottom = 192.0
+mouse_filter = 2
+
 [node name="SettingsBackground" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -40,16 +53,19 @@ anchor_left = 0.307813
 anchor_top = 0.240278
 anchor_right = 0.692969
 anchor_bottom = 0.748611
-offset_top = 1.52588e-05
+offset_left = -10.0006
+offset_top = -22.0002
+offset_right = 6.99963
+offset_bottom = 23.0001
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_p46qs")
-patch_margin_left = 42
-patch_margin_top = 48
-patch_margin_right = 48
-patch_margin_bottom = 33
+texture = ExtResource("2_702e2")
+patch_margin_left = 56
+patch_margin_top = 59
+patch_margin_right = 54
+patch_margin_bottom = 53
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
@@ -79,6 +95,12 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Settings/HBoxContainer/MarginContainer"]
+process_mode = 3
+layout_mode = 2
+border_width = 2.0
+script = ExtResource("6_qyryt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/HBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -112,10 +134,9 @@ size_flags_stretch_ratio = 0.1
 [node name="MusicSlider" type="HSlider" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_icons/grabber = ExtResource("4_n8st6")
-theme_override_icons/grabber_highlight = ExtResource("4_n8st6")
-theme_override_icons/grabber_disabled = ExtResource("4_n8st6")
-theme_override_icons/tick = ExtResource("4_n8st6")
+theme_override_icons/grabber = ExtResource("5_yq7um")
+theme_override_icons/grabber_highlight = ExtResource("6_nqqw2")
+theme_override_icons/tick = ExtResource("7_hanoc")
 theme_override_styles/slider = ExtResource("5_dkbde")
 
 [node name="MusicValue" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/MusicContainer"]
@@ -140,10 +161,9 @@ size_flags_stretch_ratio = 0.1
 [node name="SFXSlider" type="HSlider" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_icons/grabber = ExtResource("4_n8st6")
-theme_override_icons/grabber_highlight = ExtResource("4_n8st6")
-theme_override_icons/grabber_disabled = ExtResource("4_n8st6")
-theme_override_icons/tick = ExtResource("4_n8st6")
+theme_override_icons/grabber = ExtResource("5_yq7um")
+theme_override_icons/grabber_highlight = ExtResource("6_nqqw2")
+theme_override_icons/tick = ExtResource("7_hanoc")
 theme_override_styles/slider = ExtResource("5_dkbde")
 
 [node name="SFXValue" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/SFXContainer"]
@@ -165,18 +185,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Credits" type="Button" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Credits"
 
-[node name="Close" type="TextureButton" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
-visible = false
-modulate = Color(50, 1, 1, 1)
+[node name="CreditsButton" type="TextureButton" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("6_741ux")
+texture_normal = ExtResource("9_hanoc")
+texture_pressed = ExtResource("10_nqqw2")
+texture_hover = ExtResource("11_hanoc")
+texture_focused = ExtResource("11_hanoc")
 
-[node name="Label" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/Close"]
+[node name="Label" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/CreditsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -192,7 +214,29 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="SaveButton" type="TextureButton" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+self_modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("9_hanoc")
+texture_pressed = ExtResource("10_nqqw2")
+texture_hover = ExtResource("11_hanoc")
+texture_focused = ExtResource("11_hanoc")
+
+[node name="Label" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/SaveButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Save & Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Save" type="Button" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
+visible = false
 modulate = Color(1, 50, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -205,12 +249,3 @@ size_flags_horizontal = 3
 [node name="Control2" type="Control" parent="Settings/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Credits" parent="." instance=ExtResource("2_ma1v7")]
-visible = false
-layout_mode = 2
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 1280.0
-offset_bottom = 720.0

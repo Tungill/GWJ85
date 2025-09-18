@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1pxmxmo4327b"
-path="res://.godot/imported/T_PAUSE_Slider_cursor.png-78bd95b2005a0f804fd8564dbe938f38.ctex"
+uid="uid://ccd6uof8a3bpv"
+path="res://.godot/imported/T_slidder.png-eb0d802b498c4645702c132e9002089d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/T_PAUSE_Slider_cursor.png"
-dest_files=["res://.godot/imported/T_PAUSE_Slider_cursor.png-78bd95b2005a0f804fd8564dbe938f38.ctex"]
+source_file="res://Assets/UI/T_slidder.png"
+dest_files=["res://.godot/imported/T_slidder.png-eb0d802b498c4645702c132e9002089d.ctex"]
 
 [params]
 

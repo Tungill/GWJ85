@@ -1,19 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dglomjnvgatym"]
+[gd_scene load_steps=2 format=3 uid="uid://dglomjnvgatym"]
 
 [ext_resource type="Script" uid="uid://b0q7jfcpkbolf" path="res://Scripts/UI/main_menu.gd" id="1_i2xx2"]
-[ext_resource type="Texture2D" uid="uid://vy8v7yav71rg" path="res://Assets/UI/T_HUD_Pause_button.png" id="2_i2xx2"]
-[ext_resource type="Texture2D" uid="uid://cqi7vtbsjiwhl" path="res://Assets/UI/T_HUD_Play_button.png" id="3_o14dv"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "pause_button")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_i2xx2")
 play_button = NodePath("MarginContainer2/Play")
-pause_button = NodePath("PauseButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 self_modulate = Color(1, 1, 1, 0.3)
@@ -58,15 +56,3 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 2
 text = "Play 
 TODO: change this button to a long effect. CLicking on the center of screen starts the game."
-
-[node name="PauseButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.947656
-anchor_top = 0.0194444
-anchor_right = 0.986719
-anchor_bottom = 0.0888889
-grow_horizontal = 0
-texture_normal = ExtResource("2_i2xx2")
-texture_pressed = ExtResource("3_o14dv")
-texture_focused = ExtResource("3_o14dv")

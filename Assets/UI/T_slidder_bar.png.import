@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqi7vtbsjiwhl"
-path="res://.godot/imported/T_HUD_Play_button.png-d047bca4c0a9ed2bab123c558b044ce0.ctex"
+uid="uid://bo57ilixvshdk"
+path="res://.godot/imported/T_slidder_bar.png-369b4b1b70680fd9dcbc522487143c61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/T_HUD_Play_button.png"
-dest_files=["res://.godot/imported/T_HUD_Play_button.png-d047bca4c0a9ed2bab123c558b044ce0.ctex"]
+source_file="res://Assets/UI/T_slidder_bar.png"
+dest_files=["res://.godot/imported/T_slidder_bar.png-369b4b1b70680fd9dcbc522487143c61.ctex"]
 
 [params]
 
