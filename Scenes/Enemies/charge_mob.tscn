@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqg15ajdk6ryh"]
+
+[ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_dckwt"]
+[ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_n0s6v"]
+[ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="3_412bm"]
+[ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="4_1x8i8"]
+[ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="5_c83u4"]
+[ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="6_4h5ur"]
+[ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="7_ptjhv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
+
+[node name="ChargeMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state")]
+gravity_scale = 0.0
+script = ExtResource("1_dckwt")
+healt_component = NodePath("ChargeHealthComponent")
+state_machine = NodePath("StateMachine")
+initial_state = NodePath("StateMachine/Move")
+metadata/_custom_type_script = "uid://bd5okqh651sey"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ybyef")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_n0s6v")
+metadata/_custom_type_script = "uid://prk6rqnfp101"
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob")]
+script = ExtResource("3_412bm")
+mob = NodePath("../..")
+metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
+
+[node name="MeleeChargeAttack" parent="StateMachine" instance=ExtResource("4_1x8i8")]
+cast_time = 2.0
+damage = 2
+
+[node name="RangeManager" type="Node2D" parent="." node_paths=PackedStringArray("mob")]
+script = ExtResource("5_c83u4")
+mob = NodePath("..")
+raycast = ExtResource("6_4h5ur")
+metadata/_custom_type_script = "uid://cwrymljra1ter"
+
+[node name="ChargeHealthComponent" type="Node" parent="."]
+script = ExtResource("7_ptjhv")
+_max_health = 1
+metadata/_custom_type_script = "uid://8cr4r6penkfh"
