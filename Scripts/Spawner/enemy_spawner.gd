@@ -35,8 +35,9 @@ func get_current_sequence() -> Array:
 		return spawn_sequence_1
 
 func get_next_enemy_scene() -> PackedScene:
+	# INFO Chooses spawn sequence based off player's scale size, and returns
+	# enemy scene. Will repeat sequence once the end of sequence is reached.
 	var sequence : Array = get_current_sequence()
-
 	var enemy_enum : Enemy = sequence[current_sequence_index]
 	current_sequence_index = (current_sequence_index + 1) % sequence.size()
 	
@@ -58,6 +59,9 @@ func get_next_enemy_scene() -> PackedScene:
 		_: return null
 	
 func choose_side() -> int:
+	# INFO Chooses which side the enemy spawns in. Biases either side
+	# if one side receives more spawns than the other
+	
 	var total : int = left_count + right_count + 1 # avoid division by zero
 	var left_bias : float = float(right_count + 1) / total 
 	var rand_val : float = randf()
@@ -70,6 +74,9 @@ func choose_side() -> int:
 		return 1 # right
 
 func spawn_enemy() -> void:
+	# INFO Spawns enemy outside the viewport on either side of the player.
+	# Do note if horizontal offset is greater than the boundary, enemies will
+	# spawn and drop outside of the level
 	if player == null: return
 	
 	var screen_size : Vector2 = get_viewport_rect().size
