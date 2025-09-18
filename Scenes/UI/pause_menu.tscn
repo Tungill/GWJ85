@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://bakqwgqxv48pl" path="res://Scenes/UI/credits.tscn" id="2_ma1v7"]
 [ext_resource type="StyleBox" uid="uid://denls1nh4kb84" path="res://Scripts/UI/settings_slider.tres" id="5_dkbde"]
 [ext_resource type="Texture2D" uid="uid://ccd6uof8a3bpv" path="res://Assets/UI/T_slidder.png" id="5_yq7um"]
-[ext_resource type="Texture2D" uid="uid://dbk7dvsixwn4t" path="res://Assets/UI/T_MENU_Button.png" id="6_741ux"]
 [ext_resource type="Texture2D" uid="uid://b4n87qxb1lya1" path="res://Assets/UI/T_slidder_hover.png" id="6_nqqw2"]
 [ext_resource type="Script" uid="uid://bl6ndtho6swe8" path="res://Scripts/UI/reference_rect_margin.gd" id="6_qyryt"]
 [ext_resource type="Texture2D" uid="uid://0bfns524xepj" path="res://Assets/UI/T_slidder_pressed.png" id="7_hanoc"]
+[ext_resource type="Texture2D" uid="uid://bw00kjm8tg4q" path="res://Assets/UI/T_button.png" id="9_hanoc"]
 [ext_resource type="Texture2D" uid="uid://cfe410el4kgdk" path="res://Assets/UI/T_button_pressed.png" id="10_nqqw2"]
 [ext_resource type="Texture2D" uid="uid://bamrfjhdibfj8" path="res://Assets/UI/T_button_hover.png" id="11_hanoc"]
 
@@ -54,9 +54,9 @@ anchor_top = 0.240278
 anchor_right = 0.692969
 anchor_bottom = 0.748611
 offset_left = -10.0006
-offset_top = -10.0002
+offset_top = -22.0002
 offset_right = 6.99963
-offset_bottom = 13.0001
+offset_bottom = 23.0001
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -193,9 +193,10 @@ text = "Credits"
 [node name="CreditsButton" type="TextureButton" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("6_741ux")
+texture_normal = ExtResource("9_hanoc")
 texture_pressed = ExtResource("10_nqqw2")
 texture_hover = ExtResource("11_hanoc")
+texture_focused = ExtResource("11_hanoc")
 
 [node name="Label" type="Label" parent="Settings/HBoxContainer/MarginContainer/VBoxContainer/ButtonHBox/CreditsButton"]
 layout_mode = 1
@@ -217,7 +218,7 @@ size_flags_horizontal = 3
 self_modulate = Color(0, 1, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
-texture_normal = ExtResource("6_741ux")
+texture_normal = ExtResource("9_hanoc")
 texture_pressed = ExtResource("10_nqqw2")
 texture_hover = ExtResource("11_hanoc")
 texture_focused = ExtResource("11_hanoc")

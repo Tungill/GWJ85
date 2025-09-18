@@ -1,14 +1,10 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://denls1nh4kb84"]
 
-[ext_resource type="Texture2D" uid="uid://cewjm6jedmwiw" path="res://Assets/UI/T_PAUSE_Slider_line.png" id="1_gsyat"]
+[ext_resource type="Texture2D" uid="uid://bo57ilixvshdk" path="res://Assets/UI/T_slidder_bar.png" id="1_gsyat"]
 
 [resource]
-content_margin_left = 20.0
 content_margin_top = 10.0
-content_margin_right = 20.0
 content_margin_bottom = 10.0
 texture = ExtResource("1_gsyat")
-texture_margin_left = 11.8182
-texture_margin_right = 10.0
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
