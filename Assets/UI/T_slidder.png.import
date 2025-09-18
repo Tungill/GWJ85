@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1htqpjm3axtm"
-path="res://.godot/imported/T_HUD_Background.png-14839deb6e461955c9216c5ebf423682.ctex"
+uid="uid://ccd6uof8a3bpv"
+path="res://.godot/imported/T_slidder.png-eb0d802b498c4645702c132e9002089d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/T_HUD_Background.png"
-dest_files=["res://.godot/imported/T_HUD_Background.png-14839deb6e461955c9216c5ebf423682.ctex"]
+source_file="res://Assets/UI/T_slidder.png"
+dest_files=["res://.godot/imported/T_slidder.png-eb0d802b498c4645702c132e9002089d.ctex"]
 
 [params]
 
