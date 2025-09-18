@@ -15,8 +15,8 @@ enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
 @export var horizontal_offset: int = 200
 @export var player : CharacterBody2D
 
-var left_count : int = 0
-var right_count : int = 0
+var left_count : int = 1
+var right_count : int = 1
 var current_sequence_index: int = 0
 
 func _ready() -> void:
@@ -62,8 +62,7 @@ func choose_side() -> int:
 	# INFO Chooses which side the enemy spawns in. Biases either side
 	# if one side receives more spawns than the other
 	
-	var total : int = left_count + right_count + 1 # avoid division by zero
-	var left_bias : float = float(right_count + 1) / total 
+	var left_bias : float = float(right_count) / (left_count + right_count) 
 	var rand_val : float = randf()
 	
 	if rand_val < left_bias:
