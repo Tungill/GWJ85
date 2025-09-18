@@ -10,9 +10,8 @@ const DEFAULT_VOLUME: float = 50.0
 @export var music_volume_value_label: Label
 @export var sfx_volume_slider: HSlider
 @export var sfx_volume_value_label: Label
-#@export var close_button: Button # DEPRECATED
-@export var save_button: Button
-@export var credits_button: Button
+@export var save_button: TextureButton
+@export var credits_button: TextureButton
 @export var credits_popup: Credits
 
 var config: ConfigFile = ConfigFile.new()
@@ -20,7 +19,6 @@ var config: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
 	self.visible = false
-	#close_button.pressed.connect(_on_close_button_pressed) # DEPRECATED
 	credits_button.pressed.connect(_on_credits_button_pressed)
 	save_button.pressed.connect(_on_save_button_pressed)
 	music_volume_slider.value_changed.connect(_on_music_volume_slider_changed)
@@ -78,13 +76,17 @@ func _on_save_button_pressed() -> void:
 
 
 func _on_credits_button_pressed() ->void:
-	credits_popup.toogle_visibility()
+	match credits_popup.visible:
+		true:
+			credits_popup.close_pop_up()
+		false:
+			credits_popup.open_pop_up()
 
 
 # DEPRECATED Not use anymore since Settings stopped use a close_button. 
 # Allows to close the Setting screen without Saving the changes to the config file.
-func _on_close_button_pressed() -> void:
-	# Values are updated using the existing config.
-	music_volume_slider.value = config.get_value("audio", "music volume", DEFAULT_VOLUME)
-	sfx_volume_slider.value = config.get_value("audio", "sfx volume", DEFAULT_VOLUME)
-	toogle_visibility()
+#func _on_close_button_pressed() -> void:
+	## Values are updated using the existing config.
+	#music_volume_slider.value = config.get_value("audio", "music volume", DEFAULT_VOLUME)
+	#sfx_volume_slider.value = config.get_value("audio", "sfx volume", DEFAULT_VOLUME)
+	#toogle_visibility()
