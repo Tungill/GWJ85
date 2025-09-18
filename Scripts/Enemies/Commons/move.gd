@@ -1,3 +1,4 @@
+# CAUTION There should only be 1 MoveState node per entity.
 extends State
 class_name MoveState
 
