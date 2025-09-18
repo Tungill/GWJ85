@@ -8,14 +8,13 @@ extends Node2D
 enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
 
 @export var spawn_sequence_1: Array[Enemy] = [Enemy.MOB1, Enemy.MOB1, Enemy.MOB1, Enemy.MOB1]
-@export var spawn_sequence_2: Array[Enemy] = [Enemy.MOB2, Enemy.MOB2, Enemy.MOB2]
+@export var spawn_sequence_2: Array[Enemy] = [Enemy.MOB1, Enemy.MOB2, Enemy.MOB3]
 @export var spawn_sequence_3: Array[Enemy] = [Enemy.MOB3, Enemy.MOB3, Enemy.MOB3]
 
 @export var spawn_interval: float = .5
-@export var horizontal_offset: int = 100
+@export var horizontal_offset: int = 200
 @export var player : CharacterBody2D
 
-# Internal state
 var left_count : int = 0
 var right_count : int = 0
 var current_sequence_index: int = 0
@@ -75,9 +74,8 @@ func spawn_enemy() -> void:
 	
 	var screen_size : Vector2 = get_viewport_rect().size
 	var half_width : float = screen_size.x / 2
-	
-	var side :int = choose_side()
 	var offset :float= half_width + horizontal_offset
+	var side :int = choose_side()
 	
 	var spawn_x :float= player.global_position.x + (side * offset)
 	var spawn_y :float= player.global_position.y + randf_range(-100, 100)
