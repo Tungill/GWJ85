@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://pj6rdhp34teg"]
-
-[node name="MainLevel" type="Node2D"]
-
-[node name="MobTimer" type="Timer" parent="."]
-autostart = true
