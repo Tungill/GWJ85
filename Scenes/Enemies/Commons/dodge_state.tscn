@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp6d3nfrvphq"]
+
+[ext_resource type="Script" uid="uid://dgo461pjqaflu" path="res://Scripts/Enemies/Commons/dodge.gd" id="1_ddex8"]
+
+[node name="Dodge" type="Node"]
+script = ExtResource("1_ddex8")
