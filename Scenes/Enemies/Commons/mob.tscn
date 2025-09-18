@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://tp53cuwgkmkf"]
+[gd_scene load_steps=9 format=3 uid="uid://tp53cuwgkmkf"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_wqp4l"]
 [ext_resource type="PackedScene" uid="uid://pxhn0mjxb2ms" path="res://Scenes/Commons/state_machine.tscn" id="2_tea4l"]
 [ext_resource type="PackedScene" uid="uid://4ytyks75uw0l" path="res://Scenes/Enemies/Commons/move_state.tscn" id="3_nq7xm"]
 [ext_resource type="PackedScene" uid="uid://roml01bgklaf" path="res://Scenes/Commons/health_component.tscn" id="4_cbrdb"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="4_nq7xm"]
+[ext_resource type="PackedScene" uid="uid://cp6d3nfrvphq" path="res://Scenes/Enemies/Commons/dodge_state.tscn" id="5_wr1iu"]
 [ext_resource type="PackedScene" uid="uid://b03w0yhuxua3c" path="res://Scenes/Enemies/Commons/range_manager.tscn" id="6_s4rhf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3pdns"]
@@ -31,8 +32,12 @@ move_direction = 1
 
 [node name="MeleeAttack" parent="StateMachine" instance=ExtResource("4_nq7xm")]
 
-[node name="RangeManager" parent="." node_paths=PackedStringArray("state_machine") instance=ExtResource("6_s4rhf")]
-state_machine = NodePath("../StateMachine")
+[node name="MobDodge" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob") instance=ExtResource("5_wr1iu")]
+move_component = NodePath("../MobMove")
+mob = NodePath("../..")
+
+[node name="RangeManager" parent="." node_paths=PackedStringArray("mob") instance=ExtResource("6_s4rhf")]
+mob = NodePath("..")
 
 [node name="MobHealthComponent" parent="." instance=ExtResource("4_cbrdb")]
 _max_health = 1

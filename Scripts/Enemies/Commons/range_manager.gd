@@ -4,14 +4,16 @@ class_name RangeManager
 const LEFT_RANGE_SUFFIX: String = " LeftRayCast"
 const RIGHT_RANGE_SUFFIX: String = " RightRayCast"
 
-@export var state_machine: StateMachine
+@export var mob: Mob
 @export var raycast: PackedScene
 
+var state_machine: StateMachine
 var attack_left_ranges: Dictionary[String, RangeRayCast]
 var attack_right_ranges: Dictionary[String, RangeRayCast]
 
 
 func _ready() -> void:
+	state_machine = mob.state_machine
 	for attack_key: String in state_machine.attack_states:
 		_create_attack_range(state_machine.attack_states[attack_key])
 	#region DEBUG
@@ -44,7 +46,8 @@ func _create_attack_range(attack: AttackState) -> void:
 
 
 func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
-	if collider is PlayerCharacter:
+	# TEST "and not mob.is_invulnerable" to no trigger state during Dodge
+	if collider is PlayerCharacter and not mob.is_invulnerable:
 		var attack_ranges: Dictionary
 		var left_values: Array = attack_left_ranges.values()
 		if left_values.has(emittor):
@@ -54,13 +57,14 @@ func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
 			attack_ranges = attack_right_ranges
 		var attack_name: String = attack_ranges.find_key(emittor)
 		var attack_state: AttackState = state_machine.attack_states[attack_name]
-		if attack_state.is_one_shot and attack_state.attackCount > 0:
+		if attack_state.is_one_shot and attack_state.attack_count > 0:
 			return
 		state_machine.change_state_to(attack_state)
 
 
 func _on_collision_stop(collider: Object, _emittor: RangeRayCast) -> void:
-	if collider is PlayerCharacter:
+	# TEST "and not mob.is_invulnerable" to no trigger state during Dodge
+	if collider is PlayerCharacter and not mob.is_invulnerable:
 		var index: int
 		for i: State in state_machine.states_list:
 			if i is MoveState:

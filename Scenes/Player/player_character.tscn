@@ -14,7 +14,7 @@ size = Vector2(30, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w75v"]
 size = Vector2(20, 30)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack")]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack") groups=["Player"]]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
