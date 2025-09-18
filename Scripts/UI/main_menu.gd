@@ -1,13 +1,13 @@
 extends Control
 
 @export var play_button: Button
-@export var pause_button: TextureButton
+@export var pause_button: TextureButton ## DEPRECATED
 @export var pause_popup: PauseMenu 
 
 
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_button_pressed)
-	pause_button.pressed.connect(_on_pause_button_pressed)
+	#pause_button.pressed.connect(_on_pause_button_pressed) # DEPRECATED
 
 # TBD 
 # Choice 1: Split MainMenu and Settings to be able to display them separately on the Game scene.
@@ -17,7 +17,7 @@ func _ready() -> void:
 func _on_play_button_pressed() -> void:
 	self.visible = false
 
-
+# DEPRECATED
 func _on_pause_button_pressed() -> void:
 	get_tree().paused = true
 	pause_popup.toogle_visibility()
