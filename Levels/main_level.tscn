@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmrv1njg4nf0c"]
+[gd_scene load_steps=8 format=3 uid="uid://bmrv1njg4nf0c"]
 
 [ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_k0okc"]
 [ext_resource type="PackedScene" uid="uid://c8hatht35jis5" path="res://Scenes/Background.tscn" id="2_6x3q2"]
+[ext_resource type="PackedScene" uid="uid://cppp1b7u2d846" path="res://Scenes/camera.tscn" id="3_2clls"]
 [ext_resource type="PackedScene" uid="uid://dxjjevksfykja" path="res://Scenes/Spawner/enemy_spawner.tscn" id="4_6opdx"]
 [ext_resource type="PackedScene" uid="uid://0hu72lhq55rj" path="res://Scenes/Player/player_character.tscn" id="4_k6a8t"]
 [ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/agile_mob.tscn" id="5_k6a8t"]
@@ -24,8 +25,7 @@ position = Vector2(624, 598)
 scale = Vector2(2, 2)
 collision_mask = 1
 
-[node name="Camera2D" type="Camera2D" parent="PlayerCharacter"]
-limit_bottom = 750
+[node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -39,4 +39,5 @@ mob3 = ExtResource("5_k6a8t")
 mob4 = ExtResource("5_k6a8t")
 mob5 = ExtResource("5_k6a8t")
 player = NodePath("../PlayerCharacter")
+spawn_delay = 2.0
 spawn_interval = 2.0

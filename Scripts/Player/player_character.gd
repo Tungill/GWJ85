@@ -10,7 +10,6 @@ class_name PlayerCharacter
 @export var lunge_time: float = 1.5  # how long the lunge lasts
 @export var attack_duration: float = 0.5  # how long the attack lasts
 
-var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
 var step_size : float
@@ -22,6 +21,8 @@ var is_alive: bool = true:
 	set(value):
 		if value == false:
 			EventBus.player.player_died.emit()
+
+var enemy_kill_count : int = 0
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.

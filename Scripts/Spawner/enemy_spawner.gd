@@ -13,6 +13,7 @@ enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
 @export var player : CharacterBody2D 
 
 @export var horizontal_offset: int = 200
+@export var max_enemies: int = 5
 @export var spawn_timer : Timer
 @export var spawn_delay : float = 3.0
 @export var spawn_interval: float = .5
@@ -21,6 +22,7 @@ var left_count : int = 1
 var right_count : int = 1
 var current_sequence_index: int = 0
 var spawn_y :float
+var active_enemies :Array = []
 
 
 func _ready() -> void:
@@ -56,12 +58,12 @@ func get_next_enemy_scene() -> PackedScene:
 	current_sequence_index = (current_sequence_index + 1) % sequence.size()
 	
 	#region DEBUG
-	match enemy_enum:
-		Enemy.MOB1: print("Spawning MOB1")
-		Enemy.MOB2: print("Spawning MOB2")
-		Enemy.MOB3: print("Spawning MOB3")
-		Enemy.MOB4: print("Spawning MOB4")
-		Enemy.MOB5: print("Spawning MOB5")
+	#match enemy_enum:
+		#Enemy.MOB1: print("Spawning MOB1")
+		#Enemy.MOB2: print("Spawning MOB2")
+		#Enemy.MOB3: print("Spawning MOB3")
+		#Enemy.MOB4: print("Spawning MOB4")
+		#Enemy.MOB5: print("Spawning MOB5")
 	#endregion
 	
 	match enemy_enum:	
@@ -102,10 +104,6 @@ func spawn_enemy() -> void:
 	var enemy_scene : PackedScene = get_next_enemy_scene()
 	
 	var enemy :Mob= enemy_scene.instantiate()
-	if side == 1:
-		enemy.move_towards = MoveState.Direction.LEFT
-	else:
-		enemy.move_towards = MoveState.Direction.RIGHT
 		
 	enemy.freeze = true # avoid the enemies bouncing away from collision
 	enemy.global_position = Vector2(spawn_x, spawn_y)
