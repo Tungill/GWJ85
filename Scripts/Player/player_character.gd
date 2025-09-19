@@ -44,6 +44,8 @@ func _physics_process(delta: float) -> void:
 		handle_input(-1, true, step_size)
 	elif Input.is_action_just_pressed("attack_right"):
 		handle_input(1, false, step_size)
+		
+	velocity.y = 0
 	move_and_slide()
 	
 	#region DEBUG
