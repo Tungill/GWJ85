@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8hatht35jis5"]
+
+[ext_resource type="Texture2D" uid="uid://dmnxemnsqf1c2" path="res://Assets/Background/jam_bg_small.png" id="1_c8m3x"]
+[ext_resource type="Script" uid="uid://8ltm7bmsnmdl" path="res://Scripts/background.gd" id="1_laxsj"]
+[ext_resource type="Texture2D" uid="uid://ybdoku0s0rj3" path="res://Assets/Background/jam_bg_medium.png" id="2_lf6h2"]
+[ext_resource type="Texture2D" uid="uid://dkdeehvpcush0" path="res://Assets/Background/jam_bg_big.png" id="3_laxsj"]
+
+[node name="Background" type="Node2D" node_paths=PackedStringArray("backgrounds")]
+script = ExtResource("1_laxsj")
+backgrounds = [NodePath("SmallBackground"), NodePath("MediumBackground"), NodePath("BigBackground")]
+
+[node name="BigBackground" type="Sprite2D" parent="."]
+position = Vector2(0, 360)
+texture = ExtResource("3_laxsj")
+offset = Vector2(0, -360)
+
+[node name="MediumBackground" type="Sprite2D" parent="."]
+position = Vector2(0, 360)
+texture = ExtResource("2_lf6h2")
+offset = Vector2(0, -360)
+
+[node name="SmallBackground" type="Sprite2D" parent="."]
+position = Vector2(0, 360)
+texture = ExtResource("1_c8m3x")
+offset = Vector2(0, -360)

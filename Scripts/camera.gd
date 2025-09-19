@@ -1,3 +1,4 @@
+# DEPRECATED
 extends Camera2D
 
 const TIME_IN_SECONDS: int = 2
@@ -7,14 +8,7 @@ const ZOOM_OUT_VALUE: float = 0.2
 
 func _ready() -> void:
 	# TODO Set the Camera.limit_* using reference to the Background.size.
-	
-	#region DEBUG Creates a timer to trigger _zoom_out() every x scd.
-	var timer: Timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = TIME_IN_SECONDS
-	timer.timeout.connect(_zoom_out)
-	timer.start()
-	#endregion
+	pass
 
 func _zoom_out() -> void:
 	var vector2: Vector2 = Vector2(ZOOM_OUT_VALUE, ZOOM_OUT_VALUE)

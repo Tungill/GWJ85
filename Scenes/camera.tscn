@@ -3,13 +3,14 @@
 [ext_resource type="Script" uid="uid://4tbgk3vxe4o1" path="res://Scripts/camera.gd" id="1_1dc8s"]
 
 [node name="Camera2D" type="Camera2D"]
-zoom = Vector2(2, 2)
-limit_left = -1500
-limit_top = -1500
-limit_right = 1500
-limit_bottom = 1500
+limit_left = -270
+limit_top = 0
+limit_right = 1550
+limit_bottom = 720
 limit_smoothed = true
 position_smoothing_enabled = true
+drag_top_margin = 1.0
+drag_bottom_margin = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("1_1dc8s")
