@@ -13,6 +13,7 @@
 [node name="Mob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state") groups=["Enemies"]]
 collision_layer = 2
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_wqp4l")
 healt_component = NodePath("MobHealthComponent")
 state_machine = NodePath("StateMachine")

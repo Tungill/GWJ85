@@ -5,7 +5,9 @@ class_name  Mob
 @export var state_machine: StateMachine
 @export var initial_state: State
 @export var is_invulnerable: bool = false : 
-	set(value): print("is_invulnerable: ", value)
+	set(value): 
+		print("is_invulnerable: ", value)
+		return value
 @export var move_towards: MoveState.Direction
 
 func _ready() -> void:
@@ -17,7 +19,7 @@ func _ready() -> void:
 
 
 
-func _take_damage(value: int) -> void:
+func take_damage(value: int) -> void:
 	if is_invulnerable:
 		return
 	var dodge_state: DodgeState = _get_dodge_state()
