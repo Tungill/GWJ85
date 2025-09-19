@@ -17,8 +17,8 @@ func _ready() -> void:
 	for attack_key: String in state_machine.attack_states:
 		_create_attack_range(state_machine.attack_states[attack_key])
 	#region DEBUG
-	print("Left Ranges: ", attack_left_ranges)
-	print("Right Ranges: ", attack_right_ranges)
+	#print("Left Ranges: ", attack_left_ranges)
+	#print("Right Ranges: ", attack_right_ranges)
 	#endregion
 	
 	for attack_key: String in attack_left_ranges:

@@ -11,6 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 
 [node name="ChargeMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state")]
+collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource("1_dckwt")
 healt_component = NodePath("ChargeHealthComponent")
