@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 	state_machine.change_movement_direction(move_towards)
 	state_machine.current_state = initial_state
+	lock_rotation = true
 
 
 
