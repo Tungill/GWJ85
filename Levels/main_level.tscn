@@ -39,5 +39,6 @@ mob3 = ExtResource("5_k6a8t")
 mob4 = ExtResource("5_k6a8t")
 mob5 = ExtResource("5_k6a8t")
 player = NodePath("../PlayerCharacter")
+max_enemies = 2
 spawn_delay = 2.0
-spawn_interval = 2.0
+spawn_interval = 1.0

@@ -13,7 +13,7 @@ enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
 @export var player : CharacterBody2D 
 
 @export var horizontal_offset: int = 200
-@export var max_enemies: int = 5
+@export var max_enemies: int = 8
 @export var spawn_timer : Timer
 @export var spawn_delay : float = 3.0
 @export var spawn_interval: float = .5
@@ -22,7 +22,7 @@ var left_count : int = 1
 var right_count : int = 1
 var current_sequence_index: int = 0
 var spawn_y :float
-var active_enemies :Array = []
+var active_enemies : int = 0
 
 
 func _ready() -> void:
@@ -94,6 +94,8 @@ func spawn_enemy() -> void:
 	# spawn and drop outside of the level
 	if player == null: return
 	
+	if active_enemies >= max_enemies: return
+	
 	var screen_size : Vector2 = get_viewport_rect().size
 	var half_width : float = screen_size.x / 2
 	var offset :float= half_width + horizontal_offset
@@ -104,8 +106,12 @@ func spawn_enemy() -> void:
 	var enemy_scene : PackedScene = get_next_enemy_scene()
 	
 	var enemy :Mob= enemy_scene.instantiate()
-		
+	
 	enemy.freeze = true # avoid the enemies bouncing away from collision
 	enemy.global_position = Vector2(spawn_x, spawn_y)
-	
+	enemy.died.connect(_on_enemy_dies)
 	get_parent().add_child(enemy)
+	active_enemies += 1
+
+func _on_enemy_dies() -> void:
+	active_enemies -= 1
