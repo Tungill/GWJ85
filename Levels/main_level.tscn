@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmrv1njg4nf0c"]
+
+[ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_k0okc"]
+[ext_resource type="PackedScene" uid="uid://c8hatht35jis5" path="res://Scenes/Background.tscn" id="2_6x3q2"]
+[ext_resource type="PackedScene" uid="uid://dxjjevksfykja" path="res://Scenes/Spawner/enemy_spawner.tscn" id="4_6opdx"]
+[ext_resource type="PackedScene" uid="uid://0hu72lhq55rj" path="res://Scenes/Player/player_character.tscn" id="4_k6a8t"]
+[ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/agile_mob.tscn" id="5_k6a8t"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6x3q2"]
+
+[node name="MainLevel" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(634, 612)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape2D_6x3q2")
+
+[node name="Background" parent="." instance=ExtResource("2_6x3q2")]
+position = Vector2(638, 338)
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("4_k6a8t")]
+position = Vector2(624, 598)
+scale = Vector2(2, 2)
+collision_mask = 1
+
+[node name="Camera2D" type="Camera2D" parent="PlayerCharacter"]
+limit_bottom = 750
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("1_k0okc")]
+mouse_filter = 1
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_6opdx")]
+mob1 = ExtResource("5_k6a8t")
+mob2 = ExtResource("5_k6a8t")
+mob3 = ExtResource("5_k6a8t")
+mob4 = ExtResource("5_k6a8t")
+mob5 = ExtResource("5_k6a8t")
+player = NodePath("../PlayerCharacter")
+spawn_interval = 2.0
