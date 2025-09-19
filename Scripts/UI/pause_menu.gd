@@ -5,6 +5,7 @@ class_name PauseMenu
 
 const CONFIG_PATH: StringName = "user://user_settings.cfg"
 const DEFAULT_VOLUME: float = 50.0
+const SFX_BUBBLE: AudioStream = preload("res://Audios/SFX_bubble.wav")
 
 @export var music_volume_slider: HSlider
 @export var music_volume_value_label: Label
@@ -13,6 +14,7 @@ const DEFAULT_VOLUME: float = 50.0
 @export var save_button: TextureButton
 @export var credits_button: TextureButton
 @export var credits_popup: Credits
+@export var sfx_audio_player: AudioStreamPlayer
 
 var config: ConfigFile = ConfigFile.new()
 
@@ -67,6 +69,8 @@ func _on_sfx_volume_slider_changed(value: float) -> void:
 	sfx_volume_value_label.text = str(int(value))
 	var volume_db: float = linear_to_db(value / sfx_volume_slider.max_value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), volume_db)
+	sfx_audio_player.stream = SFX_BUBBLE
+	sfx_audio_player.play()
 
 
 func _on_save_button_pressed() -> void:
