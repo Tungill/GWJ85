@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0ryvd30etfwp"]
+[gd_scene load_steps=8 format=3 uid="uid://d0ryvd30etfwp"]
 
 [ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_qocyw"]
 [ext_resource type="PackedScene" uid="uid://dy02s18mh2uvf" path="res://Scenes/UI/pause_menu.tscn" id="2_mxblp"]
 [ext_resource type="PackedScene" uid="uid://dglomjnvgatym" path="res://Scenes/UI/main_menu.tscn" id="3_jr1ro"]
+[ext_resource type="PackedScene" uid="uid://c5qiptme6derh" path="res://Scenes/UI/game_over.tscn" id="4_d5jmm"]
 [ext_resource type="PackedScene" uid="uid://by2tt4aws1ypw" path="res://Scenes/music_audio_stream_player.tscn" id="4_jr1ro"]
 [ext_resource type="AudioStream" uid="uid://dxo5m484f1gwk" path="res://Audios/M_main_menu.mp3" id="5_dygi0"]
 [ext_resource type="PackedScene" uid="uid://dg1p7hd2eu76m" path="res://Scenes/sfx_audio_stream_player.tscn" id="6_dygi0"]
@@ -20,6 +21,9 @@ pause_popup = NodePath("../PauseMenu")
 [node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("sfx_audio_player") instance=ExtResource("2_mxblp")]
 visible = false
 sfx_audio_player = NodePath("../../SFXAudioStreamPlayer")
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource("4_d5jmm")]
+visible = false
 
 [node name="MusicAudioStreamPlayer" parent="." instance=ExtResource("4_jr1ro")]
 process_mode = 3
