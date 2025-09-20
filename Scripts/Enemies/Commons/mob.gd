@@ -7,14 +7,11 @@ signal died
 @export var initial_state: State
 @export var is_invulnerable: bool = false : 
 	set(value): 
-		print("is_invulnerable: ", value)
 		return value
-@export var move_towards: MoveState.Direction
 
 func _ready() -> void:
 	healt_component.health_depleted.connect(_detroy)
 	
-	state_machine.change_movement_direction(move_towards)
 	state_machine.current_state = initial_state
 	lock_rotation = true
 
