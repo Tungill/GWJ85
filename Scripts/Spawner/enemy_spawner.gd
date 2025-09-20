@@ -30,7 +30,6 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(spawn_enemy)
 	spawn_timer.stop()
 	
-	var timer :Timer = Timer.new()
 	var delay_timer: Timer = Timer.new()
 	delay_timer.wait_time = spawn_delay
 	delay_timer.one_shot = true
@@ -110,6 +109,7 @@ func spawn_enemy() -> void:
 	enemy.freeze = true # avoid the enemies bouncing away from collision
 	enemy.global_position = Vector2(spawn_x, spawn_y)
 	enemy.died.connect(_on_enemy_dies)
+	enemy.died.connect(player._on_enemy_killed)
 	get_parent().add_child(enemy)
 	active_enemies += 1
 

@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cppp1b7u2d846"]
-
-[ext_resource type="Script" uid="uid://4tbgk3vxe4o1" path="res://Scripts/camera.gd" id="1_1dc8s"]
+[gd_scene format=3 uid="uid://cppp1b7u2d846"]
 
 [node name="Camera2D" type="Camera2D"]
 limit_left = -270
@@ -13,4 +11,3 @@ drag_top_margin = 1.0
 drag_bottom_margin = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
-script = ExtResource("1_1dc8s")
