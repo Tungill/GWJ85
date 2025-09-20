@@ -29,6 +29,8 @@ func _input(event: InputEvent) -> void:
 # -> if we use another illustration for MainMenu's background.
 func _on_play_button_pressed() -> void:
 	self.visible = false
+	get_tree().paused = false
+	
 
 
 func _fade_play_button() -> void:

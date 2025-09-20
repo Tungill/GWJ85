@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0ryvd30etfwp"]
+[gd_scene load_steps=10 format=3 uid="uid://d0ryvd30etfwp"]
 
+[ext_resource type="Script" uid="uid://dmf3h84e0wh85" path="res://Levels/game.gd" id="1_i12b1"]
 [ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_qocyw"]
 [ext_resource type="PackedScene" uid="uid://dy02s18mh2uvf" path="res://Scenes/UI/pause_menu.tscn" id="2_mxblp"]
 [ext_resource type="PackedScene" uid="uid://dglomjnvgatym" path="res://Scenes/UI/main_menu.tscn" id="3_jr1ro"]
@@ -7,16 +8,20 @@
 [ext_resource type="PackedScene" uid="uid://by2tt4aws1ypw" path="res://Scenes/music_audio_stream_player.tscn" id="4_jr1ro"]
 [ext_resource type="AudioStream" uid="uid://dxo5m484f1gwk" path="res://Audios/M_main_menu.mp3" id="5_dygi0"]
 [ext_resource type="PackedScene" uid="uid://dg1p7hd2eu76m" path="res://Scenes/sfx_audio_stream_player.tscn" id="6_dygi0"]
+[ext_resource type="PackedScene" uid="uid://bmrv1njg4nf0c" path="res://Levels/main_level.tscn" id="8_n3tvm"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_i12b1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("pause_popup") instance=ExtResource("1_qocyw")]
+process_mode = 3
 mouse_filter = 1
 pause_popup = NodePath("../PauseMenu")
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("3_jr1ro")]
+process_mode = 3
 
 [node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("sfx_audio_player") instance=ExtResource("2_mxblp")]
 visible = false
@@ -33,3 +38,5 @@ bus = &"Music"
 
 [node name="SFXAudioStreamPlayer" parent="." instance=ExtResource("6_dygi0")]
 bus = &"SFX"
+
+[node name="MainLevel" parent="." instance=ExtResource("8_n3tvm")]
