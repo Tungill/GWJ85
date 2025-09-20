@@ -15,13 +15,17 @@ var directions: Dictionary[Direction, Vector2] = {
 	}
 var player : CharacterBody2D
 
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group("Player")
+	
 func _on_enter() -> void:
 	pass
 	
 func _on_physics_process(delta: float) -> void:
 	# TODO Move on a straigth line until being able to reach the player when attacking
 	# NOTE If the player get out of range, the MoveState should be called again
-	player = get_tree().get_first_node_in_group("Player")
+	if player == null: 
+		return
 	if player.global_position.x < mob.global_position.x:
 		move_direction = Direction.LEFT
 	else:

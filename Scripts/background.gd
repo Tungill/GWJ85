@@ -21,6 +21,8 @@ func _input(event: InputEvent) -> void:
 		change_background_transition(backgrounds[current_background+1])
 #endregion
 
+func change_background() -> void:
+	change_background_transition(backgrounds[current_background+1])
 
 func change_background_transition(new_background: Sprite2D) -> void:
 	var sprite: Sprite2D = backgrounds[current_background]

@@ -49,6 +49,7 @@ folder_colors={
 
 Enemies="Entities that can harm the player."
 Player=""
+Background=""
 
 [input]
 
