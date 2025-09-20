@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cppp1b7u2d846" path="res://Scenes/camera.tscn" id="3_2clls"]
 [ext_resource type="PackedScene" uid="uid://dxjjevksfykja" path="res://Scenes/Spawner/enemy_spawner.tscn" id="4_6opdx"]
 [ext_resource type="PackedScene" uid="uid://0hu72lhq55rj" path="res://Scenes/Player/player_character.tscn" id="4_k6a8t"]
-[ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/agile_mob.tscn" id="5_k6a8t"]
+[ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/Archetypes/agile_mob.tscn" id="5_k6a8t"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6x3q2"]
 
@@ -63,3 +63,5 @@ player = NodePath("../PlayerCharacter")
 max_enemies = 2
 spawn_delay = 0.5
 spawn_interval = 1.0
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]

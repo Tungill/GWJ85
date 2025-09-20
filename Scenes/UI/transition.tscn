@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm7nwjuh0p2xk"]
+
+[ext_resource type="Script" uid="uid://c1r41stmeewkc" path="res://Scripts/UI/transition.gd" id="1_xmgcj"]
+
+[node name="Transition" type="Control" node_paths=PackedStringArray("color_rect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmgcj")
+color_rect = NodePath("ColorRect")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

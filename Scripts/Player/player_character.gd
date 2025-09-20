@@ -176,5 +176,4 @@ func evolve_player() -> void:
 	sprite.visible = true
 
 func change_background() -> void:
-	var background :Node2D = get_tree().get_first_node_in_group("Background")
-	background.change_background()
+	EventBus.background.transition_triggered.emit()

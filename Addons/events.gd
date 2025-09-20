@@ -19,6 +19,12 @@ class EnemyEvents:
 	signal attack_hit_player(damage: int)
 var enemy: EnemyEvents = EnemyEvents.new()
 
+class BackgroundEvents:
+	signal transition_triggered
+	signal transition_fade_in_finished
+	signal background_changed
+var background: BackgroundEvents = BackgroundEvents.new()
+
 #region INFO EXAMPLE
 # Use local classes to organise signals in categories.
 class CategoryEvents: # This is a single category.

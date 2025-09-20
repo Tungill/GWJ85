@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0ryvd30etfwp"]
+[gd_scene load_steps=11 format=3 uid="uid://d0ryvd30etfwp"]
 
 [ext_resource type="Script" uid="uid://dmf3h84e0wh85" path="res://Levels/game.gd" id="1_i12b1"]
 [ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_qocyw"]
+[ext_resource type="PackedScene" uid="uid://cm7nwjuh0p2xk" path="res://Scenes/UI/transition.tscn" id="2_i12b1"]
 [ext_resource type="PackedScene" uid="uid://dy02s18mh2uvf" path="res://Scenes/UI/pause_menu.tscn" id="2_mxblp"]
 [ext_resource type="PackedScene" uid="uid://dglomjnvgatym" path="res://Scenes/UI/main_menu.tscn" id="3_jr1ro"]
 [ext_resource type="PackedScene" uid="uid://c5qiptme6derh" path="res://Scenes/UI/game_over.tscn" id="4_d5jmm"]
@@ -14,6 +15,9 @@
 script = ExtResource("1_i12b1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Transition" parent="CanvasLayer" instance=ExtResource("2_i12b1")]
+visible = false
 
 [node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("pause_popup") instance=ExtResource("1_qocyw")]
 process_mode = 3
