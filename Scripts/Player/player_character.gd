@@ -30,6 +30,7 @@ var is_alive: bool = true:
 			return false
 var enemies_left_range: Array[Mob]
 var enemies_right_range: Array[Mob]
+var enemies_killed : int = 0
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
@@ -65,7 +66,7 @@ func _physics_process(_delta: float) -> void:
 	DebugPanel.add_debug_property("Player Cooldown", snappedf(cooldown_timer.time_left, 0.01), 1)
 	#endregion
 
-func handle_input(direction: int, flip: bool, step_size: float) -> void:
+func handle_input(direction: int, flip: bool, step: float) -> void:
 	# INFO flip = false = right, flip = true = left,
 	if is_lunging:
 		#region TESTING Disabling queued lunge to avoid spamming attacks.
@@ -76,7 +77,7 @@ func handle_input(direction: int, flip: bool, step_size: float) -> void:
 		#endregion
 		return
 	else:
-		start_lunge(position.x + direction * step_size, flip)
+		start_lunge(position.x + direction * step, flip)
 
 func start_lunge(new_target: float, flip: bool) -> void:
 	is_lunging = true
@@ -110,7 +111,6 @@ func start_attack(left_side: bool) -> void:
 	# If the attack succeded. Inflict damage and skip the cooldown timer.
 	enemy.take_damage(attack_damage)
 	_on_lunge_finished()
-
 
 func take_damage(value: int) -> void:
 	health_component.take_damage(value)
@@ -156,7 +156,13 @@ func _on_collision_exit(body: Node, left_side: bool) -> void:
 		match left_side:
 			true:
 				enemies_left_range.pop_at(enemies_left_range.find(mob))
-				print("Left range: ", enemies_left_range)
+				#print("Left range: ", enemies_left_range)
 			false:
 				enemies_right_range.pop_at(enemies_right_range.find(mob))
-				print("Right range: ", enemies_right_range)
+				#print("Right range: ", enemies_right_range)
+				
+func _on_enemy_killed() -> void:
+	#region Debug
+	print("Enemies killed: %s" % enemies_killed)
+	#endregion
+	enemies_killed += 1
