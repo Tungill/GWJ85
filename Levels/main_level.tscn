@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmrv1njg4nf0c"]
+[gd_scene load_steps=8 format=3 uid="uid://bmrv1njg4nf0c"]
 
 [ext_resource type="PackedScene" uid="uid://c8hatht35jis5" path="res://Scenes/Background.tscn" id="2_6x3q2"]
 [ext_resource type="PackedScene" uid="uid://cppp1b7u2d846" path="res://Scenes/camera.tscn" id="3_2clls"]
@@ -7,6 +7,31 @@
 [ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/agile_mob.tscn" id="5_k6a8t"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6x3q2"]
+
+[sub_resource type="GDScript" id="GDScript_6opdx"]
+script/source = "# DEPRECATED
+extends Camera2D
+
+const TIME_IN_SECONDS: int = 2
+const ZOOM_OUT_VALUE: float = 0.2
+
+# TODO The camera must be centered on the PlayerCharacter. Probably as a child.
+
+func _ready() -> void:
+	# TODO Set the Camera.limit_* using reference to the Background.size.
+	pass
+
+func _zoom_out() -> void:
+	var vector2: Vector2 = Vector2(ZOOM_OUT_VALUE, ZOOM_OUT_VALUE)
+	var target_zoom: Vector2 = self.zoom - vector2
+	# WARNING This condition doesn't work if vector2.x & .y are not equal.
+	if target_zoom.is_zero_approx():
+		return
+	var tween: Tween = create_tween()
+	tween.tween_property(self, \"zoom\", target_zoom, 1)
+	# NOTE Camera zoom value is relative to the size of limit_*. 
+	# Zoom 0.1 for Limit 5000 will have a different value than Zoom 0.1 for Limit 1500.
+"
 
 [node name="MainLevel" type="Node2D"]
 
@@ -25,6 +50,8 @@ scale = Vector2(2, 2)
 collision_mask = 1
 
 [node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
+position = Vector2(0, -100)
+script = SubResource("GDScript_6opdx")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_6opdx")]
 mob1 = ExtResource("5_k6a8t")

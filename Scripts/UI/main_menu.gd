@@ -30,8 +30,6 @@ func _input(event: InputEvent) -> void:
 func _on_play_button_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
-	
-
 
 func _fade_play_button() -> void:
 	var fade_duration: float = 1.75
