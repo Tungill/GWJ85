@@ -1,0 +1,4 @@
+Game is the root Scene for the entire project.
+
+Main Level will be a separate node and be added here as a Child Node of Game.
+This way we have a clear control and can change Level without removing/duplicating the use of UI.

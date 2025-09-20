@@ -39,3 +39,12 @@ func change_state_to(new_state: State) -> void:
 	next_state = new_state
 	# DEBUG
 	#print("Next State is: ", next_state)
+
+
+func change_movement_direction(direction: MoveState.Direction) -> void:
+	var index: int
+	for i: State in states_list:
+		if i is MoveState:
+			index = states_list.find(i)
+	var move_state: MoveState = states_list[index]
+	move_state.move_direction = direction

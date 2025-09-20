@@ -17,7 +17,7 @@ class_name AttackState
 @export var cast_timer: Timer
 @export var cooldown_timer: Timer
 
-var attackCount: int = 0
+var attack_count: int = 0
 
 func _ready() -> void:
 	cast_timer.timeout.connect(_attack)
@@ -42,8 +42,9 @@ func _attack() -> void:
 		# TODO Change visual asset for hit
 		# NOTE Using EventBus because using the raycast collider creates a new dependency.
 		EventBus.enemy.attack_hit_player.emit(damage)
-	attackCount += 1
+	attack_count += 1
 	if is_one_shot:
+		# FIXME Return doesn't start the cooldown but the Mob doesn't exit the AttackState
 		return
 	_on_cooldown_begin()
 

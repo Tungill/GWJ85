@@ -1,26 +1,26 @@
 # CAUTION INFO This Scene "process_mode" is set to "process_mode: When Pause"
 # This mean the Scene & code is ONLY working when the game is paused. IMPORTANT
 extends Control
-class_name Settings
+class_name PauseMenu
 
 const CONFIG_PATH: StringName = "user://user_settings.cfg"
 const DEFAULT_VOLUME: float = 50.0
+const SFX_BUBBLE: AudioStream = preload("res://Audios/SFX_bubble.wav")
 
 @export var music_volume_slider: HSlider
 @export var music_volume_value_label: Label
 @export var sfx_volume_slider: HSlider
 @export var sfx_volume_value_label: Label
-@export var close_button: Button # DEPRECATED
-@export var save_button: Button
-@export var credits_button: Button
+@export var save_button: TextureButton
+@export var credits_button: TextureButton
 @export var credits_popup: Credits
+@export var sfx_audio_player: AudioStreamPlayer
 
 var config: ConfigFile = ConfigFile.new()
 
 
 func _ready() -> void:
 	self.visible = false
-	close_button.pressed.connect(_on_close_button_pressed) # DEPRECATED
 	credits_button.pressed.connect(_on_credits_button_pressed)
 	save_button.pressed.connect(_on_save_button_pressed)
 	music_volume_slider.value_changed.connect(_on_music_volume_slider_changed)
@@ -69,6 +69,8 @@ func _on_sfx_volume_slider_changed(value: float) -> void:
 	sfx_volume_value_label.text = str(int(value))
 	var volume_db: float = linear_to_db(value / sfx_volume_slider.max_value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), volume_db)
+	sfx_audio_player.stream = SFX_BUBBLE
+	sfx_audio_player.play()
 
 
 func _on_save_button_pressed() -> void:
@@ -78,13 +80,17 @@ func _on_save_button_pressed() -> void:
 
 
 func _on_credits_button_pressed() ->void:
-	credits_popup.toogle_visibility()
+	match credits_popup.visible:
+		true:
+			credits_popup.close_pop_up()
+		false:
+			credits_popup.open_pop_up()
 
 
 # DEPRECATED Not use anymore since Settings stopped use a close_button. 
 # Allows to close the Setting screen without Saving the changes to the config file.
-func _on_close_button_pressed() -> void:
-	# Values are updated using the existing config.
-	music_volume_slider.value = config.get_value("audio", "music volume", DEFAULT_VOLUME)
-	sfx_volume_slider.value = config.get_value("audio", "sfx volume", DEFAULT_VOLUME)
-	toogle_visibility()
+#func _on_close_button_pressed() -> void:
+	## Values are updated using the existing config.
+	#music_volume_slider.value = config.get_value("audio", "music volume", DEFAULT_VOLUME)
+	#sfx_volume_slider.value = config.get_value("audio", "sfx volume", DEFAULT_VOLUME)
+	#toogle_visibility()

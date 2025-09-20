@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0hu72lhq55rj"]
+[gd_scene load_steps=8 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
 [ext_resource type="Texture2D" uid="uid://04uhhinjstq" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
@@ -9,18 +9,25 @@ radius = 7.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtl7"]
+resource_local_to_scene = true
 size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w75v"]
-size = Vector2(20, 30)
+resource_local_to_scene = true
+size = Vector2(80, 30)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_82a6j"]
+resource_local_to_scene = true
+size = Vector2(80, 30)
+
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack", "cooldown_timer") groups=["Player"]]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
 sprite = NodePath("Sprite2D")
 left_attack = NodePath("LeftAttackHitbox")
 right_attack = NodePath("RightAttackHitbox")
+cooldown_timer = NodePath("AttackCooldown")
 
 [node name="PhysicCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xk7n3")
@@ -37,21 +44,23 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 shape = SubResource("RectangleShape2D_uqtl7")
+debug_color = Color(1, 0, 1, 0.419608)
 
 [node name="RightAttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackHitbox"]
-position = Vector2(15, 0)
+position = Vector2(45, 0)
 shape = SubResource("RectangleShape2D_1w75v")
 
 [node name="LeftAttackHitbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackHitbox"]
-position = Vector2(-15, 0)
-shape = SubResource("RectangleShape2D_1w75v")
+position = Vector2(-45, 0)
+shape = SubResource("RectangleShape2D_82a6j")
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
