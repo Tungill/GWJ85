@@ -21,7 +21,7 @@ mouse_filter = 1
 pause_popup = NodePath("../PauseMenu")
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("3_jr1ro")]
-process_mode = 3
+process_mode = 2
 
 [node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("sfx_audio_player") instance=ExtResource("2_mxblp")]
 visible = false
