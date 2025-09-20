@@ -6,10 +6,10 @@ enum Screen_side {LEFT, RIGHT}
 const UPWARD_OFFSET: int = 100
 
 @export_category("Parameters")
-# FIXME If the range is too small and RangeManager's raycast detect the player before _on_exit()
+# BUG If the range is too small and RangeManager's raycast detect the player before _on_exit()
 # then the Mob is stuck in MoveState untill the player leave then enter again a raycast. 
 # Need to be fixed in RangeManager.
-@export var distance_from_target: float = 150.0 
+@export var distance_from_target: float = 50.0 
 @export var max_dodge: int = 1
 @export var is_cautious: bool = false # TODO find a better name for this option.
 @export var dodge_duration: float = 1.0
@@ -40,8 +40,11 @@ func _on_enter() -> void:
 func _on_dodge() -> void:
 	# Target the point from opposite Side, distance_from the player.
 	var player: PlayerCharacter = get_tree().get_first_node_in_group("Player")
+	var player_collision_size: float = player.hitbox.shape.get_rect().size.x
+	var mob_collision_size: float = mob.collision.shape.get_rect().size.x
 	var planned_side: Screen_side
-	var distance: float = distance_from_target
+	# NOTE Distance is relative to the PlayerCharacter size and Self size.
+	var distance: float = distance_from_target + (player_collision_size/2) + (mob_collision_size/2)
 	if is_cautious:
 		planned_side = _get_random_side()
 		distance = distance_from_target * 2
