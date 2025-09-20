@@ -3,6 +3,7 @@ extends State
 class_name DodgeState
 
 enum Screen_side {LEFT, RIGHT}
+const UPWARD_OFFSET: int = 100
 
 @export_category("Parameters")
 # FIXME If the range is too small and RangeManager's raycast detect the player before _on_exit()
@@ -48,11 +49,17 @@ func _on_dodge() -> void:
 		planned_side = _get_opposite_side_from(player)
 	var offset_distance: Vector2 = side_directions[planned_side] * distance
 	var player_position: Vector2 = player.global_position
+	var upward_offset: Vector2 = Vector2(mob.global_position.x, mob.global_position.y - UPWARD_OFFSET)
 	planned_position = player_position + offset_distance
 	# Move
-	var tween: Tween = create_tween()
-	tween.tween_property(mob, "global_position", planned_position, dodge_duration).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
+	var first_half_duration: float = (dodge_duration * 1) /4
+	var second_half_duration: float = (dodge_duration * 3) /4
+	var first_tween: Tween = create_tween()
+	first_tween.tween_property(mob, "global_position", upward_offset, first_half_duration)
+	await first_tween.finished
+	var second_tween: Tween = create_tween()
+	second_tween.tween_property(mob, "global_position", planned_position, second_half_duration).set_ease(Tween.EASE_IN_OUT)
+	await second_tween.finished
 	dodge_count -= 1
 	# Update the Move Direction from the new position.
 	_set_new_move_direction(player)
