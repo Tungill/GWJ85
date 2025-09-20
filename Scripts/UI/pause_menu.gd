@@ -15,6 +15,7 @@ const SFX_BUBBLE: AudioStream = preload("res://Audios/SFX_bubble.wav")
 @export var credits_button: TextureButton
 @export var credits_popup: Credits
 @export var sfx_audio_player: AudioStreamPlayer
+@export var main_menu: Control
 
 var config: ConfigFile = ConfigFile.new()
 
@@ -73,6 +74,8 @@ func _on_sfx_volume_slider_changed(value: float) -> void:
 func _on_save_button_pressed() -> void:
 	_save_settings()
 	toogle_visibility()
+	if main_menu.visible == false:
+		get_tree().paused = false
 
 
 func _on_credits_button_pressed() ->void:

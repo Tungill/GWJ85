@@ -27,9 +27,10 @@ pause_popup = NodePath("../PauseMenu")
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("3_jr1ro")]
 process_mode = 2
 
-[node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("sfx_audio_player") instance=ExtResource("2_mxblp")]
+[node name="PauseMenu" parent="CanvasLayer" node_paths=PackedStringArray("sfx_audio_player", "main_menu") instance=ExtResource("2_mxblp")]
 visible = false
 sfx_audio_player = NodePath("../../SFXAudioStreamPlayer")
+main_menu = NodePath("../MainMenu")
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("4_d5jmm")]
 visible = false
