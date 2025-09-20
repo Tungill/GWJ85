@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy3wtbnxf5swv"
-path="res://.godot/imported/jambg_mockup.png-f26bfc844f245a28b42708c394f90d7e.ctex"
+uid="uid://dqc7bah0fil7p"
+path="res://.godot/imported/T_bg_medium.png-dd99368038b38755081e90372544dc69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Background/jambg_mockup.png"
-dest_files=["res://.godot/imported/jambg_mockup.png-f26bfc844f245a28b42708c394f90d7e.ctex"]
+source_file="res://Assets/Background/T_bg_medium.png"
+dest_files=["res://.godot/imported/T_bg_medium.png-dd99368038b38755081e90372544dc69.ctex"]
 
 [params]
 
