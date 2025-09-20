@@ -4,7 +4,7 @@ class_name PlayerCharacter
 @export_category("Essentials")
 @export var health_component: HealthComponent
 
-@export var sprite : Sprite2D
+@export var sprites : Array[Sprite2D]
 @export var left_attack : Area2D
 @export var right_attack : Area2D
 @export var cooldown_timer: Timer
@@ -14,8 +14,9 @@ class_name PlayerCharacter
 @export var attack_duration: float = 0.5  # how long the attack lasts
 @export var attack_cooldown: float = 1.0
 @export var attack_damage: int = 1
+@export var first_form_threshold: int = 2
+@export var second_form_threshold: int = 4
 
-var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
 var step_size : float
@@ -28,9 +29,12 @@ var is_alive: bool = true:
 	set(value):
 		if value == false:
 			EventBus.player.player_died.emit()
-			return false
+		return value
 var enemies_left_range: Array[Mob]
 var enemies_right_range: Array[Mob]
+var enemies_killed : int = 0
+var current_sprite_index : int = 0
+var sprite : Sprite2D
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
@@ -41,7 +45,8 @@ func _ready() -> void:
 	if health_component == null:
 		push_error("PlayerCharacter health component is not assigned.")
 	#endregion
-
+	sprite = sprites[current_sprite_index]
+	sprite.visible = true
 	step_size = base_step * scale.x  # proportional to character's size
 	target_x = position.x
 	cooldown_timer.timeout.connect(func _set_is_waiting_cooldown()-> void: is_waiting_cooldown = false)
@@ -51,7 +56,6 @@ func _ready() -> void:
 	right_attack.body_entered.connect(_on_collision_enter.bind(false))
 	right_attack.body_exited.connect(_on_collision_exit.bind(false))
 
-
 func _physics_process(_delta: float) -> void:
 	if not is_alive:
 		return
@@ -60,14 +64,13 @@ func _physics_process(_delta: float) -> void:
 		handle_input(-1, true, step_size)
 	elif Input.is_action_just_pressed("attack_right") and not is_waiting_cooldown:
 		handle_input(1, false, step_size)
-	move_and_slide() # NOTICE Unsused?
-	
+		
 	#region DEBUG
 	DebugPanel.add_debug_property("Player HP", health_component.health, 10)
 	DebugPanel.add_debug_property("Player Cooldown", snappedf(cooldown_timer.time_left, 0.01), 1)
 	#endregion
 
-func handle_input(direction: int, flip: bool, step_size: float) -> void:
+func handle_input(direction: int, flip: bool, step: float) -> void:
 	# INFO flip = false = right, flip = true = left,
 	if is_lunging:
 		#region TESTING Disabling queued lunge to avoid spamming attacks.
@@ -78,7 +81,7 @@ func handle_input(direction: int, flip: bool, step_size: float) -> void:
 		#endregion
 		return
 	else:
-		start_lunge(position.x + direction * step_size, flip)
+		start_lunge(position.x + direction * step, flip)
 
 func start_lunge(new_target: float, flip: bool) -> void:
 	is_lunging = true
@@ -91,7 +94,6 @@ func start_lunge(new_target: float, flip: bool) -> void:
 		.set_ease(Tween.EASE_OUT)
 	
 	start_attack(flip)
-
 
 func start_attack(left_side: bool) -> void:
 	# Get the closest enemy on the list.
@@ -113,11 +115,9 @@ func start_attack(left_side: bool) -> void:
 	enemy.take_damage(attack_damage)
 	_on_lunge_finished()
 
-
 func take_damage(value: int) -> void:
 	health_component.take_damage(value)
-	# Trigger visual impact on damage.
-
+	print("Current health: %s" % health_component.health)
 
 func _on_lunge_finished() -> void: 
 	is_lunging = false
@@ -129,7 +129,6 @@ func _on_lunge_finished() -> void:
 		#queued_direction = 0
 	#endregion
 
-
 func _start_cooldown() -> void:
 	is_waiting_cooldown = true
 	cooldown_timer.start(attack_cooldown)
@@ -138,7 +137,6 @@ func _on_attack_failed() -> void:
 	_on_lunge_finished()
 	_start_cooldown()
 
-
 # Add enemies to a list (left/right) 
 func _on_collision_enter(body: Node2D, left_side: bool) -> void:
 	if body is Mob:
@@ -146,10 +144,8 @@ func _on_collision_enter(body: Node2D, left_side: bool) -> void:
 		match left_side:
 			true:
 				enemies_left_range.append(mob)
-				print("Left range: ", enemies_left_range)
 			false:
 				enemies_right_range.append(mob)
-				print("Right range: ", enemies_right_range)
 
 # Remove enemies from a list (left/right) 
 func _on_collision_exit(body: Node, left_side: bool) -> void:
@@ -158,7 +154,26 @@ func _on_collision_exit(body: Node, left_side: bool) -> void:
 		match left_side:
 			true:
 				enemies_left_range.pop_at(enemies_left_range.find(mob))
-				print("Left range: ", enemies_left_range)
 			false:
 				enemies_right_range.pop_at(enemies_right_range.find(mob))
-				print("Right range: ", enemies_right_range)
+				
+func _on_enemy_killed() -> void:
+	enemies_killed += 1
+	#region Debug
+	print("Enemies killed: %s" % enemies_killed)
+	#endregion
+	if enemies_killed == first_form_threshold:
+		evolve_player()
+	if enemies_killed == second_form_threshold:
+		evolve_player()
+		change_background()
+
+func evolve_player() -> void:
+	sprite.visible = false
+	current_sprite_index += 1
+	sprite = sprites[current_sprite_index]
+	sprite.visible = true
+
+func change_background() -> void:
+	var background :Node2D = get_tree().get_first_node_in_group("Background")
+	background.change_background()

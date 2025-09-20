@@ -27,15 +27,12 @@ func _ready() -> void:
 	sfx_volume_slider.value_changed.connect(_on_sfx_volume_slider_changed)
 	_load_settings()
 
-
 func toogle_visibility() -> void:
 	self.visible = !self.visible
-
 
 func _create_default_settings() -> void:
 	music_volume_slider.set_value(DEFAULT_VOLUME)
 	sfx_volume_slider.set_value(DEFAULT_VOLUME)
-
 
 func _save_settings() -> void:
 	config.set_value("audio", "music volume", music_volume_slider.value)
@@ -76,7 +73,6 @@ func _on_sfx_volume_slider_changed(value: float) -> void:
 func _on_save_button_pressed() -> void:
 	_save_settings()
 	toogle_visibility()
-	get_tree().paused = false
 
 
 func _on_credits_button_pressed() ->void:

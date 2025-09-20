@@ -17,6 +17,8 @@ func _input(event: InputEvent) -> void:
 		EventBus.background.transition_triggered.emit()
 #endregion
 
+func change_background() -> void:
+	change_background_transition(backgrounds[current_background+1])
 
 func change_background() -> void:
 	if not background_textures.is_empty():

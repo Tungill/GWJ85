@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
-[ext_resource type="Texture2D" uid="uid://04uhhinjstq" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
+[ext_resource type="Texture2D" uid="uid://dyf1qs30y6r2h" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
 [ext_resource type="PackedScene" uid="uid://roml01bgklaf" path="res://Scenes/Commons/health_component.tscn" id="3_82a6j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xk7n3"]
@@ -20,11 +20,11 @@ size = Vector2(80, 30)
 resource_local_to_scene = true
 size = Vector2(80, 30)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack", "cooldown_timer") groups=["Player"]]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprites", "left_attack", "right_attack", "cooldown_timer") groups=["Player"]]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
-sprite = NodePath("Sprite2D")
+sprites = [NodePath("Sprites/FirstForm"), NodePath("Sprites/SecondForm"), NodePath("Sprites/ThirdForm")]
 left_attack = NodePath("LeftAttackHitbox")
 right_attack = NodePath("RightAttackHitbox")
 cooldown_timer = NodePath("AttackCooldown")
@@ -33,8 +33,21 @@ cooldown_timer = NodePath("AttackCooldown")
 shape = SubResource("CapsuleShape2D_xk7n3")
 debug_color = Color(1, 1, 1, 0.42)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="FirstForm" type="Sprite2D" parent="Sprites"]
+visible = false
 scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_1w75v")
+
+[node name="SecondForm" type="Sprite2D" parent="Sprites"]
+visible = false
+scale = Vector2(0.0453125, 0.0441989)
+texture = ExtResource("2_1w75v")
+
+[node name="ThirdForm" type="Sprite2D" parent="Sprites"]
+visible = false
+scale = Vector2(0.0875, 0.0791897)
 texture = ExtResource("2_1w75v")
 
 [node name="PlayerHealthComponent" parent="." instance=ExtResource("3_82a6j")]
