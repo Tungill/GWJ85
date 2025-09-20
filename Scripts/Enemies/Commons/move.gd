@@ -28,7 +28,6 @@ func _on_physics_process(delta: float) -> void:
 			move_direction = Direction.LEFT
 		else:
 			move_direction = Direction.RIGHT
-	
 	var direction: Vector2 = directions[move_direction]
 	var motion: Vector2 = direction * speed * delta
 	motion.y = 0
