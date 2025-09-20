@@ -73,7 +73,6 @@ func _on_sfx_volume_slider_changed(value: float) -> void:
 func _on_save_button_pressed() -> void:
 	_save_settings()
 	toogle_visibility()
-	get_tree().paused = false
 
 
 func _on_credits_button_pressed() ->void:
