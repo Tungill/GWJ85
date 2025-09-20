@@ -15,7 +15,6 @@ class_name PlayerCharacter
 @export var attack_cooldown: float = 1.0
 @export var attack_damage: int = 1
 
-var gravity : float = 1000 # default gravity value
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
 var step_size : float
@@ -60,8 +59,7 @@ func _physics_process(_delta: float) -> void:
 		handle_input(-1, true, step_size)
 	elif Input.is_action_just_pressed("attack_right") and not is_waiting_cooldown:
 		handle_input(1, false, step_size)
-	move_and_slide() # NOTICE Unsused?
-	
+		
 	#region DEBUG
 	DebugPanel.add_debug_property("Player HP", health_component.health, 10)
 	DebugPanel.add_debug_property("Player Cooldown", snappedf(cooldown_timer.time_left, 0.01), 1)

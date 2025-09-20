@@ -10,21 +10,37 @@ enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
 @export var spawn_sequence_1: Array[Enemy] = [Enemy.MOB1, Enemy.MOB1, Enemy.MOB1, Enemy.MOB1]
 @export var spawn_sequence_2: Array[Enemy] = [Enemy.MOB1, Enemy.MOB2, Enemy.MOB3]
 @export var spawn_sequence_3: Array[Enemy] = [Enemy.MOB3, Enemy.MOB3, Enemy.MOB3]
+@export var player : CharacterBody2D 
 
-@export var spawn_interval: float = .5
 @export var horizontal_offset: int = 200
-@export var player : CharacterBody2D
+@export var max_enemies: int = 8
+@export var spawn_timer : Timer
+@export var spawn_delay : float = 3.0
+@export var spawn_interval: float = .5
 
 var left_count : int = 1
 var right_count : int = 1
 var current_sequence_index: int = 0
+var spawn_y :float
+var active_enemies : int = 0
+
 
 func _ready() -> void:
+	spawn_timer.wait_time = spawn_interval
+	spawn_timer.timeout.connect(spawn_enemy)
+	spawn_timer.stop()
+	
 	var timer :Timer = Timer.new()
-	timer.wait_time = spawn_interval
-	timer.autostart = true
-	timer.timeout.connect(spawn_enemy)
-	add_child(timer)
+	var delay_timer: Timer = Timer.new()
+	delay_timer.wait_time = spawn_delay
+	delay_timer.one_shot = true
+	add_child(delay_timer)
+	delay_timer.start()
+	await delay_timer.timeout
+	spawn_timer.start()
+	delay_timer.queue_free()
+	spawn_y = player.global_position.y
+
 
 func get_current_sequence() -> Array:
 	if player.scale.x >= 2:
@@ -42,12 +58,12 @@ func get_next_enemy_scene() -> PackedScene:
 	current_sequence_index = (current_sequence_index + 1) % sequence.size()
 	
 	#region DEBUG
-	match enemy_enum:
-		Enemy.MOB1: print("Spawning MOB1")
-		Enemy.MOB2: print("Spawning MOB2")
-		Enemy.MOB3: print("Spawning MOB3")
-		Enemy.MOB4: print("Spawning MOB4")
-		Enemy.MOB5: print("Spawning MOB5")
+	#match enemy_enum:
+		#Enemy.MOB1: print("Spawning MOB1")
+		#Enemy.MOB2: print("Spawning MOB2")
+		#Enemy.MOB3: print("Spawning MOB3")
+		#Enemy.MOB4: print("Spawning MOB4")
+		#Enemy.MOB5: print("Spawning MOB5")
 	#endregion
 	
 	match enemy_enum:	
@@ -78,16 +94,24 @@ func spawn_enemy() -> void:
 	# spawn and drop outside of the level
 	if player == null: return
 	
+	if active_enemies >= max_enemies: return
+	
 	var screen_size : Vector2 = get_viewport_rect().size
 	var half_width : float = screen_size.x / 2
 	var offset :float= half_width + horizontal_offset
 	var side :int = choose_side()
 	
 	var spawn_x :float= player.global_position.x + (side * offset)
-	var spawn_y :float= player.global_position.y + randf_range(-100, 100)
 		
 	var enemy_scene : PackedScene = get_next_enemy_scene()
 	
 	var enemy :Mob= enemy_scene.instantiate()
+	
+	enemy.freeze = true # avoid the enemies bouncing away from collision
 	enemy.global_position = Vector2(spawn_x, spawn_y)
+	enemy.died.connect(_on_enemy_dies)
 	get_parent().add_child(enemy)
+	active_enemies += 1
+
+func _on_enemy_dies() -> void:
+	active_enemies -= 1

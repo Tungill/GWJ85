@@ -2,5 +2,8 @@
 
 [ext_resource type="Script" uid="uid://claqtlroagu5" path="res://Scripts/Spawner/enemy_spawner.gd" id="1_0lwqs"]
 
-[node name="EnemySpawner" type="Node2D"]
+[node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_timer")]
 script = ExtResource("1_0lwqs")
+spawn_timer = NodePath("SpawnTimer")
+
+[node name="SpawnTimer" type="Timer" parent="."]

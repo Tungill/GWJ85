@@ -1,6 +1,7 @@
 extends RigidBody2D
 class_name  Mob
 
+signal died
 @export var healt_component: HealthComponent
 @export var state_machine: StateMachine
 @export var initial_state: State
@@ -15,8 +16,7 @@ func _ready() -> void:
 	
 	state_machine.change_movement_direction(move_towards)
 	state_machine.current_state = initial_state
-
-
+	lock_rotation = true
 
 func take_damage(value: int) -> void:
 	if is_invulnerable:
@@ -30,6 +30,7 @@ func take_damage(value: int) -> void:
 
 func _detroy() -> void:
 	EventBus.enemy.enemy_died.emit(self)
+	emit_signal("died")
 	queue_free()
 
 
