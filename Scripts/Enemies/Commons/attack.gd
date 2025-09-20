@@ -2,26 +2,24 @@ extends State
 class_name AttackState
 
 @export_category("Parameters")
-## NOTE: the range is calculated from the center of the parent. Take the parent [param size] into acount.
+## WARNING: Range should be smaller than the player's left/right hitbox. 
+## If not, the player cannot attack them from his static position.
 @export var attack_range: float = 100.0
 @export var cast_time: float = 1.0
 @export var damage: int = 1
-@export var is_one_shot: bool = false
-## NOTE: [member cooldown_time] can be ignored if [member is_one_shot] is [code]true[/code].
 @export var cooldown_time: float = 1.0
-@export var is_range_attack: bool = false
-## NOTE: [member range_projectile] can be ignored if [member is_range_attack] is [code]false[/code].
-## [member range_projectile] has its own [param damage] value and doesn't use [member damage].
-@export var range_projectile: PackedScene
 @export_category("Essentials")
 @export var cast_timer: Timer
 @export var cooldown_timer: Timer
+@export var collision: CollisionShape2D
 
 var attack_count: int = 0
+var range_size: float
 
 func _ready() -> void:
 	cast_timer.timeout.connect(_attack)
 	cooldown_timer.timeout.connect(_on_cast_attack_begin)
+	range_size = (collision.shape.get_rect().size.x /2) + attack_range
 
 
 func _on_enter() -> void:
@@ -34,18 +32,10 @@ func _on_cast_attack_begin() -> void:
 
 
 func _attack() -> void:
-	if is_range_attack:
-		# TODO Spawn range_projectile in front of the enemy.
-		# TODO Change visual asset for throwing projectile
-		pass
-	else:
-		# TODO Change visual asset for hit
-		# NOTE Using EventBus because using the raycast collider creates a new dependency.
-		EventBus.enemy.attack_hit_player.emit(damage)
+	# TODO Change visual asset for hit
+	# NOTE Using EventBus because using the raycast collider creates a new dependency.
+	EventBus.enemy.attack_hit_player.emit(damage)
 	attack_count += 1
-	if is_one_shot:
-		# FIXME Return doesn't start the cooldown but the Mob doesn't exit the AttackState
-		return
 	_on_cooldown_begin()
 
 

@@ -33,13 +33,13 @@ func _create_attack_range(attack: AttackState) -> void:
 	var left_raycast: RangeRayCast = RangeRayCast.new()
 	left_raycast.name = attack.name + LEFT_RANGE_SUFFIX
 	add_child(left_raycast)
-	left_raycast.target_position = Vector2( - attack.attack_range, 0)
+	left_raycast.target_position = Vector2( - attack.range_size, 0)
 	left_raycast.collision_mask = 1
 	var right_raycast: RangeRayCast = RangeRayCast.new()
 	right_raycast.name = attack.name + RIGHT_RANGE_SUFFIX
 	add_child(right_raycast)
 	right_raycast.collision_mask = 1
-	right_raycast.target_position = Vector2(attack.attack_range, 0)
+	right_raycast.target_position = Vector2(attack.range_size, 0)
 	
 	attack_left_ranges[attack.name] = left_raycast
 	attack_right_ranges[attack.name] = right_raycast
@@ -57,8 +57,6 @@ func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
 			attack_ranges = attack_right_ranges
 		var attack_name: String = attack_ranges.find_key(emittor)
 		var attack_state: AttackState = state_machine.attack_states[attack_name]
-		if attack_state.is_one_shot and attack_state.attack_count > 0:
-			return
 		state_machine.change_state_to(attack_state)
 
 

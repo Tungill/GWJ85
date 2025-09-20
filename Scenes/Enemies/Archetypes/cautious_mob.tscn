@@ -11,7 +11,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 
-[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state")]
+[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -19,6 +19,7 @@ script = ExtResource("1_wn6br")
 healt_component = NodePath("CautiousHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
+collision = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -36,7 +37,8 @@ script = ExtResource("3_roi0b")
 mob = NodePath("../..")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" instance=ExtResource("4_4bmox")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("4_4bmox")]
+collision = NodePath("../../CollisionShape2D")
 
 [node name="Dodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob")]
 script = ExtResource("5_lscmd")

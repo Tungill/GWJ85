@@ -8,6 +8,7 @@ signal died
 @export var is_invulnerable: bool = false : 
 	set(value): 
 		return value
+@export var collision: CollisionShape2D
 
 func _ready() -> void:
 	healt_component.health_depleted.connect(_detroy)

@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://c58qpciouygut"]
+
+[ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_vst6h"]
+[ext_resource type="Texture2D" uid="uid://doe5pggndmjk0" path="res://Assets/Enemies/Dog/T_dog.png" id="2_k8xt2"]
+[ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_l2gve"]
+[ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="3_k45h0"]
+[ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="4_dysnm"]
+[ext_resource type="Script" uid="uid://dgo461pjqaflu" path="res://Scripts/Enemies/Commons/dodge.gd" id="5_qwn74"]
+[ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="6_ix0vs"]
+[ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="7_bhubm"]
+[ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="8_ucfnx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
+size = Vector2(160, 50)
+
+[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_vst6h")
+healt_component = NodePath("CautiousHealthComponent")
+state_machine = NodePath("StateMachine")
+initial_state = NodePath("StateMachine/Move")
+collision = NodePath("CollisionShape2D")
+metadata/_custom_type_script = "uid://bd5okqh651sey"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ybyef")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_k8xt2")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_l2gve")
+metadata/_custom_type_script = "uid://prk6rqnfp101"
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob")]
+script = ExtResource("3_k45h0")
+mob = NodePath("../..")
+metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
+
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("4_dysnm")]
+attack_range = 50.0
+collision = NodePath("../../CollisionShape2D")
+
+[node name="Dodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob")]
+script = ExtResource("5_qwn74")
+max_dodge = 2
+is_cautious = true
+move_component = NodePath("../Move")
+mob = NodePath("../..")
+metadata/_custom_type_script = "uid://dgo461pjqaflu"
+
+[node name="RangeManager" type="Node2D" parent="." node_paths=PackedStringArray("mob")]
+script = ExtResource("6_ix0vs")
+mob = NodePath("..")
+raycast = ExtResource("7_bhubm")
+metadata/_custom_type_script = "uid://cwrymljra1ter"
+
+[node name="CautiousHealthComponent" type="Node" parent="."]
+script = ExtResource("8_ucfnx")
+_max_health = 1
+metadata/_custom_type_script = "uid://8cr4r6penkfh"

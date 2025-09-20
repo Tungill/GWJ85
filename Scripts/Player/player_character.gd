@@ -8,6 +8,7 @@ class_name PlayerCharacter
 @export var left_attack : Area2D
 @export var right_attack : Area2D
 @export var cooldown_timer: Timer
+@export var hitbox: CollisionShape2D
 @export_category("Parameters")
 @export var base_step: float = 100   # base lunge distance
 @export var lunge_time: float = 1.5  # how long the lunge lasts
