@@ -1,32 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8hatht35jis5"]
+[gd_scene load_steps=8 format=3 uid="uid://c8hatht35jis5"]
 
 [ext_resource type="Texture2D" uid="uid://dmnxemnsqf1c2" path="res://Assets/Background/jam_bg_small.png" id="1_c8m3x"]
 [ext_resource type="Script" uid="uid://8ltm7bmsnmdl" path="res://Scripts/background.gd" id="1_laxsj"]
 [ext_resource type="Texture2D" uid="uid://ybdoku0s0rj3" path="res://Assets/Background/jam_bg_medium.png" id="2_lf6h2"]
 [ext_resource type="Texture2D" uid="uid://dkdeehvpcush0" path="res://Assets/Background/jam_bg_big.png" id="3_laxsj"]
+[ext_resource type="Texture2D" uid="uid://l6yqs3rfp846" path="res://_PrivateTestFolder/bg_big.png" id="5_hcp8y"]
 [ext_resource type="Texture2D" uid="uid://co4pg5ulgn3yw" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="6_27ak2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_etw40"]
-diffuse_texture = ExtResource("1_c8m3x")
+diffuse_texture = ExtResource("5_hcp8y")
 normal_texture = ExtResource("6_27ak2")
 
-[node name="Background" type="Node2D" node_paths=PackedStringArray("backgrounds")]
+[node name="Background" type="Node2D" node_paths=PackedStringArray("background")]
 script = ExtResource("1_laxsj")
-backgrounds = [NodePath("SmallBackground"), NodePath("MediumBackground"), NodePath("BigBackground")]
+background = NodePath("Background")
+background_textures = Array[Texture2D]([ExtResource("1_c8m3x"), ExtResource("2_lf6h2"), ExtResource("3_laxsj")])
 
-[node name="BigBackground" type="Sprite2D" parent="."]
-position = Vector2(0, 360)
-texture = ExtResource("3_laxsj")
-offset = Vector2(0, -360)
-
-[node name="MediumBackground" type="Sprite2D" parent="."]
-position = Vector2(0, 360)
-texture = ExtResource("2_lf6h2")
-offset = Vector2(0, -360)
-
-[node name="SmallBackground" type="Sprite2D" parent="."]
-position = Vector2(0, 358)
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(640, 720)
 texture = SubResource("CanvasTexture_etw40")
 offset = Vector2(0, -360)
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
