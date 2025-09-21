@@ -1,10 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmrv1njg4nf0c"]
+[gd_scene load_steps=15 format=3 uid="uid://bmrv1njg4nf0c"]
 
 [ext_resource type="PackedScene" uid="uid://c8hatht35jis5" path="res://Scenes/Background.tscn" id="2_6x3q2"]
 [ext_resource type="PackedScene" uid="uid://cppp1b7u2d846" path="res://Scenes/camera.tscn" id="3_2clls"]
 [ext_resource type="PackedScene" uid="uid://dxjjevksfykja" path="res://Scenes/Spawner/enemy_spawner.tscn" id="4_6opdx"]
 [ext_resource type="PackedScene" uid="uid://0hu72lhq55rj" path="res://Scenes/Player/player_character.tscn" id="4_k6a8t"]
-[ext_resource type="PackedScene" uid="uid://dj20gbvxh5oc4" path="res://Scenes/Enemies/Archetypes/agile_mob.tscn" id="5_k6a8t"]
+[ext_resource type="PackedScene" uid="uid://kjienhvf7fpg" path="res://Scenes/Enemies/Rat/rat_mob.tscn" id="5_8b1du"]
+[ext_resource type="PackedScene" uid="uid://b3ndcfg2vghyf" path="res://Scenes/Enemies/Frog/frog_mob.tscn" id="6_vte7q"]
+[ext_resource type="PackedScene" uid="uid://1fiykgwn6iad" path="res://Scenes/Enemies/Peasant/peasant_mob.tscn" id="7_oi8lg"]
+[ext_resource type="PackedScene" uid="uid://bcxtkxo8ud0jc" path="res://Scenes/Enemies/Soldier/soldier_mob.tscn" id="8_utf87"]
+[ext_resource type="PackedScene" uid="uid://c27nxv22rt04w" path="res://Scenes/Enemies/Lion/winged_lion_mob.tscn" id="9_vn64n"]
+[ext_resource type="PackedScene" uid="uid://8dwymcfiirat" path="res://Scenes/Enemies/Dolphin/dolphin_mob.tscn" id="10_q2wah"]
+[ext_resource type="PackedScene" uid="uid://mjocq364bk5s" path="res://Scenes/Enemies/Wyvern/wyvern_mob.tscn" id="11_lrtkp"]
+[ext_resource type="PackedScene" uid="uid://c58qpciouygut" path="res://Scenes/Enemies/Dog/dog_mob.tscn" id="12_n4dhi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6x3q2"]
 
@@ -54,11 +61,14 @@ position = Vector2(0, -100)
 script = SubResource("GDScript_6opdx")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_6opdx")]
-mob1 = ExtResource("5_k6a8t")
-mob2 = ExtResource("5_k6a8t")
-mob3 = ExtResource("5_k6a8t")
-mob4 = ExtResource("5_k6a8t")
-mob5 = ExtResource("5_k6a8t")
+rat = ExtResource("5_8b1du")
+frog = ExtResource("6_vte7q")
+peasant = ExtResource("7_oi8lg")
+soldier = ExtResource("8_utf87")
+lion = ExtResource("9_vn64n")
+dolphin = ExtResource("10_q2wah")
+wyvern = ExtResource("11_lrtkp")
+dog = ExtResource("12_n4dhi")
 player = NodePath("../PlayerCharacter")
 max_enemies = 2
 spawn_delay = 0.5

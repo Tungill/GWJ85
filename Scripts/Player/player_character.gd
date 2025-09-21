@@ -87,7 +87,6 @@ func handle_input(direction: int, flip: bool, step: float) -> void:
 func start_lunge(new_target: float, flip: bool) -> void:
 	is_lunging = true
 	target_x = new_target
-	
 	sprite.flip_h = flip
 	tween = create_tween()
 	tween.tween_property(self, "position:x", target_x, lunge_time) \

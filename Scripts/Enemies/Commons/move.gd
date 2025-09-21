@@ -33,6 +33,9 @@ func _on_physics_process(delta: float) -> void:
 	var motion: Vector2 = direction * speed * delta
 	motion.y = 0
 	mob.move_and_collide(motion)
+	
+	var sprite: Sprite2D = mob.get_node("Sprite2D") 
+	sprite.flip_h = (move_direction == Direction.RIGHT)
 	# DEBUG
 	#print(mob.position, " Direction: ", direction, " Motion: ", motion)
 

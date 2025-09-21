@@ -1,15 +1,19 @@
 extends Node2D
 
-@export var mob1: PackedScene
-@export var mob2: PackedScene
-@export var mob3: PackedScene
-@export var mob4: PackedScene
-@export var mob5: PackedScene
-enum Enemy { MOB1, MOB2, MOB3, MOB4, MOB5 }
+@export var rat: PackedScene
+@export var frog: PackedScene
+@export var peasant: PackedScene
+@export var soldier: PackedScene
+@export var lion: PackedScene
+@export var dolphin: PackedScene
+@export var wyvern: PackedScene
+@export var dog: PackedScene
+@export var angel: PackedScene
 
-@export var spawn_sequence_1: Array[Enemy] = [Enemy.MOB1, Enemy.MOB1, Enemy.MOB1, Enemy.MOB1]
-@export var spawn_sequence_2: Array[Enemy] = [Enemy.MOB1, Enemy.MOB2, Enemy.MOB3]
-@export var spawn_sequence_3: Array[Enemy] = [Enemy.MOB3, Enemy.MOB3, Enemy.MOB3]
+enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
+@export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.frog, Enemy.wyvern, Enemy.dolphin]
+@export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog]
+@export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
 @export var player : CharacterBody2D 
 
 @export var horizontal_offset: int = 200
@@ -42,9 +46,9 @@ func _ready() -> void:
 
 
 func get_current_sequence() -> Array:
-	if player.scale.x >= 2:
+	if player.scale.x >= 3:
 		return spawn_sequence_3
-	elif player.scale.x >= 1:
+	elif player.scale.x >= 2.5:
 		return spawn_sequence_2
 	else:
 		return spawn_sequence_1
@@ -56,21 +60,16 @@ func get_next_enemy_scene() -> PackedScene:
 	var enemy_enum : Enemy = sequence[current_sequence_index]
 	current_sequence_index = (current_sequence_index + 1) % sequence.size()
 	
-	#region DEBUG
-	#match enemy_enum:
-		#Enemy.MOB1: print("Spawning MOB1")
-		#Enemy.MOB2: print("Spawning MOB2")
-		#Enemy.MOB3: print("Spawning MOB3")
-		#Enemy.MOB4: print("Spawning MOB4")
-		#Enemy.MOB5: print("Spawning MOB5")
-	#endregion
-	
-	match enemy_enum:	
-		Enemy.MOB1: return mob1
-		Enemy.MOB2: return mob2
-		Enemy.MOB3: return mob3
-		Enemy.MOB4: return mob4
-		Enemy.MOB5: return mob5
+	match enemy_enum:
+		Enemy.rat: return rat
+		Enemy.frog: return frog
+		Enemy.peasant: return peasant
+		Enemy.soldier: return soldier
+		Enemy.lion: return lion
+		Enemy.dolphin: return dolphin
+		Enemy.wyvern: return wyvern
+		Enemy.dog: return dog
+		Enemy.angel: return angel	
 		_: return null
 	
 func choose_side() -> int:
