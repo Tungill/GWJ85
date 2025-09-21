@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c7klxju1pb32y"
+path="res://.godot/imported/Enemy Dodge 2.mp3-1cdc1b09eeaa26fd3a3c500cbfdd51d1.mp3str"
+
+[deps]
+
+source_file="res://Audios/Enemy Dodge 2.mp3"
+dest_files=["res://.godot/imported/Enemy Dodge 2.mp3-1cdc1b09eeaa26fd3a3c500cbfdd51d1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

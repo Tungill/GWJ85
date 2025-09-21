@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dpao12b2othbf"
+path="res://.godot/imported/Main Menu No Bells.mp3-fc6739458e59eead721a084a34ca352d.mp3str"
+
+[deps]
+
+source_file="res://Audios/Main Menu No Bells.mp3"
+dest_files=["res://.godot/imported/Main Menu No Bells.mp3-fc6739458e59eead721a084a34ca352d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
