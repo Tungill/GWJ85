@@ -12,6 +12,11 @@ class_name AttackState
 @export var cast_timer: Timer
 @export var cooldown_timer: Timer
 @export var collision: CollisionShape2D
+@export_category("Animations")
+@export var cast_texture: Texture2D
+@export var attack_texture: Texture2D
+@export var attack_duration: float = 0.1
+@export var cooldown_texture: Texture2D
 
 var attack_count: int = 0
 var range_size: float
@@ -27,22 +32,33 @@ func _on_enter() -> void:
 
 
 func _on_cast_attack_begin() -> void:
+	_change_texture(cast_texture)
 	cast_timer.start(cast_time)
 	# TODO Change visual asset to cast sprite
 
 
 func _attack() -> void:
-	# TODO Change visual asset for hit
+	_change_texture(attack_texture)
 	# NOTE Using EventBus because using the raycast collider creates a new dependency.
 	EventBus.enemy.attack_hit_player.emit(damage)
 	attack_count += 1
+	
+	await get_tree().create_timer(attack_duration).timeout
 	_on_cooldown_begin()
 
 
 func _on_cooldown_begin() -> void:
+	_change_texture(cooldown_texture)
 	cooldown_timer.start(cooldown_time)
 
 
 func _on_exit() -> void:
 	cast_timer.stop()
 	cooldown_timer.stop()
+
+
+func _change_texture(new_texture: Texture2D) ->void:
+	if sprite.texture is not CanvasTexture:
+		push_error("Mob's Sprite2D is not of type CanvasTexture.")
+	var texture: CanvasTexture = sprite.texture as CanvasTexture
+	texture.diffuse_texture = new_texture
