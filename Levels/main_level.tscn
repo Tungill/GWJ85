@@ -77,7 +77,6 @@ dog = ExtResource("12_n4dhi")
 angel = ExtResource("13_vte7q")
 player = NodePath("../PlayerCharacter")
 camera = NodePath("../PlayerCharacter/Camera2D")
-max_enemies = 4
 spawn_delay = 0.5
 spawn_interval = 1.0
 

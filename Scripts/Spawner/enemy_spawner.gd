@@ -22,7 +22,7 @@ enum Enemy {rat, frog, peasant, soldier, lion, dolphin, ent, wyvern, dog, angel}
 
 @export_category("Parameters")
 @export var horizontal_offset: int = 200
-@export var max_enemies: int = 8
+@export var max_enemies: int = 5
 @export var spawn_timer : Timer
 @export var spawn_delay : float = 3.0
 @export var spawn_interval: float = .5
@@ -48,7 +48,11 @@ func _ready() -> void:
 
 
 func get_current_sequence() -> Array:
-	if player.enemies_killed >= third_sequence_threshold:
+	if player.enemies_killed >= fifth_sequence_threshold:
+		return spawn_sequence_5
+	elif player.enemies_killed >= fourth_sequence_threshold:
+		return spawn_sequence_4
+	elif player.enemies_killed >= third_sequence_threshold:
 		return spawn_sequence_3
 	elif player.enemies_killed >= second_sequence_threshold:
 		return spawn_sequence_2
