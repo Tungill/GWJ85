@@ -10,9 +10,9 @@ enum Direction {LEFT, RIGHT}
 @export var move_direction: Direction
 @export_category("Animations")
 @export var left_texture: Texture2D
-@export var left_duration: float = 0.1
+@export var left_duration: float = 0.3
 @export var right_texture: Texture2D
-@export var right_duration: float = 0.1
+@export var right_duration: float = 0.3
 
 var directions: Dictionary[Direction, Vector2] = {
 	Direction.LEFT: Vector2.LEFT,
