@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bmrv1njg4nf0c"]
+[gd_scene load_steps=17 format=3 uid="uid://bmrv1njg4nf0c"]
 
 [ext_resource type="PackedScene" uid="uid://c8hatht35jis5" path="res://Scenes/Background.tscn" id="2_6x3q2"]
 [ext_resource type="PackedScene" uid="uid://cppp1b7u2d846" path="res://Scenes/camera.tscn" id="3_2clls"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://c27nxv22rt04w" path="res://Scenes/Enemies/Lion/winged_lion_mob.tscn" id="9_vn64n"]
 [ext_resource type="PackedScene" uid="uid://8dwymcfiirat" path="res://Scenes/Enemies/Dolphin/dolphin_mob.tscn" id="10_q2wah"]
 [ext_resource type="PackedScene" uid="uid://mjocq364bk5s" path="res://Scenes/Enemies/Wyvern/wyvern_mob.tscn" id="11_lrtkp"]
+[ext_resource type="PackedScene" uid="uid://3gvunrnndh4c" path="res://Scenes/Enemies/Ent/ent_mob.tscn" id="11_oi8lg"]
 [ext_resource type="PackedScene" uid="uid://c58qpciouygut" path="res://Scenes/Enemies/Dog/dog_mob.tscn" id="12_n4dhi"]
+[ext_resource type="PackedScene" uid="uid://c0sxes536mpwn" path="res://Scenes/Enemies/Angel/angel_mob.tscn" id="13_vte7q"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6x3q2"]
 
@@ -53,11 +55,10 @@ position = Vector2(638, 338)
 spawner = NodePath("../EnemySpawner")
 
 [node name="PlayerCharacter" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("4_k6a8t")]
-position = Vector2(624, 598)
+position = Vector2(624, 593)
 scale = Vector2(2, 2)
 collision_mask = 1
 camera = NodePath("Camera2D")
-maximum_kill_count = 2
 
 [node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
 position = Vector2(0, -100)
@@ -70,8 +71,10 @@ peasant = ExtResource("7_oi8lg")
 soldier = ExtResource("8_utf87")
 lion = ExtResource("9_vn64n")
 dolphin = ExtResource("10_q2wah")
+ent = ExtResource("11_oi8lg")
 wyvern = ExtResource("11_lrtkp")
 dog = ExtResource("12_n4dhi")
+angel = ExtResource("13_vte7q")
 player = NodePath("../PlayerCharacter")
 camera = NodePath("../PlayerCharacter/Camera2D")
 max_enemies = 4

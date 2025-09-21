@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 func change_background() -> void:
 	if not background_textures.is_empty():
 		texture.diffuse_texture = background_textures.pop_front()
+		background.offset.y -= 30
 	EventBus.background.background_changed.emit()
 	if spawner:
 		spawner.clear_enemies()
