@@ -31,11 +31,13 @@ visible = false
 sfx_audio_player = NodePath("../../SFXAudioStreamPlayer")
 main_menu = NodePath("../MainMenu")
 
-[node name="GameOver" parent="CanvasLayer" instance=ExtResource("4_d5jmm")]
+[node name="GameOver" parent="CanvasLayer" node_paths=PackedStringArray("music_audio_player") instance=ExtResource("4_d5jmm")]
 visible = false
+music_audio_player = NodePath("../../SFXAudioStreamPlayer")
 
-[node name="VictoryScreen" parent="CanvasLayer" instance=ExtResource("7_yl7kl")]
+[node name="VictoryScreen" parent="CanvasLayer" node_paths=PackedStringArray("music_audio_player") instance=ExtResource("7_yl7kl")]
 visible = false
+music_audio_player = NodePath("../../SFXAudioStreamPlayer")
 
 [node name="SFXAudioStreamPlayer" parent="." instance=ExtResource("6_dygi0")]
 bus = &"SFX"

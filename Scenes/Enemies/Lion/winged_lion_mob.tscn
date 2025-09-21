@@ -20,6 +20,7 @@
 size = Vector2(100, 70)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_bu755"]
+resource_local_to_scene = true
 normal_texture = ExtResource("3_xehv1")
 
 [node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]

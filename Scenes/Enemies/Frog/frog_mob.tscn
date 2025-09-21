@@ -21,6 +21,7 @@
 size = Vector2(60, 40)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_jbxsj"]
+resource_local_to_scene = true
 normal_texture = ExtResource("2_jbxsj")
 
 [node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]

@@ -17,6 +17,7 @@
 size = Vector2(70, 120)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_doxnt"]
+resource_local_to_scene = true
 normal_texture = ExtResource("3_3wery")
 
 [node name="ArmoredMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]

@@ -19,6 +19,7 @@
 size = Vector2(30, 80)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyxo7"]
+resource_local_to_scene = true
 normal_texture = ExtResource("3_6wi5p")
 
 [node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]

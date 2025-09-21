@@ -17,6 +17,7 @@
 size = Vector2(70, 50)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ry2yi"]
+resource_local_to_scene = true
 normal_texture = ExtResource("2_rbdkm")
 
 [node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]
