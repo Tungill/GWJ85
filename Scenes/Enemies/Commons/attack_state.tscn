@@ -8,5 +8,7 @@ cast_timer = NodePath("Cast")
 cooldown_timer = NodePath("Cooldown")
 
 [node name="Cast" type="Timer" parent="."]
+one_shot = true
 
 [node name="Cooldown" type="Timer" parent="."]
+one_shot = true
