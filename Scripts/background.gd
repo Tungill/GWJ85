@@ -2,6 +2,7 @@ extends Node2D
 
 @export var background: Sprite2D
 @export var background_textures: Array[Texture2D]
+@export var spawner: Node2D
 
 var texture: CanvasTexture
 
@@ -22,3 +23,5 @@ func change_background() -> void:
 	if not background_textures.is_empty():
 		texture.diffuse_texture = background_textures.pop_front()
 	EventBus.background.background_changed.emit()
+	if spawner:
+		spawner.clear_enemies()
