@@ -4,7 +4,7 @@ class_name PlayerCharacter
 @export_category("Essentials")
 @export var health_component: HealthComponent
 
-@export var sprites : Array[Sprite2D]
+@export var sprite : Sprite2D
 @export var left_attack : Area2D
 @export var right_attack : Area2D
 @export var cooldown_timer: Timer
@@ -20,6 +20,9 @@ class_name PlayerCharacter
 @export var fourth_form_threshold: int = 35
 @export var camera: Camera2D
 @export var maximum_kill_count: int = 60
+@export_category("Animations")
+@export var player_forms: Array[Texture2D]
+@export var player_attacks: Array[Texture2D]
 
 
 var target_x: float # used to set relative x position for lunge
@@ -39,7 +42,7 @@ var enemies_left_range: Array[Mob]
 var enemies_right_range: Array[Mob]
 var enemies_killed : int = 0
 var current_sprite_index : int = 0
-var sprite : Sprite2D
+#var sprite : Sprite2D
 var input_locked : bool = false
 
 func _ready() -> void:
@@ -51,7 +54,7 @@ func _ready() -> void:
 	if health_component == null:
 		push_error("PlayerCharacter health component is not assigned.")
 	#endregion
-	sprite = sprites[current_sprite_index]
+	sprite.texture = player_forms[current_sprite_index]
 	sprite.visible = true
 	step_size = base_step * scale.x  # proportional to character's size
 	target_x = position.x
@@ -121,6 +124,8 @@ func start_lunge(new_target: float, flip: bool) -> void:
 	start_attack(flip)
 
 func start_attack(left_side: bool) -> void:
+	# Animation
+	sprite.texture = player_attacks[current_sprite_index]
 	# Get the closest enemy on the list.
 	var enemy: Mob
 	match left_side:
@@ -146,6 +151,9 @@ func take_damage(value: int) -> void:
 
 func _on_lunge_finished() -> void: 
 	is_lunging = false
+	# Animation
+	await get_tree().create_timer(attack_duration).timeout
+	sprite.texture = player_forms[current_sprite_index]
 	#region TESTING Disabling queued lunge to avoid spamming attacks.
 	# INFO When lunge ends, it will queue another lunge even if 
 	# the lunge in motion was queued or unqueued
@@ -199,7 +207,7 @@ func _on_enemy_killed() -> void:
 		evolve_player()
 		change_background()
 	if enemies_killed == fourth_form_threshold:
-		position.y -= 20
+		position.y -= 35
 		self.scale *= 1.2
 		self.sprite.scale *= 1.2
 		health_component.heal_for(5)
@@ -212,7 +220,7 @@ func evolve_player() -> void:
 	var current_flip :bool= sprite.flip_h 
 	sprite.visible = false
 	current_sprite_index += 1
-	sprite = sprites[current_sprite_index]
+	sprite.texture = player_forms[current_sprite_index]
 	sprite.flip_h = current_flip
 	sprite.visible = true
 

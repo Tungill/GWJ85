@@ -1,11 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://0hu72lhq55rj"]
+[gd_scene load_steps=14 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
-[ext_resource type="Texture2D" uid="uid://c5co1opoodejh" path="res://Assets/Player/T_player03.png" id="2_bex70"]
+[ext_resource type="Texture2D" uid="uid://cbus30kpx45kh" path="res://Assets/Player/T_player_01.png" id="2_bex70"]
 [ext_resource type="PackedScene" uid="uid://roml01bgklaf" path="res://Scenes/Commons/health_component.tscn" id="3_82a6j"]
-[ext_resource type="Texture2D" uid="uid://clsph3gdribam" path="res://Assets/Player/T_player05.png" id="3_hplj0"]
-[ext_resource type="Texture2D" uid="uid://nfm16hdmw0mx" path="res://Assets/Player/T_player09.png" id="4_0aovh"]
-[ext_resource type="Texture2D" uid="uid://vxtp8fqguk7a" path="res://Assets/Player/T_player11.png" id="5_fhr3q"]
+[ext_resource type="Texture2D" uid="uid://rwx86ic5np5r" path="res://Assets/Player/T_player_04.png" id="3_hplj0"]
+[ext_resource type="Texture2D" uid="uid://0yvbidukpidy" path="res://Assets/Player/T_player_07.png" id="4_hplj0"]
+[ext_resource type="Texture2D" uid="uid://kax8xttjpjc2" path="res://Assets/Player/T_player_10.png" id="5_asof1"]
+[ext_resource type="Texture2D" uid="uid://xoe8yyr8ey4a" path="res://Assets/Player/T_player_01_attack.png" id="6_asof1"]
+[ext_resource type="Texture2D" uid="uid://d3ecpjxulrhff" path="res://Assets/Player/T_player_04_attack.png" id="7_asof1"]
+[ext_resource type="Texture2D" uid="uid://byukj7w62gq5k" path="res://Assets/Player/T_player_07_attack.png" id="8_6e1h8"]
+[ext_resource type="Texture2D" uid="uid://bdwjia3s7aj4" path="res://Assets/Player/T_player_10_attack.png" id="9_qsqtf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtl7"]
 
@@ -17,15 +21,17 @@ size = Vector2(50, 30)
 resource_local_to_scene = true
 size = Vector2(50, 30)
 
-[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprites", "left_attack", "right_attack", "cooldown_timer", "hitbox") groups=["Player"]]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprite", "left_attack", "right_attack", "cooldown_timer", "hitbox") groups=["Player"]]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
-sprites = [NodePath("Sprites/FirstForm"), NodePath("Sprites/SecondForm"), NodePath("Sprites/ThirdForm"), NodePath("Sprites/FourthForm")]
+sprite = NodePath("Sprites/FirstForm")
 left_attack = NodePath("LeftAttackHitbox")
 right_attack = NodePath("RightAttackHitbox")
 cooldown_timer = NodePath("AttackCooldown")
 hitbox = NodePath("PhysicCollisionShape2D")
+player_forms = Array[Texture2D]([ExtResource("2_bex70"), ExtResource("3_hplj0"), ExtResource("4_hplj0"), ExtResource("5_asof1")])
+player_attacks = Array[Texture2D]([ExtResource("6_asof1"), ExtResource("7_asof1"), ExtResource("8_6e1h8"), ExtResource("9_qsqtf")])
 
 [node name="PhysicCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uqtl7")
@@ -35,26 +41,8 @@ debug_color = Color(1, 1, 1, 0.42)
 
 [node name="FirstForm" type="Sprite2D" parent="Sprites"]
 visible = false
+position = Vector2(0, -9)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_bex70")
-
-[node name="SecondForm" type="Sprite2D" parent="Sprites"]
-visible = false
-position = Vector2(5.96046e-07, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_hplj0")
-
-[node name="ThirdForm" type="Sprite2D" parent="Sprites"]
-visible = false
-position = Vector2(1, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_0aovh")
-
-[node name="FourthForm" type="Sprite2D" parent="Sprites"]
-visible = false
-position = Vector2(-3, -1.00001)
-scale = Vector2(0.0616554, 0.0616554)
-texture = ExtResource("5_fhr3q")
 
 [node name="PlayerHealthComponent" parent="." instance=ExtResource("3_82a6j")]
 
