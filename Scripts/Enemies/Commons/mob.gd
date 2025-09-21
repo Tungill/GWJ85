@@ -18,7 +18,6 @@ const DEATH_CLOUD: PackedScene = preload("res://Scenes/Enemies/Commons/death_clo
 
 func _ready() -> void:
 	healt_component.health_depleted.connect(_detroy)
-	print(healt_component.health)
 	
 	state_machine.current_state = initial_state
 	lock_rotation = true
