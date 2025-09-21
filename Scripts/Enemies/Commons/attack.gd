@@ -15,7 +15,7 @@ class_name AttackState
 @export_category("Animations")
 @export var cast_texture: Texture2D
 @export var attack_texture: Texture2D
-@export var attack_duration: float = 0.1
+@export var attack_duration: float = 0.15
 @export var cooldown_texture: Texture2D
 
 var attack_count: int = 0
