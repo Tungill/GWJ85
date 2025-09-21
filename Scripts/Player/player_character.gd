@@ -32,7 +32,7 @@ var is_alive: bool = true:
 	set(value):
 		if value == false:
 			EventBus.player.player_died.emit()
-		return value
+		is_alive = value
 var enemies_left_range: Array[Mob]
 var enemies_right_range: Array[Mob]
 var enemies_killed : int = 0
@@ -187,9 +187,11 @@ func _on_enemy_killed() -> void:
 		change_background()
 
 func evolve_player() -> void:
+	var current_flip :bool= sprite.flip_h 
 	sprite.visible = false
 	current_sprite_index += 1
 	sprite = sprites[current_sprite_index]
+	sprite.flip_h = current_flip
 	sprite.visible = true
 
 func change_background() -> void:
