@@ -46,8 +46,9 @@ func _create_attack_range(attack: AttackState) -> void:
 
 
 func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
-	# TEST "and not mob.is_invulnerable" to no trigger state during Dodge
-	if collider is PlayerCharacter and not mob.is_invulnerable:
+	if mob.is_invulnerable:
+		return
+	if collider is PlayerCharacter:
 		var attack_ranges: Dictionary
 		var left_values: Array = attack_left_ranges.values()
 		if left_values.has(emittor):
@@ -61,8 +62,9 @@ func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
 
 
 func _on_collision_stop(collider: Object, _emittor: RangeRayCast) -> void:
-	# TEST "and not mob.is_invulnerable" to no trigger state during Dodge
-	if collider is PlayerCharacter and not mob.is_invulnerable:
+	if mob.is_invulnerable:
+		return
+	if collider is PlayerCharacter:
 		var index: int
 		for i: State in state_machine.states_list:
 			if i is MoveState:
