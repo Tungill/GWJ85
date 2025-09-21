@@ -5,6 +5,7 @@ var states_list: Array[State]
 var attack_states: Dictionary[StringName, AttackState]
 var current_state: State;
 var next_state: State;
+var is_dead: bool = false
 
 
 func _ready() -> void:
@@ -21,6 +22,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if is_dead:
+		return
 	if next_state != null:
 		current_state._on_exit();
 		current_state = next_state;
@@ -31,6 +34,8 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
 	if current_state and current_state.has_method("_on_physics_process"):
 		current_state._on_physics_process(delta)
 
