@@ -8,11 +8,14 @@ enum Direction {LEFT, RIGHT}
 ## WARNING [member speed] must be different from [param 0] to move.
 @export var speed: float = 100
 @export var move_direction: Direction
+@export var audio_player: AudioStreamPlayer2D
 @export_category("Animations")
 @export var left_texture: Texture2D
 @export var left_duration: float = 0.3
 @export var right_texture: Texture2D
 @export var right_duration: float = 0.3
+@export var sfx_steps: AudioStream = preload("res://Audios/Enemy Step Loop.mp3")
+
 
 var directions: Dictionary[Direction, Vector2] = {
 	Direction.LEFT: Vector2.LEFT,
@@ -81,3 +84,6 @@ func _change_texture(new_texture: Texture2D, timer: Timer, duration: float) -> v
 	var texture: CanvasTexture = sprite.texture as CanvasTexture
 	texture.diffuse_texture = new_texture
 	timer.start(duration)
+	# Audio
+	audio_player.stream = sfx_steps
+	audio_player.play()
