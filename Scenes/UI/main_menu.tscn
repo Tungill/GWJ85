@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dglomjnvgatym"]
+[gd_scene load_steps=4 format=3 uid="uid://dglomjnvgatym"]
 
 [ext_resource type="Script" uid="uid://b0q7jfcpkbolf" path="res://Scripts/UI/main_menu.gd" id="1_i2xx2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wsvm"]
+font_size = 60
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i2xx2"]
+font_size = 23
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "menu_panel")]
 layout_mode = 3
@@ -36,6 +44,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "GWJ85 TITLE"
+label_settings = SubResource("LabelSettings_5wsvm")
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
@@ -64,5 +73,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Click on the screen to start playing!"
+label_settings = SubResource("LabelSettings_i2xx2")
 horizontal_alignment = 1
 vertical_alignment = 1
