@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcxtkxo8ud0jc"]
+[gd_scene load_steps=18 format=3 uid="uid://bcxtkxo8ud0jc"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_qq5ro"]
+[ext_resource type="AudioStream" uid="uid://bia443rc73ron" path="res://Audios/Armor Break 2.mp3" id="2_7hbfv"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_gyu31"]
+[ext_resource type="AudioStream" uid="uid://d17wd8a284k4q" path="res://Audios/Enemy Death 3.mp3" id="3_db2a7"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="3_fqppa"]
 [ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="3_wnko1"]
 [ext_resource type="Texture2D" uid="uid://irolbm6qqp4a" path="res://Assets/Enemies/Soldier/T_soldier_left.png" id="4_5e2tv"]
@@ -12,6 +14,7 @@
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="7_rf6e1"]
 [ext_resource type="Texture2D" uid="uid://cmatailacq5d" path="res://Assets/Enemies/Soldier/T_soldier_cast.png" id="7_vf5hv"]
 [ext_resource type="Texture2D" uid="uid://bei8w6qw88e8l" path="res://Assets/Enemies/Soldier/T_soldier_attack.png" id="8_wnko1"]
+[ext_resource type="AudioStream" uid="uid://bni84ybh7kbm" path="res://Audios/Enemy Attack 4.mp3" id="12_tpmek"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 size = Vector2(50, 90)
@@ -19,7 +22,7 @@ size = Vector2(50, 90)
 [sub_resource type="CanvasTexture" id="CanvasTexture_7hbfv"]
 normal_texture = ExtResource("3_wnko1")
 
-[node name="ArmoredMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
+[node name="ArmoredMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -29,6 +32,9 @@ state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+audio_player = NodePath("AudioStreamPlayer2D")
+sfx_damage_received = ExtResource("2_7hbfv")
+sfx_death = ExtResource("3_db2a7")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -44,10 +50,11 @@ texture = SubResource("CanvasTexture_7hbfv")
 script = ExtResource("2_gyu31")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "audio_player", "sprite")]
 script = ExtResource("3_fqppa")
 mob = NodePath("../..")
 speed = 80.0
+audio_player = NodePath("../../AudioStreamPlayer2D")
 left_texture = ExtResource("4_5e2tv")
 left_duration = 0.4
 right_texture = ExtResource("5_k3hp6")
@@ -55,11 +62,13 @@ right_duration = 0.4
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("4_jyils")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "audio_player", "sprite") instance=ExtResource("4_jyils")]
 attack_range = 30.0
 collision = NodePath("../../CollisionShape2D")
+audio_player = NodePath("../../AudioStreamPlayer2D")
 cast_texture = ExtResource("7_vf5hv")
 attack_texture = ExtResource("8_wnko1")
+sfx_attack = ExtResource("12_tpmek")
 cooldown_texture = ExtResource("4_5e2tv")
 sprite = NodePath("../../Sprite2D")
 
@@ -73,3 +82,6 @@ metadata/_custom_type_script = "uid://cwrymljra1ter"
 script = ExtResource("7_rf6e1")
 _max_health = 2
 metadata/_custom_type_script = "uid://8cr4r6penkfh"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

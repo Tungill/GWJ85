@@ -12,10 +12,12 @@ class_name AttackState
 @export var cast_timer: Timer
 @export var cooldown_timer: Timer
 @export var collision: CollisionShape2D
+@export var audio_player: AudioStreamPlayer2D
 @export_category("Animations")
 @export var cast_texture: Texture2D
 @export var attack_texture: Texture2D
 @export var attack_duration: float = 0.15
+@export var sfx_attack: AudioStream = preload("res://Audios/Enemy Attack 1.mp3")
 @export var cooldown_texture: Texture2D
 
 var attack_count: int = 0
@@ -39,6 +41,9 @@ func _on_cast_attack_begin() -> void:
 
 func _attack() -> void:
 	_change_texture(attack_texture)
+	# Audio
+	audio_player.stream = sfx_attack
+	audio_player.play()
 	# NOTE Using EventBus because using the raycast collider creates a new dependency.
 	EventBus.enemy.attack_hit_player.emit(damage)
 	attack_count += 1

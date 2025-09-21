@@ -11,6 +11,10 @@ const DEATH_CLOUD: PackedScene = preload("res://Scenes/Enemies/Commons/death_clo
 @export var is_invulnerable: bool = false
 @export var collision: CollisionShape2D
 @export var sprite: Sprite2D
+@export var audio_player: AudioStreamPlayer2D
+@export_category("Audio")
+@export var sfx_damage_received: AudioStream = preload("res://Audios/Enemy Hit 1.mp3")
+@export var sfx_death: AudioStream = preload("res://Audios/Enemy Death 1.mp3")
 
 func _ready() -> void:
 	healt_component.health_depleted.connect(_detroy)
@@ -27,6 +31,8 @@ func take_damage(value: int) -> void:
 		state_machine.change_state_to(dodge_state)
 		return
 	healt_component.take_damage(value)
+	audio_player.stream = sfx_damage_received
+	audio_player.play()
 	var tween: Tween = create_tween()
 	tween.tween_property(sprite, "self_modulate", Color.FIREBRICK, 0.05)
 	tween.tween_property(sprite, "self_modulate", Color.WHITE, 0.05)
@@ -36,6 +42,8 @@ func _detroy() -> void:
 	state_machine.is_dead = true
 	EventBus.enemy.enemy_died.emit(self)
 	emit_signal("died")
+	audio_player.stream = sfx_death
+	audio_player.play()
 	var tween: Tween = create_tween()
 	tween.tween_property(sprite, "scale", Vector2.ZERO, 0.5).from_current()
 	var death_effect: Sprite2D = DEATH_CLOUD.instantiate()

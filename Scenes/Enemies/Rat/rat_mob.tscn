@@ -19,7 +19,7 @@ size = Vector2(70, 50)
 [sub_resource type="CanvasTexture" id="CanvasTexture_ry2yi"]
 normal_texture = ExtResource("2_rbdkm")
 
-[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
+[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -29,6 +29,7 @@ state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+audio_player = NodePath("AudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -43,18 +44,20 @@ texture = SubResource("CanvasTexture_ry2yi")
 script = ExtResource("2_30xu4")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "audio_player", "sprite")]
 script = ExtResource("3_iq13v")
 mob = NodePath("../..")
 move_direction = 1
+audio_player = NodePath("../../AudioStreamPlayer2D")
 left_texture = ExtResource("4_cp6dy")
 right_texture = ExtResource("5_ykruo")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("4_ldek6")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "audio_player", "sprite") instance=ExtResource("4_ldek6")]
 attack_range = 30.0
 collision = NodePath("../../CollisionShape2D")
+audio_player = NodePath("../../AudioStreamPlayer2D")
 cast_texture = ExtResource("3_bvnhn")
 attack_texture = ExtResource("2_8up72")
 cooldown_texture = ExtResource("4_cp6dy")
@@ -70,3 +73,6 @@ metadata/_custom_type_script = "uid://cwrymljra1ter"
 script = ExtResource("7_af5ir")
 _max_health = 1
 metadata/_custom_type_script = "uid://8cr4r6penkfh"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
