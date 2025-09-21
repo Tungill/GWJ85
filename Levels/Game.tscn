@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0ryvd30etfwp"]
+[gd_scene load_steps=10 format=3 uid="uid://d0ryvd30etfwp"]
 
 [ext_resource type="Script" uid="uid://dmf3h84e0wh85" path="res://Levels/game.gd" id="1_i12b1"]
 [ext_resource type="PackedScene" uid="uid://d3xacqxncmjua" path="res://Scenes/UI/hud.tscn" id="1_qocyw"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dy02s18mh2uvf" path="res://Scenes/UI/pause_menu.tscn" id="2_mxblp"]
 [ext_resource type="PackedScene" uid="uid://dglomjnvgatym" path="res://Scenes/UI/main_menu.tscn" id="3_jr1ro"]
 [ext_resource type="PackedScene" uid="uid://c5qiptme6derh" path="res://Scenes/UI/game_over.tscn" id="4_d5jmm"]
-[ext_resource type="PackedScene" uid="uid://by2tt4aws1ypw" path="res://Scenes/music_audio_stream_player.tscn" id="4_jr1ro"]
-[ext_resource type="AudioStream" uid="uid://dxo5m484f1gwk" path="res://Audios/M_main_menu.mp3" id="5_dygi0"]
 [ext_resource type="PackedScene" uid="uid://dg1p7hd2eu76m" path="res://Scenes/sfx_audio_stream_player.tscn" id="6_dygi0"]
 [ext_resource type="PackedScene" uid="uid://bfmd0vvn2h5hr" path="res://Scenes/UI/victory_screen.tscn" id="7_yl7kl"]
 [ext_resource type="PackedScene" uid="uid://bmrv1njg4nf0c" path="res://Levels/main_level.tscn" id="8_n3tvm"]
@@ -38,12 +36,6 @@ visible = false
 
 [node name="VictoryScreen" parent="CanvasLayer" instance=ExtResource("7_yl7kl")]
 visible = false
-
-[node name="MusicAudioStreamPlayer" parent="." instance=ExtResource("4_jr1ro")]
-process_mode = 3
-stream = ExtResource("5_dygi0")
-autoplay = true
-bus = &"Music"
 
 [node name="SFXAudioStreamPlayer" parent="." instance=ExtResource("6_dygi0")]
 bus = &"SFX"
