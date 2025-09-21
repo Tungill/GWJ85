@@ -2,14 +2,19 @@ extends RigidBody2D
 class_name  Mob
 
 signal died
+
+const DEATH_CLOUD: PackedScene = preload("res://Scenes/Enemies/Commons/death_cloud.tscn")
+
 @export var healt_component: HealthComponent
 @export var state_machine: StateMachine
 @export var initial_state: State
 @export var is_invulnerable: bool = false
 @export var collision: CollisionShape2D
+@export var sprite: Sprite2D
 
 func _ready() -> void:
 	healt_component.health_depleted.connect(_detroy)
+	print(healt_component.health)
 	
 	state_machine.current_state = initial_state
 	lock_rotation = true
@@ -22,11 +27,21 @@ func take_damage(value: int) -> void:
 		state_machine.change_state_to(dodge_state)
 		return
 	healt_component.take_damage(value)
+	var tween: Tween = create_tween()
+	tween.tween_property(sprite, "self_modulate", Color.FIREBRICK, 0.05)
+	tween.tween_property(sprite, "self_modulate", Color.WHITE, 0.05)
 
 
 func _detroy() -> void:
+	state_machine.is_dead = true
 	EventBus.enemy.enemy_died.emit(self)
 	emit_signal("died")
+	var tween: Tween = create_tween()
+	tween.tween_property(sprite, "scale", Vector2.ZERO, 0.5).from_current()
+	var death_effect: Sprite2D = DEATH_CLOUD.instantiate()
+	death_effect.position.y = (collision.shape.get_rect().size.y /2)
+	add_child(death_effect)
+	await  death_effect.animation_finished
 	queue_free()
 
 
@@ -38,7 +53,7 @@ func _get_dodge_state() -> DodgeState:
 
 
 #region DEBUG
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("debug_action_2") and OS.is_debug_build():
-		#self._take_damage(1)
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_action_2") and OS.is_debug_build():
+		self.take_damage(1)
 #endregion

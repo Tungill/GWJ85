@@ -10,7 +10,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3pdns"]
 
-[node name="Mob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state") groups=["Enemies"]]
+[node name="Mob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite") groups=["Enemies"]]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -18,6 +18,8 @@ script = ExtResource("1_wqp4l")
 healt_component = NodePath("MobHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/MobMove")
+collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3pdns")
