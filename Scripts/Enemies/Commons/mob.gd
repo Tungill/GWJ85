@@ -5,9 +5,7 @@ signal died
 @export var healt_component: HealthComponent
 @export var state_machine: StateMachine
 @export var initial_state: State
-@export var is_invulnerable: bool = false : 
-	set(value): 
-		return value
+@export var is_invulnerable: bool = false
 @export var collision: CollisionShape2D
 
 func _ready() -> void:
