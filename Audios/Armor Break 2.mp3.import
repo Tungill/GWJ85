@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bia443rc73ron"
+path="res://.godot/imported/Armor Break 2.mp3-f9a26b3e099a74c4ca2b1a3a90ee3a45.mp3str"
+
+[deps]
+
+source_file="res://Audios/Armor Break 2.mp3"
+dest_files=["res://.godot/imported/Armor Break 2.mp3-f9a26b3e099a74c4ca2b1a3a90ee3a45.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

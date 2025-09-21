@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dci2s4shr82ge"
+path="res://.godot/imported/SFX Slider Sample.mp3-a9720b6db77183e1633eb5faa9e07fb2.mp3str"
+
+[deps]
+
+source_file="res://Audios/SFX Slider Sample.mp3"
+dest_files=["res://.godot/imported/SFX Slider Sample.mp3-a9720b6db77183e1633eb5faa9e07fb2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

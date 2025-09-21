@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfmd0vvn2h5hr"]
+
+[ext_resource type="Script" uid="uid://dnh0u5hw3uxte" path="res://Scripts/UI/victory_screen.gd" id="1_ybs88"]
+[ext_resource type="Texture2D" uid="uid://bw00kjm8tg4q" path="res://Assets/UI/T_button.png" id="2_7is2e"]
+[ext_resource type="Texture2D" uid="uid://cfe410el4kgdk" path="res://Assets/UI/T_button_pressed.png" id="3_le7p4"]
+[ext_resource type="Texture2D" uid="uid://bamrfjhdibfj8" path="res://Assets/UI/T_button_hover.png" id="4_0enno"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w88jv"]
+font_size = 50
+
+[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("start_over_button", "color_rect")]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ybs88")
+start_over_button = NodePath("PanelContainer/StartOverButton")
+color_rect = NodePath("ColorRect")
+
+[node name="PanelContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2625
+anchor_right = 1.0
+anchor_bottom = 0.294444
+offset_top = 11.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "You have won!"
+label_settings = SubResource("LabelSettings_w88jv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartOverButton" type="TextureButton" parent="PanelContainer"]
+layout_mode = 2
+anchor_left = 0.428125
+anchor_top = 0.588889
+anchor_right = 0.563
+anchor_bottom = 0.664
+offset_left = 2.0
+offset_right = -39.64
+offset_bottom = -13.0796
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.32, 1.32)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture_normal = ExtResource("2_7is2e")
+texture_pressed = ExtResource("3_le7p4")
+texture_hover = ExtResource("4_0enno")
+texture_focused = ExtResource("4_0enno")
+
+[node name="Label" type="Label" parent="PanelContainer/StartOverButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Start Over?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

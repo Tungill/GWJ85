@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bqejvnc2vyiuw"
+path="res://.godot/imported/Enemy Step Loop.mp3-7f4bd25a21e60f22ce3dc6fb3c17c0f4.mp3str"
+
+[deps]
+
+source_file="res://Audios/Enemy Step Loop.mp3"
+dest_files=["res://.godot/imported/Enemy Step Loop.mp3-7f4bd25a21e60f22ce3dc6fb3c17c0f4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

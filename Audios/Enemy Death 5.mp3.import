@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bddy2j3l82mmk"
+path="res://.godot/imported/Enemy Death 5.mp3-25d41f70e2374b65693abfaaf6645940.mp3str"
+
+[deps]
+
+source_file="res://Audios/Enemy Death 5.mp3"
+dest_files=["res://.godot/imported/Enemy Death 5.mp3-25d41f70e2374b65693abfaaf6645940.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

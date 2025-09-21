@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dvs16axkj0dsr"
+path="res://.godot/imported/Slider Select.mp3-c6b90586878aa66e71a7186ede1c417a.mp3str"
+
+[deps]
+
+source_file="res://Audios/Slider Select.mp3"
+dest_files=["res://.godot/imported/Slider Select.mp3-c6b90586878aa66e71a7186ede1c417a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b5yeir1eg51uc"
+path="res://.godot/imported/Credits Slide Out.mp3-3e91083599b0c20d74e6e656a59d2945.mp3str"
+
+[deps]
+
+source_file="res://Audios/Credits Slide Out.mp3"
+dest_files=["res://.godot/imported/Credits Slide Out.mp3-3e91083599b0c20d74e6e656a59d2945.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

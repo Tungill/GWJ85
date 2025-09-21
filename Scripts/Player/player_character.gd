@@ -18,6 +18,7 @@ class_name PlayerCharacter
 @export var first_form_threshold: int = 2
 @export var second_form_threshold: int = 4
 @export var camera: Camera2D
+@export var maximum_kill_count: int = 15
 
 
 var target_x: float # used to set relative x position for lunge
@@ -190,7 +191,9 @@ func _on_enemy_killed() -> void:
 	if enemies_killed == second_form_threshold:
 		evolve_player()
 		change_background()
-
+	if enemies_killed >= maximum_kill_count:
+		EventBus.player.player_win.emit()
+		
 func evolve_player() -> void:
 	var current_flip :bool= sprite.flip_h 
 	sprite.visible = false

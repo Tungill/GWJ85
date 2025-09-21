@@ -57,6 +57,7 @@ position = Vector2(624, 598)
 scale = Vector2(2, 2)
 collision_mask = 1
 camera = NodePath("Camera2D")
+maximum_kill_count = 2
 
 [node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
 position = Vector2(0, -100)
