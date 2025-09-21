@@ -23,6 +23,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if is_dead:
+		if current_state is AttackState:
+			current_state.interrupt_attack()
 		return
 	if next_state != null:
 		current_state._on_exit();

@@ -67,3 +67,9 @@ func _change_texture(new_texture: Texture2D) ->void:
 		push_error("Mob's Sprite2D is not of type CanvasTexture.")
 	var texture: CanvasTexture = sprite.texture as CanvasTexture
 	texture.diffuse_texture = new_texture
+
+
+func interrupt_attack() -> void:
+	_change_texture(cooldown_texture)
+	cast_timer.stop()
+	cooldown_timer.stop()
