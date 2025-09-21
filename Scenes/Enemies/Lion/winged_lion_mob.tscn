@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c27nxv22rt04w"]
+[gd_scene load_steps=18 format=3 uid="uid://c27nxv22rt04w"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_yrpx6"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_4x7e2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://datjyg71ib2jc" path="res://Assets/Enemies/Lion/T_lion_cast.png" id="8_td44m"]
 [ext_resource type="Texture2D" uid="uid://d3ecnniopj07o" path="res://Assets/Enemies/Lion/T_lion_attack.png" id="9_hmcy0"]
 [ext_resource type="Texture2D" uid="uid://dv3bxp42q8mre" path="res://Assets/Enemies/Lion/T_lion_dodge.png" id="11_woeix"]
+[ext_resource type="AudioStream" uid="uid://b4hu3b07etg4k" path="res://Audios/Enemy Death 4.mp3" id="12_td44m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 size = Vector2(100, 70)
@@ -21,7 +22,7 @@ size = Vector2(100, 70)
 [sub_resource type="CanvasTexture" id="CanvasTexture_bu755"]
 normal_texture = ExtResource("3_xehv1")
 
-[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
+[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -31,6 +32,7 @@ state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+audio_player = NodePath("AudioStreamPlayer2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -45,17 +47,19 @@ texture = SubResource("CanvasTexture_bu755")
 script = ExtResource("2_4x7e2")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "audio_player", "sprite")]
 script = ExtResource("3_1a0dy")
 mob = NodePath("../..")
 move_direction = 1
+audio_player = NodePath("../../AudioStreamPlayer2D")
 left_texture = ExtResource("5_e8k5k")
 right_texture = ExtResource("6_woeix")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("4_2kh8t")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "audio_player", "sprite") instance=ExtResource("4_2kh8t")]
 collision = NodePath("../../CollisionShape2D")
+audio_player = NodePath("../../AudioStreamPlayer2D")
 cast_texture = ExtResource("8_td44m")
 attack_texture = ExtResource("9_hmcy0")
 cooldown_texture = ExtResource("5_e8k5k")
@@ -68,6 +72,7 @@ is_cautious = true
 move_component = NodePath("../Move")
 mob = NodePath("../..")
 jump_texture = ExtResource("11_woeix")
+sfx_dodge = ExtResource("12_td44m")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://dgo461pjqaflu"
 
@@ -81,3 +86,6 @@ metadata/_custom_type_script = "uid://cwrymljra1ter"
 script = ExtResource("8_7uukv")
 _max_health = 1
 metadata/_custom_type_script = "uid://8cr4r6penkfh"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://8dwymcfiirat"]
+[gd_scene load_steps=17 format=3 uid="uid://8dwymcfiirat"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_xic4q"]
 [ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="2_3e2v0"]
+[ext_resource type="AudioStream" uid="uid://bxogb4cxux55b" path="res://Audios/Enemy Death 6.mp3" id="2_5bpbf"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="3_rv27j"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="4_pqqpl"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="5_5nhvp"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="8_vrwss"]
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="9_7bgdg"]
 [ext_resource type="Texture2D" uid="uid://dqri5bd4ddh8p" path="res://Assets/Enemies/Dolphin/T_fish_dodge.png" id="10_5bpbf"]
+[ext_resource type="AudioStream" uid="uid://j8xaeahtjboe" path="res://Audios/Enemy Attack 3.mp3" id="10_xiwok"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 size = Vector2(80, 60)
@@ -19,7 +21,7 @@ size = Vector2(80, 60)
 [sub_resource type="CanvasTexture" id="CanvasTexture_n0q0s"]
 normal_texture = ExtResource("2_3e2v0")
 
-[node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
+[node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite", "audio_player")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -29,6 +31,8 @@ state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
 sprite = NodePath("Sprite2D")
+audio_player = NodePath("AudioStreamPlayer2D")
+sfx_death = ExtResource("2_5bpbf")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -43,20 +47,23 @@ texture = SubResource("CanvasTexture_n0q0s")
 script = ExtResource("3_rv27j")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "audio_player", "sprite")]
 script = ExtResource("4_pqqpl")
 mob = NodePath("../..")
 move_direction = 1
+audio_player = NodePath("../../AudioStreamPlayer2D")
 left_texture = ExtResource("10_5bpbf")
 right_texture = ExtResource("10_5bpbf")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("5_5nhvp")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "audio_player", "sprite") instance=ExtResource("5_5nhvp")]
 attack_range = 20.0
 collision = NodePath("../../CollisionShape2D")
+audio_player = NodePath("../../AudioStreamPlayer2D")
 cast_texture = ExtResource("7_dshsh")
 attack_texture = ExtResource("8_5bpbf")
+sfx_attack = ExtResource("10_xiwok")
 cooldown_texture = ExtResource("10_5bpbf")
 sprite = NodePath("../../Sprite2D")
 
@@ -79,3 +86,6 @@ metadata/_custom_type_script = "uid://cwrymljra1ter"
 script = ExtResource("9_7bgdg")
 _max_health = 1
 metadata/_custom_type_script = "uid://8cr4r6penkfh"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
