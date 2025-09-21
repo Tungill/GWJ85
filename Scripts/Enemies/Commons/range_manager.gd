@@ -58,6 +58,8 @@ func _on_collision_begin(collider: Object, emittor: RangeRayCast) -> void:
 			attack_ranges = attack_right_ranges
 		var attack_name: String = attack_ranges.find_key(emittor)
 		var attack_state: AttackState = state_machine.attack_states[attack_name]
+		if state_machine.is_dead:
+			return
 		state_machine.change_state_to(attack_state)
 
 
@@ -70,4 +72,6 @@ func _on_collision_stop(collider: Object, _emittor: RangeRayCast) -> void:
 			if i is MoveState:
 				index = state_machine.states_list.find(i)
 		var move_state: MoveState = state_machine.states_list[index]
+		if state_machine.is_dead:
+			return
 		state_machine.change_state_to(move_state)
