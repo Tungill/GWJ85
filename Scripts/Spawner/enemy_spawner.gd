@@ -12,8 +12,8 @@ extends Node2D
 
 enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
 @export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.frog, Enemy.rat, Enemy.frog]
-@export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog]
-@export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
+@export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog, Enemy.dog]
+@export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
 @export var player : CharacterBody2D 
 @export var camera: Camera2D
 
@@ -37,15 +37,8 @@ func _ready() -> void:
 	spawn_timer.wait_time = spawn_interval
 	spawn_timer.timeout.connect(spawn_enemy)
 	spawn_timer.stop()
-	
-	var delay_timer: Timer = Timer.new()
-	delay_timer.wait_time = spawn_delay
-	delay_timer.one_shot = true
-	add_child(delay_timer)
-	delay_timer.start()
-	await delay_timer.timeout
+	await get_tree().create_timer(spawn_delay).timeout
 	spawn_timer.start()
-	delay_timer.queue_free()
 	spawn_y = player.global_position.y
 
 

@@ -11,6 +11,7 @@ extends Node
 
 class PlayerEvents:
 	signal player_died
+	signal player_win
 var player: PlayerEvents = PlayerEvents.new()
 
 class EnemyEvents:
