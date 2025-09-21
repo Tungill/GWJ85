@@ -1,16 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://3gvunrnndh4c"]
+[gd_scene load_steps=15 format=3 uid="uid://3gvunrnndh4c"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_cgd1w"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_gtcx0"]
+[ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="2_od8iv"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="3_ejuux"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="4_2ddap"]
+[ext_resource type="Texture2D" uid="uid://drvwnveooxfih" path="res://Assets/Enemies/Ent/Tree_4hp.png" id="5_3to1j"]
 [ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="5_4xov6"]
 [ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="6_otqfk"]
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="7_bfmqu"]
+[ext_resource type="Texture2D" uid="uid://th05cxmo00ag" path="res://Assets/Enemies/Ent/T_Tree_4hp_cast.png" id="7_od8iv"]
+[ext_resource type="Texture2D" uid="uid://cnehjnyr3ra6x" path="res://Assets/Enemies/Ent/Tree_2hp_attack.png" id="8_ejcby"]
+[ext_resource type="Texture2D" uid="uid://cbb72pjn0ykdy" path="res://Assets/Enemies/Ent/Tree_1hp.png" id="9_dhql2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
+size = Vector2(50, 100)
 
-[node name="ArmoredChargeMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+[sub_resource type="CanvasTexture" id="CanvasTexture_qb627"]
+normal_texture = ExtResource("2_od8iv")
+
+[node name="ArmoredChargeMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -19,6 +28,7 @@ healt_component = NodePath("ArmoredHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -26,20 +36,35 @@ shape = SubResource("RectangleShape2D_ybyef")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = SubResource("CanvasTexture_qb627")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_gtcx0")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("3_ejuux")
 mob = NodePath("../..")
+speed = 30.0
+left_texture = ExtResource("5_3to1j")
+left_duration = 0.6
+right_texture = ExtResource("5_3to1j")
+right_duration = 0.6
+sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("4_2ddap")]
-cast_time = 3.0
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("4_2ddap")]
+attack_range = 20.0
+cast_time = 2.0
 damage = 2
+cooldown_time = 2.0
 collision = NodePath("../../CollisionShape2D")
+cast_texture = ExtResource("7_od8iv")
+attack_texture = ExtResource("8_ejcby")
+attack_duration = 0.3
+cooldown_texture = ExtResource("9_dhql2")
+sprite = NodePath("../../Sprite2D")
 
 [node name="RangeManager" type="Node2D" parent="." node_paths=PackedStringArray("mob")]
 script = ExtResource("5_4xov6")
@@ -49,5 +74,5 @@ metadata/_custom_type_script = "uid://cwrymljra1ter"
 
 [node name="ArmoredHealthComponent" type="Node" parent="."]
 script = ExtResource("7_bfmqu")
-_max_health = 3
+_max_health = 4
 metadata/_custom_type_script = "uid://8cr4r6penkfh"

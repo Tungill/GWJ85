@@ -19,7 +19,7 @@ size = Vector2(30, 80)
 [sub_resource type="CanvasTexture" id="CanvasTexture_lyxo7"]
 normal_texture = ExtResource("3_6wi5p")
 
-[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -28,6 +28,7 @@ healt_component = NodePath("TrashHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -46,8 +47,12 @@ metadata/_custom_type_script = "uid://prk6rqnfp101"
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("3_enj8r")
 mob = NodePath("../..")
+speed = 80.0
+move_direction = 1
 left_texture = ExtResource("2_po6m8")
+left_duration = 0.4
 right_texture = ExtResource("5_6wi5p")
+right_duration = 0.4
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
