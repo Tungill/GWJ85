@@ -51,18 +51,20 @@ right_texture = ExtResource("6_woeix")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("4_2kh8t")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("4_2kh8t")]
 collision = NodePath("../../CollisionShape2D")
 cast_texture = ExtResource("8_td44m")
 attack_texture = ExtResource("9_hmcy0")
 cooldown_texture = ExtResource("5_e8k5k")
+sprite = NodePath("../../Sprite2D")
 
-[node name="Dodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob")]
+[node name="Dodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob", "sprite")]
 script = ExtResource("5_p6uk3")
 max_dodge = 2
 is_cautious = true
 move_component = NodePath("../Move")
 mob = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://dgo461pjqaflu"
 
 [node name="RangeManager" type="Node2D" parent="." node_paths=PackedStringArray("mob")]

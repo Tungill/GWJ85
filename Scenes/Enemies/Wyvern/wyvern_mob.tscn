@@ -1,16 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://mjocq364bk5s"]
+[gd_scene load_steps=15 format=3 uid="uid://mjocq364bk5s"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_k5trk"]
-[ext_resource type="Texture2D" uid="uid://bda0ttivva5wk" path="res://Assets/Enemies/Wyvern/T_wyvern.png" id="2_j7jn1"]
+[ext_resource type="Texture2D" uid="uid://cejc1vrv33kre" path="res://Assets/Enemies/Wyvern/T_wyvern_attack.png" id="2_r56yw"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="3_qat6q"]
+[ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="3_wqfc8"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="4_rc3cn"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="5_r56yw"]
+[ext_resource type="Texture2D" uid="uid://bdc0qnqj46u7g" path="res://Assets/Enemies/Wyvern/T_wyvern_left.png" id="6_awb61"]
 [ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="6_wqfc8"]
+[ext_resource type="Texture2D" uid="uid://ctamwkdljen7w" path="res://Assets/Enemies/Wyvern/T_wyvern_right.png" id="7_87jxn"]
 [ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="7_awb61"]
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="8_87jxn"]
+[ext_resource type="Texture2D" uid="uid://yq7qqtt2s6t1" path="res://Assets/Enemies/Wyvern/T_wyvern_cast.png" id="9_e4p8p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
-size = Vector2(120, 110)
+size = Vector2(80, 110)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3cw07"]
+diffuse_texture = ExtResource("2_r56yw")
+normal_texture = ExtResource("3_wqfc8")
 
 [node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
 collision_layer = 2
@@ -28,20 +36,29 @@ shape = SubResource("RectangleShape2D_ybyef")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-13, 0)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_j7jn1")
+texture = SubResource("CanvasTexture_3cw07")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_qat6q")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("4_rc3cn")
 mob = NodePath("../..")
+left_texture = ExtResource("6_awb61")
+right_texture = ExtResource("7_87jxn")
+sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
-[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("5_r56yw")]
+[node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("5_r56yw")]
+attack_range = 40.0
 collision = NodePath("../../CollisionShape2D")
+cast_texture = ExtResource("9_e4p8p")
+attack_texture = ExtResource("2_r56yw")
+cooldown_texture = ExtResource("6_awb61")
+sprite = NodePath("../../Sprite2D")
 
 [node name="RangeManager" type="Node2D" parent="." node_paths=PackedStringArray("mob")]
 script = ExtResource("6_wqfc8")
