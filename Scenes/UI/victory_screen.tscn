@@ -8,7 +8,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_w88jv"]
 font_size = 50
 
-[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("start_over_button")]
+[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("start_over_button", "color_rect")]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -18,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ybs88")
 start_over_button = NodePath("PanelContainer/StartOverButton")
+color_rect = NodePath("ColorRect")
 
 [node name="PanelContainer" type="Panel" parent="."]
 layout_mode = 1
@@ -73,3 +74,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Start Over?"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
