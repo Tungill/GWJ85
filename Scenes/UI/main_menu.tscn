@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dglomjnvgatym"]
+[gd_scene load_steps=5 format=3 uid="uid://dglomjnvgatym"]
 
 [ext_resource type="Script" uid="uid://b0q7jfcpkbolf" path="res://Scripts/UI/main_menu.gd" id="1_i2xx2"]
+[ext_resource type="Texture2D" uid="uid://bdlybdqotqh8g" path="res://Assets/UI/title.jpg" id="2_i2xx2"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_5wsvm"]
-font_size = 60
-outline_size = 15
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i2xx2"]
+light_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_i2xx2"]
 font_size = 23
@@ -39,13 +38,11 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Title" type="Label" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-text = "GWJ85 TITLE"
-label_settings = SubResource("LabelSettings_5wsvm")
-horizontal_alignment = 1
+[node name="Title" type="Sprite2D" parent="PanelContainer"]
+material = SubResource("CanvasItemMaterial_i2xx2")
+position = Vector2(640, 175)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_i2xx2")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 100)
