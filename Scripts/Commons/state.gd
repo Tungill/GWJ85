@@ -1,6 +1,7 @@
 extends Node
 class_name State
 
+@export var sprite: Sprite2D
 
 func _on_enter() -> void:
 	pass;
