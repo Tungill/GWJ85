@@ -17,6 +17,8 @@ class_name PlayerCharacter
 @export var attack_damage: int = 1
 @export var first_form_threshold: int = 2
 @export var second_form_threshold: int = 4
+@export var camera: Camera2D
+
 
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
@@ -86,7 +88,11 @@ func handle_input(direction: int, flip: bool, step: float) -> void:
 
 func start_lunge(new_target: float, flip: bool) -> void:
 	is_lunging = true
-	target_x = new_target
+	var half_width :float= (sprite.texture.get_size().x * sprite.scale.x) * 0.5
+	if camera:
+		target_x = clampf(new_target, camera.limit_left+half_width, camera.limit_right-half_width)
+	else:
+		target_x = clampf(new_target, -270+half_width, 1550-half_width)
 	sprite.flip_h = flip
 	tween = create_tween()
 	tween.tween_property(self, "position:x", target_x, lunge_time) \
