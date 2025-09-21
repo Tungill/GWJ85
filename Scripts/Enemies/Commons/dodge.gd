@@ -28,10 +28,11 @@ var side_directions: Dictionary[DodgeState.Screen_side, Vector2] = {
 	Screen_side.LEFT: Vector2.LEFT,
 	Screen_side.RIGHT: Vector2.RIGHT,
 }
-
+var ground_level : float
 
 
 func _ready() -> void:
+	ground_level = mob.global_position.y
 	dodge_count = max_dodge
 
 
@@ -62,7 +63,8 @@ func _on_dodge() -> void:
 	var offset_distance: Vector2 = side_directions[planned_side] * distance
 	var player_position: Vector2 = player.global_position
 	var upward_offset: Vector2 = Vector2(mob.global_position.x, (mob.global_position.y - UPWARD_OFFSET))
-	planned_position = player_position + offset_distance
+	planned_position.x = player_position.x + offset_distance.x
+	planned_position.y = mob.global_position.y
 	# Move
 	var first_half_duration: float = (dodge_duration * 1) /4
 	var second_half_duration: float = (dodge_duration * 3) /4
