@@ -63,6 +63,11 @@ func _ready() -> void:
 	
 	EventBus.background.transition_triggered.connect(_on_transition_started)
 	EventBus.background.transition_fade_in_finished.connect(_on_transition_finished)
+	health_component.health_changed.connect(
+		func _on_player_health_changed(old_health: int, new_health: int) -> void:
+			EventBus.player.health_changed.emit(old_health, new_health)
+			)
+	EventBus.player.health_changed.emit(0, health_component.health)
 
 func _physics_process(_delta: float) -> void:
 	if not is_alive:

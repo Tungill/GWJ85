@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3xacqxncmjua"]
+[gd_scene load_steps=8 format=3 uid="uid://d3xacqxncmjua"]
 
 [ext_resource type="Script" uid="uid://xh7nxgf551yu" path="res://Scripts/UI/hud.gd" id="1_fdl0h"]
 [ext_resource type="Texture2D" uid="uid://cujywqhaolu6d" path="res://Assets/UI/T_HUD_top.png" id="2_ux5h0"]
@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cb6ah72cm0ci8" path="res://Assets/UI/T_button_pause.png" id="4_7wqu8"]
 [ext_resource type="Texture2D" uid="uid://ctmck4tw4ax4f" path="res://Assets/UI/T_button_pause_pressed.png" id="5_fqivn"]
 [ext_resource type="Texture2D" uid="uid://c2yol8fmea3mc" path="res://Assets/UI/T_button_pause_hover.png" id="6_qdh5o"]
+[ext_resource type="Texture2D" uid="uid://b6jlwmldpcxed" path="res://Assets/UI/T_Heart_Full.png" id="7_mqf2c"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("pause_button")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("pause_button", "health_point", "health_rect", "health_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fdl0h")
 pause_button = NodePath("PauseButton")
+health_point = NodePath("HealthPoint")
+health_rect = NodePath("HealthPoint/Hearth")
+health_label = NodePath("HealthPoint/value")
 
 [node name="Top" type="TextureRect" parent="."]
 layout_mode = 1
@@ -51,3 +55,32 @@ texture_pressed = ExtResource("5_fqivn")
 texture_hover = ExtResource("6_qdh5o")
 texture_focused = ExtResource("6_qdh5o")
 metadata/_edit_use_anchors_ = true
+
+[node name="HealthPoint" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.261719
+anchor_bottom = 0.0902778
+pivot_offset = Vector2(167.5, 32.5)
+
+[node name="Hearth" type="TextureRect" parent="HealthPoint"]
+layout_mode = 2
+anchor_left = 0.337313
+anchor_top = 0.107692
+anchor_right = 0.486567
+anchor_bottom = 0.876923
+pivot_offset = Vector2(24, 25)
+size_flags_horizontal = 3
+texture = ExtResource("7_mqf2c")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="value" type="Label" parent="HealthPoint"]
+layout_mode = 2
+anchor_left = 0.540299
+anchor_top = 0.107692
+anchor_right = 0.662687
+anchor_bottom = 0.876923
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "XX"
