@@ -3,6 +3,7 @@ extends Control
 @export var start_over_button: TextureButton
 @export var music_audio_player: AudioStreamPlayer
 @export var color_rect: ColorRect
+@export var background: TextureRect
 
 const GAME: PackedScene = preload("res://Levels/Game.tscn")
 const FADE_IN_DURATION: float = 3.0
@@ -18,6 +19,7 @@ func _on_transition_begin() -> void:
 	color_rect.visible = true
 	var tween: Tween = create_tween()
 	tween.tween_property(color_rect, "modulate", Color(color_rect.color, 1.0), FADE_IN_DURATION).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(background, "position", Vector2(background.position.x, 0.0), 5.0)
 	await  tween.finished
 
 func _on_transition_end() -> void:

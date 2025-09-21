@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfmd0vvn2h5hr"]
+[gd_scene load_steps=7 format=3 uid="uid://bfmd0vvn2h5hr"]
 
 [ext_resource type="Script" uid="uid://dnh0u5hw3uxte" path="res://Scripts/UI/victory_screen.gd" id="1_ybs88"]
 [ext_resource type="Texture2D" uid="uid://bw00kjm8tg4q" path="res://Assets/UI/T_button.png" id="2_7is2e"]
+[ext_resource type="Texture2D" uid="uid://byljcsfb26ut3" path="res://Assets/Win/BG_victory.png" id="2_le7p4"]
 [ext_resource type="Texture2D" uid="uid://cfe410el4kgdk" path="res://Assets/UI/T_button_pressed.png" id="3_le7p4"]
 [ext_resource type="Texture2D" uid="uid://bamrfjhdibfj8" path="res://Assets/UI/T_button_hover.png" id="4_0enno"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w88jv"]
 font_size = 50
 
-[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("start_over_button", "color_rect")]
+[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("start_over_button", "color_rect", "background")]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 15
@@ -19,8 +20,24 @@ grow_vertical = 2
 script = ExtResource("1_ybs88")
 start_over_button = NodePath("PanelContainer/StartOverButton")
 color_rect = NodePath("ColorRect")
+background = NodePath("BackgroundTexture")
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -910.0
+offset_top = -2160.0
+offset_right = 910.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_le7p4")
 
 [node name="PanelContainer" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0.294118)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
