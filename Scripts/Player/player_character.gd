@@ -38,6 +38,7 @@ var enemies_right_range: Array[Mob]
 var enemies_killed : int = 0
 var current_sprite_index : int = 0
 var sprite : Sprite2D
+var input_locked : bool = false
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
@@ -58,6 +59,9 @@ func _ready() -> void:
 	left_attack.body_exited.connect(_on_collision_exit.bind(true))
 	right_attack.body_entered.connect(_on_collision_enter.bind(false))
 	right_attack.body_exited.connect(_on_collision_exit.bind(false))
+	
+	EventBus.background.transition_triggered.connect(_on_transition_started)
+	EventBus.background.transition_fade_in_finished.connect(_on_transition_finished)
 
 func _physics_process(_delta: float) -> void:
 	if not is_alive:
@@ -73,6 +77,12 @@ func _physics_process(_delta: float) -> void:
 	DebugPanel.add_debug_property("Player Cooldown", snappedf(cooldown_timer.time_left, 0.01), 1)
 	#endregion
 
+func _on_transition_started() -> void:
+	input_locked = true
+func _on_transition_finished() -> void:
+	await get_tree().create_timer(1.0).timeout
+	input_locked = false
+
 func handle_input(direction: int, flip: bool, step: float) -> void:
 	# INFO flip = false = right, flip = true = left,
 	if is_lunging:
@@ -83,6 +93,8 @@ func handle_input(direction: int, flip: bool, step: float) -> void:
 		#queued_flip = flip
 		#endregion
 		return
+	elif input_locked:
+		return 
 	else:
 		start_lunge(position.x + direction * step, flip)
 
