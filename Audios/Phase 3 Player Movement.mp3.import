@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://behbi5oqg5xhp"
+path="res://.godot/imported/Phase 3 Player Movement.mp3-47e89779f89a790f7c81e9439852b5ac.mp3str"
+
+[deps]
+
+source_file="res://Audios/Phase 3 Player Movement.mp3"
+dest_files=["res://.godot/imported/Phase 3 Player Movement.mp3-47e89779f89a790f7c81e9439852b5ac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

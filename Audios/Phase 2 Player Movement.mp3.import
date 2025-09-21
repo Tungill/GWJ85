@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bdlqd3bh4846e"
+path="res://.godot/imported/Phase 2 Player Movement.mp3-b247e39197c0c2a12075b19e68355150.mp3str"
+
+[deps]
+
+source_file="res://Audios/Phase 2 Player Movement.mp3"
+dest_files=["res://.godot/imported/Phase 2 Player Movement.mp3-b247e39197c0c2a12075b19e68355150.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
