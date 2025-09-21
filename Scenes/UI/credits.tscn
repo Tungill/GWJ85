@@ -62,8 +62,8 @@ text = "Visual Assets"
 
 [node name="ArtNames" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
-text = "? Chloecats
-? Matilda"
+text = "Chloecats
+Matilda"
 horizontal_alignment = 1
 
 [node name="CodeCategory" type="Label" parent="MarginContainer2/VBoxContainer"]
@@ -82,7 +82,7 @@ text = "Sound Design and Music"
 
 [node name="MSNames" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
-text = "Mou ? ItzzStrike"
+text = "Mou"
 horizontal_alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer2/VBoxContainer"]
