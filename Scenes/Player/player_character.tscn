@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
-[ext_resource type="Texture2D" uid="uid://04uhhinjstq" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
+[ext_resource type="Texture2D" uid="uid://dyf1qs30y6r2h" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
 [ext_resource type="PackedScene" uid="uid://roml01bgklaf" path="res://Scenes/Commons/health_component.tscn" id="3_82a6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtl7"]
@@ -31,7 +31,6 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="FirstForm" type="Sprite2D" parent="Sprites"]
-visible = false
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_1w75v")
 

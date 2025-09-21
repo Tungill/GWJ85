@@ -17,6 +17,8 @@ class_name PlayerCharacter
 @export var attack_damage: int = 1
 @export var first_form_threshold: int = 2
 @export var second_form_threshold: int = 4
+@export var camera: Camera2D
+
 
 var target_x: float # used to set relative x position for lunge
 var tween: Tween
@@ -36,6 +38,7 @@ var enemies_right_range: Array[Mob]
 var enemies_killed : int = 0
 var current_sprite_index : int = 0
 var sprite : Sprite2D
+var input_locked : bool = false
 
 func _ready() -> void:
 	# INFO Change is_alive to false when the health from HealthComponent reaches 0.
@@ -56,6 +59,9 @@ func _ready() -> void:
 	left_attack.body_exited.connect(_on_collision_exit.bind(true))
 	right_attack.body_entered.connect(_on_collision_enter.bind(false))
 	right_attack.body_exited.connect(_on_collision_exit.bind(false))
+	
+	EventBus.background.transition_triggered.connect(_on_transition_started)
+	EventBus.background.transition_fade_in_finished.connect(_on_transition_finished)
 
 func _physics_process(_delta: float) -> void:
 	if not is_alive:
@@ -71,6 +77,12 @@ func _physics_process(_delta: float) -> void:
 	DebugPanel.add_debug_property("Player Cooldown", snappedf(cooldown_timer.time_left, 0.01), 1)
 	#endregion
 
+func _on_transition_started() -> void:
+	input_locked = true
+func _on_transition_finished() -> void:
+	await get_tree().create_timer(1.0).timeout
+	input_locked = false
+
 func handle_input(direction: int, flip: bool, step: float) -> void:
 	# INFO flip = false = right, flip = true = left,
 	if is_lunging:
@@ -81,12 +93,18 @@ func handle_input(direction: int, flip: bool, step: float) -> void:
 		#queued_flip = flip
 		#endregion
 		return
+	elif input_locked:
+		return 
 	else:
 		start_lunge(position.x + direction * step, flip)
 
 func start_lunge(new_target: float, flip: bool) -> void:
 	is_lunging = true
-	target_x = new_target
+	var half_width :float= (sprite.texture.get_size().x * sprite.scale.x) * 0.5
+	if camera:
+		target_x = clampf(new_target, camera.limit_left+half_width, camera.limit_right-half_width)
+	else:
+		target_x = clampf(new_target, -270+half_width, 1550-half_width)
 	sprite.flip_h = flip
 	tween = create_tween()
 	tween.tween_property(self, "position:x", target_x, lunge_time) \
