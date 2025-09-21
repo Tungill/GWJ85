@@ -15,10 +15,11 @@ class_name PlayerCharacter
 @export var attack_duration: float = 0.5  # how long the attack lasts
 @export var attack_cooldown: float = 1.0
 @export var attack_damage: int = 1
-@export var first_form_threshold: int = 2
-@export var second_form_threshold: int = 4
+@export var second_form_threshold: int = 12
+@export var third_form_threshold: int = 23
+@export var fourth_form_threshold: int = 35
 @export var camera: Camera2D
-@export var maximum_kill_count: int = 15
+@export var maximum_kill_count: int = 60
 
 
 var target_x: float # used to set relative x position for lunge
@@ -186,9 +187,22 @@ func _on_enemy_killed() -> void:
 	#region Debug
 	print("Enemies killed: %s" % enemies_killed)
 	#endregion
-	if enemies_killed == first_form_threshold:
-		evolve_player()
 	if enemies_killed == second_form_threshold:
+		self.scale *= 1.4
+		position.y -= 20
+		health_component.heal_for(3)
+		evolve_player()
+	if enemies_killed == third_form_threshold:
+		self.scale *= 1.4
+		position.y -= 20
+		health_component.heal_for(3)
+		evolve_player()
+		change_background()
+	if enemies_killed == fourth_form_threshold:
+		position.y -= 30
+		self.scale *= 1.2
+		self.sprite.scale *= 1.2
+		health_component.heal_for(3)
 		evolve_player()
 		change_background()
 	if enemies_killed >= maximum_kill_count:

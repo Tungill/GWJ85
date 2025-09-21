@@ -1,24 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://0hu72lhq55rj"]
+[gd_scene load_steps=10 format=3 uid="uid://0hu72lhq55rj"]
 
 [ext_resource type="Script" uid="uid://bxqt4q28fklk6" path="res://Scripts/Player/player_character.gd" id="1_uqtl7"]
-[ext_resource type="Texture2D" uid="uid://04uhhinjstq" path="res://_PrivateTestFolder/player_placeholder.png" id="2_1w75v"]
+[ext_resource type="Texture2D" uid="uid://c5co1opoodejh" path="res://Assets/Player/T_player03.png" id="2_bex70"]
 [ext_resource type="PackedScene" uid="uid://roml01bgklaf" path="res://Scenes/Commons/health_component.tscn" id="3_82a6j"]
+[ext_resource type="Texture2D" uid="uid://clsph3gdribam" path="res://Assets/Player/T_player05.png" id="3_hplj0"]
+[ext_resource type="Texture2D" uid="uid://nfm16hdmw0mx" path="res://Assets/Player/T_player09.png" id="4_0aovh"]
+[ext_resource type="Texture2D" uid="uid://vxtp8fqguk7a" path="res://Assets/Player/T_player11.png" id="5_fhr3q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uqtl7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1w75v"]
 resource_local_to_scene = true
-size = Vector2(80, 30)
+size = Vector2(50, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_82a6j"]
 resource_local_to_scene = true
-size = Vector2(80, 30)
+size = Vector2(50, 30)
 
 [node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "sprites", "left_attack", "right_attack", "cooldown_timer", "hitbox") groups=["Player"]]
 collision_mask = 0
 script = ExtResource("1_uqtl7")
 health_component = NodePath("PlayerHealthComponent")
-sprites = [NodePath("Sprites/FirstForm"), NodePath("Sprites/SecondForm"), NodePath("Sprites/ThirdForm")]
+sprites = [NodePath("Sprites/FirstForm"), NodePath("Sprites/SecondForm"), NodePath("Sprites/ThirdForm"), NodePath("Sprites/FourthForm")]
 left_attack = NodePath("LeftAttackHitbox")
 right_attack = NodePath("RightAttackHitbox")
 cooldown_timer = NodePath("AttackCooldown")
@@ -31,18 +34,27 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="FirstForm" type="Sprite2D" parent="Sprites"]
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("2_1w75v")
+visible = false
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_bex70")
 
 [node name="SecondForm" type="Sprite2D" parent="Sprites"]
 visible = false
-scale = Vector2(0.0453125, 0.0441989)
-texture = ExtResource("2_1w75v")
+position = Vector2(3, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_hplj0")
 
 [node name="ThirdForm" type="Sprite2D" parent="Sprites"]
 visible = false
-scale = Vector2(0.0875, 0.0791897)
-texture = ExtResource("2_1w75v")
+position = Vector2(4, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_0aovh")
+
+[node name="FourthForm" type="Sprite2D" parent="Sprites"]
+visible = false
+position = Vector2(2, -1.00001)
+scale = Vector2(0.0616554, 0.0616554)
+texture = ExtResource("5_fhr3q")
 
 [node name="PlayerHealthComponent" parent="." instance=ExtResource("3_82a6j")]
 
@@ -51,7 +63,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightAttackHitbox"]
-position = Vector2(45, 0)
+position = Vector2(30, 0)
 shape = SubResource("RectangleShape2D_1w75v")
 
 [node name="LeftAttackHitbox" type="Area2D" parent="."]
@@ -59,7 +71,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftAttackHitbox"]
-position = Vector2(-45, 0)
+position = Vector2(-30, 0)
 shape = SubResource("RectangleShape2D_82a6j")
 
 [node name="AttackCooldown" type="Timer" parent="."]

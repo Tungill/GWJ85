@@ -6,14 +6,17 @@ extends Node2D
 @export var soldier: PackedScene
 @export var lion: PackedScene
 @export var dolphin: PackedScene
+@export var ent: PackedScene
 @export var wyvern: PackedScene
 @export var dog: PackedScene
 @export var angel: PackedScene
 
-enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
-@export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.frog, Enemy.rat, Enemy.frog]
-@export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog, Enemy.dog]
-@export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
+enum Enemy {rat, frog, peasant, soldier, lion, dolphin, ent, wyvern, dog, angel}
+@export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.rat, Enemy.rat, Enemy.frog, Enemy.frog]
+@export var spawn_sequence_2: Array[Enemy] = [Enemy.peasant, Enemy.soldier, Enemy.soldier, Enemy.peasant, Enemy.peasant, Enemy.soldier]
+@export var spawn_sequence_3: Array[Enemy] = [Enemy.lion, Enemy.dolphin, Enemy.lion, Enemy.dolphin, Enemy.ent, Enemy.ent]
+@export var spawn_sequence_4: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.dog, Enemy.dog, Enemy.dog, Enemy.angel]
+@export var spawn_sequence_5: Array[Enemy] = [Enemy.angel, Enemy.angel, Enemy.angel, Enemy.angel, Enemy.angel, Enemy.angel]
 @export var player : CharacterBody2D 
 @export var camera: Camera2D
 
@@ -23,8 +26,10 @@ enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
 @export var spawn_timer : Timer
 @export var spawn_delay : float = 3.0
 @export var spawn_interval: float = .5
-@export var second_sequence_threshold : int = 20
-@export var third_sequence_threshold : int = 40
+@export var second_sequence_threshold : int = 12
+@export var third_sequence_threshold : int = 23
+@export var fourth_sequence_threshold : int = 35
+@export var fifth_sequence_threshold : int = 45
 
 var left_count : int = 1
 var right_count : int = 1
@@ -64,6 +69,7 @@ func get_next_enemy_scene() -> PackedScene:
 		Enemy.soldier: return soldier
 		Enemy.lion: return lion
 		Enemy.dolphin: return dolphin
+		Enemy.ent: return ent
 		Enemy.wyvern: return wyvern
 		Enemy.dog: return dog
 		Enemy.angel: return angel	
