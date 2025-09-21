@@ -52,12 +52,11 @@ shape = SubResource("WorldBoundaryShape2D_6x3q2")
 position = Vector2(638, 338)
 spawner = NodePath("../EnemySpawner")
 
-[node name="PlayerCharacter" parent="." instance=ExtResource("4_k6a8t")]
+[node name="PlayerCharacter" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("4_k6a8t")]
 position = Vector2(624, 598)
 scale = Vector2(2, 2)
 collision_mask = 1
-first_form_threshold = 1
-second_form_threshold = 3
+camera = NodePath("Camera2D")
 
 [node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
 position = Vector2(0, -100)

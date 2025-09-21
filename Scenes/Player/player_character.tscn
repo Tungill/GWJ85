@@ -31,7 +31,6 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="FirstForm" type="Sprite2D" parent="Sprites"]
-visible = false
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_1w75v")
 
