@@ -1,17 +1,24 @@
-[gd_scene load_steps=11 format=3 uid="uid://c27nxv22rt04w"]
+[gd_scene load_steps=16 format=3 uid="uid://c27nxv22rt04w"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_yrpx6"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_4x7e2"]
-[ext_resource type="Texture2D" uid="uid://cccslr12ekyj0" path="res://Assets/Enemies/Lion/T_wingedlion.png" id="2_wqmhm"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="3_1a0dy"]
+[ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="3_xehv1"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="4_2kh8t"]
+[ext_resource type="Texture2D" uid="uid://dgfeewp5c3ugl" path="res://Assets/Enemies/Lion/T_lion_left.png" id="5_e8k5k"]
 [ext_resource type="Script" uid="uid://dgo461pjqaflu" path="res://Scripts/Enemies/Commons/dodge.gd" id="5_p6uk3"]
 [ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="6_bpjnd"]
+[ext_resource type="Texture2D" uid="uid://cxa6l7hbvu5k0" path="res://Assets/Enemies/Lion/T_lion_right.png" id="6_woeix"]
 [ext_resource type="PackedScene" uid="uid://bq1jrwdlw2w17" path="res://Scenes/Enemies/Commons/RangeRayCast.tscn" id="7_c00kc"]
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="8_7uukv"]
+[ext_resource type="Texture2D" uid="uid://datjyg71ib2jc" path="res://Assets/Enemies/Lion/T_lion_cast.png" id="8_td44m"]
+[ext_resource type="Texture2D" uid="uid://d3ecnniopj07o" path="res://Assets/Enemies/Lion/T_lion_attack.png" id="9_hmcy0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 size = Vector2(100, 70)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_bu755"]
+normal_texture = ExtResource("3_xehv1")
 
 [node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
 collision_layer = 2
@@ -30,19 +37,25 @@ debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_wqmhm")
+texture = SubResource("CanvasTexture_bu755")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_4x7e2")
 metadata/_custom_type_script = "uid://prk6rqnfp101"
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("3_1a0dy")
 mob = NodePath("../..")
+left_texture = ExtResource("5_e8k5k")
+right_texture = ExtResource("6_woeix")
+sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
 [node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision") instance=ExtResource("4_2kh8t")]
 collision = NodePath("../../CollisionShape2D")
+cast_texture = ExtResource("8_td44m")
+attack_texture = ExtResource("9_hmcy0")
+cooldown_texture = ExtResource("5_e8k5k")
 
 [node name="Dodge" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_component", "mob")]
 script = ExtResource("5_p6uk3")
