@@ -20,6 +20,7 @@ config/icon="uid://dshcubd7jxq1e"
 
 EventBus="*res://Addons/events.gd"
 DebugPanel="*res://Addons/DebugTools/debug_panel.tscn"
+MusicAudioStreamPlayer="*res://Scenes/music_audio_stream_player.tscn"
 
 [debug]
 
