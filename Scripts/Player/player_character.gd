@@ -190,19 +190,19 @@ func _on_enemy_killed() -> void:
 	if enemies_killed == second_form_threshold:
 		self.scale *= 1.4
 		position.y -= 20
-		health_component.heal_for(3)
+		health_component.heal_for(5)
 		evolve_player()
 	if enemies_killed == third_form_threshold:
 		self.scale *= 1.4
-		position.y -= 20
-		health_component.heal_for(3)
+		position.y -= 5
+		health_component.heal_for(5)
 		evolve_player()
 		change_background()
 	if enemies_killed == fourth_form_threshold:
-		position.y -= 10
+		position.y -= 20
 		self.scale *= 1.2
 		self.sprite.scale *= 1.2
-		health_component.heal_for(3)
+		health_component.heal_for(5)
 		evolve_player()
 		change_background()
 	if enemies_killed >= maximum_kill_count:
