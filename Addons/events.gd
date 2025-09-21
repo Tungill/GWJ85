@@ -11,6 +11,7 @@ extends Node
 
 class PlayerEvents:
 	signal player_died
+	signal health_changed(old_health: int, new_health: int)
 var player: PlayerEvents = PlayerEvents.new()
 
 class EnemyEvents:
