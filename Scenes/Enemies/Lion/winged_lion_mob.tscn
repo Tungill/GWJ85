@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c27nxv22rt04w"]
+[gd_scene load_steps=17 format=3 uid="uid://c27nxv22rt04w"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_yrpx6"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="2_4x7e2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://8cr4r6penkfh" path="res://Scripts/Commons/health_component.gd" id="8_7uukv"]
 [ext_resource type="Texture2D" uid="uid://datjyg71ib2jc" path="res://Assets/Enemies/Lion/T_lion_cast.png" id="8_td44m"]
 [ext_resource type="Texture2D" uid="uid://d3ecnniopj07o" path="res://Assets/Enemies/Lion/T_lion_attack.png" id="9_hmcy0"]
+[ext_resource type="Texture2D" uid="uid://dv3bxp42q8mre" path="res://Assets/Enemies/Lion/T_lion_dodge.png" id="11_woeix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ybyef"]
 size = Vector2(100, 70)
@@ -20,7 +21,7 @@ size = Vector2(100, 70)
 [sub_resource type="CanvasTexture" id="CanvasTexture_bu755"]
 normal_texture = ExtResource("3_xehv1")
 
-[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+[node name="CautiousMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -29,6 +30,7 @@ healt_component = NodePath("CautiousHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -46,6 +48,7 @@ metadata/_custom_type_script = "uid://prk6rqnfp101"
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("3_1a0dy")
 mob = NodePath("../..")
+move_direction = 1
 left_texture = ExtResource("5_e8k5k")
 right_texture = ExtResource("6_woeix")
 sprite = NodePath("../../Sprite2D")
@@ -64,6 +67,7 @@ max_dodge = 2
 is_cautious = true
 move_component = NodePath("../Move")
 mob = NodePath("../..")
+jump_texture = ExtResource("11_woeix")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://dgo461pjqaflu"
 

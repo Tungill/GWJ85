@@ -17,10 +17,9 @@
 size = Vector2(80, 110)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3cw07"]
-diffuse_texture = ExtResource("2_r56yw")
 normal_texture = ExtResource("3_wqfc8")
 
-[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+[node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -29,6 +28,7 @@ healt_component = NodePath("TrashHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -54,6 +54,8 @@ metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
 [node name="MeleeAttack" parent="StateMachine" node_paths=PackedStringArray("collision", "sprite") instance=ExtResource("5_r56yw")]
 attack_range = 40.0
+cast_time = 0.8
+cooldown_time = 2.0
 collision = NodePath("../../CollisionShape2D")
 cast_texture = ExtResource("9_e4p8p")
 attack_texture = ExtResource("2_r56yw")

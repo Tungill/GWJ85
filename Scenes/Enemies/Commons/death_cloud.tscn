@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://dinen0r1xhswp"]
+
+[ext_resource type="Texture2D" uid="uid://dpqsgoio3add6" path="res://Assets/Enemies/T_cloud.png" id="1_akqn5"]
+[ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="1_xtvr7"]
+[ext_resource type="Script" uid="uid://cdkd42we3q4q0" path="res://Scripts/Enemies/Commons/death_cloud.gd" id="3_rc2sk"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_akqn5"]
+diffuse_texture = ExtResource("1_akqn5")
+normal_texture = ExtResource("1_xtvr7")
+
+[sub_resource type="Animation" id="Animation_rc2sk"]
+resource_name = "spawning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0, -0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l4ve2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pv3k2"]
+_data = {
+&"RESET": SubResource("Animation_l4ve2"),
+&"spawning": SubResource("Animation_rc2sk")
+}
+
+[node name="DeathCloud" type="Sprite2D" node_paths=PackedStringArray("animation_player")]
+texture = SubResource("CanvasTexture_akqn5")
+script = ExtResource("3_rc2sk")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pv3k2")
+}
+autoplay = "spawning"

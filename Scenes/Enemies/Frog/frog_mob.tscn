@@ -21,7 +21,7 @@ size = Vector2(60, 40)
 [sub_resource type="CanvasTexture" id="CanvasTexture_jbxsj"]
 normal_texture = ExtResource("2_jbxsj")
 
-[node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
+[node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision", "sprite")]
 collision_layer = 2
 gravity_scale = 0.0
 lock_rotation = true
@@ -30,6 +30,7 @@ healt_component = NodePath("AgileHealthComponent")
 state_machine = NodePath("StateMachine")
 initial_state = NodePath("StateMachine/Move")
 collision = NodePath("CollisionShape2D")
+sprite = NodePath("Sprite2D")
 metadata/_custom_type_script = "uid://bd5okqh651sey"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -47,9 +48,12 @@ metadata/_custom_type_script = "uid://prk6rqnfp101"
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("4_q6bfd")
 mob = NodePath("../..")
+speed = 70.0
 move_direction = 1
 left_texture = ExtResource("5_jbxsj")
+left_duration = 0.4
 right_texture = ExtResource("6_qfydr")
+right_duration = 0.4
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
@@ -58,6 +62,7 @@ attack_range = 20.0
 collision = NodePath("../../CollisionShape2D")
 cast_texture = ExtResource("8_kbme2")
 attack_texture = ExtResource("9_cbgxc")
+attack_duration = 0.3
 cooldown_texture = ExtResource("5_jbxsj")
 sprite = NodePath("../../Sprite2D")
 
