@@ -9,13 +9,15 @@ const UPWARD_OFFSET: int = 100
 # BUG If the range is too small and RangeManager's raycast detect the player before _on_exit()
 # then the Mob is stuck in MoveState untill the player leave then enter again a raycast. 
 # Need to be fixed in RangeManager.
-@export var distance_from_target: float = 50.0 
+@export var distance_from_target: float = 100.0 
 @export var max_dodge: int = 1
 @export var is_cautious: bool = false # TODO find a better name for this option.
 @export var dodge_duration: float = 1.0
 @export_category("Essentials")
 @export var move_component: MoveState
 @export var mob: Mob
+@export_category("Animations")
+@export var jump_texture: Texture2D
 
 var dodge_count: int
 var planned_position: Vector2
@@ -25,7 +27,7 @@ var side_directions: Dictionary[DodgeState.Screen_side, Vector2] = {
 	Screen_side.LEFT: Vector2.LEFT,
 	Screen_side.RIGHT: Vector2.RIGHT,
 }
-@export var target_side: Screen_side
+
 
 
 func _ready() -> void:
@@ -38,6 +40,8 @@ func _on_enter() -> void:
 
 
 func _on_dodge() -> void:
+	mob.collision.disabled = true
+	_change_texture(jump_texture)
 	# Target the point from opposite Side, distance_from the player.
 	var player: PlayerCharacter = get_tree().get_first_node_in_group("Player")
 	var player_collision_size: float = player.hitbox.shape.get_rect().size.x
@@ -47,12 +51,12 @@ func _on_dodge() -> void:
 	var distance: float = distance_from_target + (player_collision_size/2) + (mob_collision_size/2)
 	if is_cautious:
 		planned_side = _get_random_side()
-		distance = distance_from_target * 2
+		distance = distance_from_target * 3
 	else:
 		planned_side = _get_opposite_side_from(player)
 	var offset_distance: Vector2 = side_directions[planned_side] * distance
 	var player_position: Vector2 = player.global_position
-	var upward_offset: Vector2 = Vector2(mob.global_position.x, mob.global_position.y - UPWARD_OFFSET)
+	var upward_offset: Vector2 = Vector2(mob.global_position.x, (mob.global_position.y - UPWARD_OFFSET))
 	planned_position = player_position + offset_distance
 	# Move
 	var first_half_duration: float = (dodge_duration * 1) /4
@@ -63,6 +67,7 @@ func _on_dodge() -> void:
 	var second_tween: Tween = create_tween()
 	second_tween.tween_property(mob, "global_position", planned_position, second_half_duration).set_ease(Tween.EASE_IN_OUT)
 	await second_tween.finished
+	mob.collision.disabled = false
 	dodge_count -= 1
 	# Update the Move Direction from the new position.
 	_set_new_move_direction(player)
@@ -97,8 +102,9 @@ func _get_opposite_side_from(target: Object) -> Screen_side:
 
 
 func _get_random_side() -> Screen_side:
-	var random_side: Screen_side = Screen_side[Screen_side.keys().pick_random()]
-	return random_side
+	var random_side: String = Screen_side.keys().pick_random()
+	var new_side: Screen_side = Screen_side[random_side]
+	return new_side
 
 
 func _set_new_move_direction(target: Object) -> void:
@@ -110,3 +116,10 @@ func _set_new_move_direction(target: Object) -> void:
 		Screen_side.RIGHT:
 			new_direction = MoveState.Direction.LEFT
 	mob.state_machine.change_movement_direction(new_direction)
+
+
+func _change_texture(new_texture: Texture2D) ->void:
+	if sprite.texture is not CanvasTexture:
+		push_error(mob, "'s Sprite2D is not of type CanvasTexture.")
+	var texture: CanvasTexture = sprite.texture as CanvasTexture
+	texture.diffuse_texture = new_texture

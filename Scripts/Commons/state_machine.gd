@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 func change_state_to(new_state: State) -> void:
 	next_state = new_state
 	# DEBUG
-	#print("Next State is: ", next_state)
+	#print("Current State is: ", current_state, "Next State is: ", next_state)
 
 
 func change_movement_direction(direction: MoveState.Direction) -> void:
