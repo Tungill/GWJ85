@@ -40,19 +40,19 @@ texture = ExtResource("2_bex70")
 
 [node name="SecondForm" type="Sprite2D" parent="Sprites"]
 visible = false
-position = Vector2(3, 0)
+position = Vector2(5.96046e-07, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_hplj0")
 
 [node name="ThirdForm" type="Sprite2D" parent="Sprites"]
 visible = false
-position = Vector2(4, 0)
+position = Vector2(1, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_0aovh")
 
 [node name="FourthForm" type="Sprite2D" parent="Sprites"]
 visible = false
-position = Vector2(2, -1.00001)
+position = Vector2(-3, -1.00001)
 scale = Vector2(0.0616554, 0.0616554)
 texture = ExtResource("5_fhr3q")
 
