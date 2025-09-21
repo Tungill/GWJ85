@@ -11,17 +11,20 @@ extends Node2D
 @export var angel: PackedScene
 
 enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
-@export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.frog, Enemy.wyvern, Enemy.dolphin]
+@export var spawn_sequence_1: Array[Enemy] = [Enemy.rat, Enemy.frog, Enemy.rat, Enemy.frog]
 @export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog]
 @export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
 @export var player : CharacterBody2D 
 @export var camera: Camera2D
 
+@export_category("Parameters")
 @export var horizontal_offset: int = 200
 @export var max_enemies: int = 8
 @export var spawn_timer : Timer
 @export var spawn_delay : float = 3.0
 @export var spawn_interval: float = .5
+@export var second_sequence_threshold : int = 20
+@export var third_sequence_threshold : int = 40
 
 var left_count : int = 1
 var right_count : int = 1
@@ -47,9 +50,9 @@ func _ready() -> void:
 
 
 func get_current_sequence() -> Array:
-	if player.scale.x >= 3:
+	if player.enemies_killed >= third_sequence_threshold:
 		return spawn_sequence_3
-	elif player.scale.x >= 2.5:
+	elif player.enemies_killed >= second_sequence_threshold:
 		return spawn_sequence_2
 	else:
 		return spawn_sequence_1
