@@ -199,7 +199,7 @@ func _on_enemy_killed() -> void:
 		evolve_player()
 		change_background()
 	if enemies_killed == fourth_form_threshold:
-		position.y -= 30
+		position.y -= 10
 		self.scale *= 1.2
 		self.sprite.scale *= 1.2
 		health_component.heal_for(3)
