@@ -15,6 +15,7 @@ enum Enemy {rat, frog, peasant, soldier, lion, dolphin, wyvern, dog, angel}
 @export var spawn_sequence_2: Array[Enemy] = [Enemy.dog, Enemy.dog, Enemy.dog]
 @export var spawn_sequence_3: Array[Enemy] = [Enemy.wyvern, Enemy.wyvern, Enemy.wyvern]
 @export var player : CharacterBody2D 
+@export var camera: Camera2D
 
 @export var horizontal_offset: int = 200
 @export var max_enemies: int = 8
@@ -26,7 +27,7 @@ var left_count : int = 1
 var right_count : int = 1
 var current_sequence_index: int = 0
 var spawn_y :float
-var active_enemies : int = 0
+var active_enemies : Array = []
 
 
 func _ready() -> void:
@@ -86,31 +87,45 @@ func choose_side() -> int:
 		right_count += 1
 		return 1 # right
 
+func get_camera_visible_rect() -> Rect2:
+	if camera == null:
+		return get_viewport_rect() # fallback
+
+	var screen_size :Vector2= get_viewport_rect().size
+	var top_left :Vector2= camera.get_screen_center_position() - screen_size / 2
+	return Rect2(top_left, screen_size)
+
 func spawn_enemy() -> void:
 	# INFO Spawns enemy outside the viewport on either side of the player.
 	# Do note if horizontal offset is greater than the boundary, enemies will
 	# spawn and drop outside of the level
 	if player == null: return
 	
-	if active_enemies >= max_enemies: return
+	if active_enemies.size() >= max_enemies: return
 	
-	var screen_size : Vector2 = get_viewport_rect().size
-	var half_width : float = screen_size.x / 2
-	var offset :float= half_width + horizontal_offset
-	var side :int = choose_side()
-	
-	var spawn_x :float= player.global_position.x + (side * offset)
-		
+	var visible_rect : Rect2 = get_camera_visible_rect()
+	var side : int = choose_side()
+	var spawn_x : float
+	if side == -1:
+		spawn_x = visible_rect.position.x - horizontal_offset
+	else:
+		spawn_x = visible_rect.position.x + visible_rect.size.x + horizontal_offset
 	var enemy_scene : PackedScene = get_next_enemy_scene()
 	
 	var enemy :Mob= enemy_scene.instantiate()
 	
 	enemy.freeze = true # avoid the enemies bouncing away from collision
 	enemy.global_position = Vector2(spawn_x, spawn_y)
-	enemy.died.connect(_on_enemy_dies)
+	enemy.died.connect(_on_enemy_dies.bind(enemy))
 	enemy.died.connect(player._on_enemy_killed)
 	get_parent().add_child(enemy)
-	active_enemies += 1
+	active_enemies.append(enemy)
 
-func _on_enemy_dies() -> void:
-	active_enemies -= 1
+func _on_enemy_dies(enemy:Mob) -> void:
+	active_enemies.erase(enemy)
+
+func clear_enemies() -> void:
+	for enemy:Mob in active_enemies:
+		if enemy and enemy.is_inside_tree():
+			enemy.queue_free()
+	active_enemies.clear()

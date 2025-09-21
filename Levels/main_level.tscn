@@ -48,19 +48,22 @@ position = Vector2(634, 612)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape2D_6x3q2")
 
-[node name="Background" parent="." instance=ExtResource("2_6x3q2")]
+[node name="Background" parent="." node_paths=PackedStringArray("spawner") instance=ExtResource("2_6x3q2")]
 position = Vector2(638, 338)
+spawner = NodePath("../EnemySpawner")
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("4_k6a8t")]
 position = Vector2(624, 598)
 scale = Vector2(2, 2)
 collision_mask = 1
+first_form_threshold = 1
+second_form_threshold = 3
 
 [node name="Camera2D" parent="PlayerCharacter" instance=ExtResource("3_2clls")]
 position = Vector2(0, -100)
 script = SubResource("GDScript_6opdx")
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_6opdx")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("player", "camera") instance=ExtResource("4_6opdx")]
 rat = ExtResource("5_8b1du")
 frog = ExtResource("6_vte7q")
 peasant = ExtResource("7_oi8lg")
@@ -70,7 +73,8 @@ dolphin = ExtResource("10_q2wah")
 wyvern = ExtResource("11_lrtkp")
 dog = ExtResource("12_n4dhi")
 player = NodePath("../PlayerCharacter")
-max_enemies = 2
+camera = NodePath("../PlayerCharacter/Camera2D")
+max_enemies = 4
 spawn_delay = 0.5
 spawn_interval = 1.0
 
