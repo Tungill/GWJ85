@@ -18,6 +18,7 @@ const UPWARD_OFFSET: int = 100
 @export var mob: Mob
 @export_category("Animations")
 @export var jump_texture: Texture2D
+@export var sfx_dodge: AudioStream = preload("res://Audios/Enemy Dodge 1.mp3")
 
 var dodge_count: int
 var planned_position: Vector2
@@ -42,6 +43,10 @@ func _on_enter() -> void:
 func _on_dodge() -> void:
 	mob.collision.disabled = true
 	_change_texture(jump_texture)
+	# Audio
+	var audio_player: AudioStreamPlayer2D = mob.audio_player
+	audio_player.stream = sfx_dodge
+	audio_player.play()
 	# Target the point from opposite Side, distance_from the player.
 	var player: PlayerCharacter = get_tree().get_first_node_in_group("Player")
 	var player_collision_size: float = player.hitbox.shape.get_rect().size.x
