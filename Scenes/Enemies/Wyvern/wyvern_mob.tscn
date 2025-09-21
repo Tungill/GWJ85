@@ -17,7 +17,6 @@
 size = Vector2(80, 110)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3cw07"]
-diffuse_texture = ExtResource("2_r56yw")
 normal_texture = ExtResource("3_wqfc8")
 
 [node name="TrashMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
