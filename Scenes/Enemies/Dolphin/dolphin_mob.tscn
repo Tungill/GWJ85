@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://8dwymcfiirat"]
+[gd_scene load_steps=15 format=3 uid="uid://8dwymcfiirat"]
 
 [ext_resource type="Script" uid="uid://bd5okqh651sey" path="res://Scripts/Enemies/Commons/mob.gd" id="1_xic4q"]
 [ext_resource type="Texture2D" uid="uid://b2417crpc58sm" path="res://Assets/Shaders/T_tapestry_normal_mapy.png" id="2_3e2v0"]
 [ext_resource type="Script" uid="uid://prk6rqnfp101" path="res://Scripts/Commons/state_machine.gd" id="3_rv27j"]
 [ext_resource type="Script" uid="uid://2k4jf3hs3vpn" path="res://Scripts/Enemies/Commons/move.gd" id="4_pqqpl"]
 [ext_resource type="PackedScene" uid="uid://bumn2jcqingss" path="res://Scenes/Enemies/Commons/attack_state.tscn" id="5_5nhvp"]
-[ext_resource type="Texture2D" uid="uid://cjlldoi1n5dql" path="res://Assets/Enemies/Dolphin/T_dolphin.png" id="5_n0q0s"]
 [ext_resource type="Script" uid="uid://dgo461pjqaflu" path="res://Scripts/Enemies/Commons/dodge.gd" id="6_ghtey"]
 [ext_resource type="Texture2D" uid="uid://bxrcla5wjoxih" path="res://Assets/Enemies/Dolphin/T_fish_cast.png" id="7_dshsh"]
 [ext_resource type="Script" uid="uid://cwrymljra1ter" path="res://Scripts/Enemies/Commons/range_manager.gd" id="7_ljasm"]
@@ -18,7 +17,6 @@
 size = Vector2(80, 60)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_n0q0s"]
-diffuse_texture = ExtResource("8_5bpbf")
 normal_texture = ExtResource("2_3e2v0")
 
 [node name="AgileMob" type="RigidBody2D" node_paths=PackedStringArray("healt_component", "state_machine", "initial_state", "collision")]
@@ -47,8 +45,6 @@ metadata/_custom_type_script = "uid://prk6rqnfp101"
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("mob", "sprite")]
 script = ExtResource("4_pqqpl")
 mob = NodePath("../..")
-left_texture = ExtResource("5_n0q0s")
-right_texture = ExtResource("5_n0q0s")
 sprite = NodePath("../../Sprite2D")
 metadata/_custom_type_script = "uid://2k4jf3hs3vpn"
 
